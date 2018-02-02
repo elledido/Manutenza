@@ -64,7 +64,7 @@
                 <div class="container-fluid profile-box">
                     <div class="row">
                         <div class="col-md-12" align="center">
-                            <img class="profile-img" src="https://cdn.onlinewebfonts.com/svg/img_215059.png" alt="profile-img">
+                            <img class="profile-img" src="../images/profile_img.png" alt="profile-img"/>
                             <h4 class="account-name">Account Name</h4>
                             <div class="rating-star">
                                 <!-- RATING STAR -->                            
