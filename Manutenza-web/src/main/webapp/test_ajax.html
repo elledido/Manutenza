@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+        <title>Test Ajax</title>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    </head>
+    <body>
+
+        <h1>Test Ajax</h1>
+
+        <script type="text/javascript">
+
+            $(document).ready(function () {
+
+                //dati da inviare
+                var dataToSend = {
+                    id: 0,
+                    nome: 'testing',
+                    numero: 0.5,
+                    indirizzi: ['indirizzo1', 'indirizzo2']
+                };
+
+                //post al web service
+                $.post({
+                    url: 'http://localhost:8080/toObject', //indirizzo del WS
+                    data: dataToSend,
+                    dataType: 'json',
+                    success: function (data) {
+                        //converte i dati JSON in oggetti JS e li stampa nella console del browser
+                        console.log(JSON.parse(data));
+                    },
+                    error: function (xhr, textStatus, errorThrown) {
+                        console.log(xhr.responseText);
+                    }
+                });
+
+            });
+
+        </script>
+
+    </body>
+</html>
