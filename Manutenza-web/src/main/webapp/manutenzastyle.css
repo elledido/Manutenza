@@ -3,18 +3,65 @@
     Author     : irene
 */
 
+/* 
+    #333333 rgb(51, 51, 51)
+    #3e3e3e rgb(62, 62, 62)
+    #8c8c8c rgb(140, 140, 140)
+    #c0c0c0 rgb(192, 192, 192)
+    #fffffa rgb(255, 255, 250)
+    #ff8000 rgb(255, 128, 0)
+*/
+
 /* -----------------------------------------
     GENERAL
 ----------------------------------------- */
 
 body {
     background: #fffffa;
+    color: #3e3e3e;
 }
 
 a, a:hover, a:focus {
     color: inherit;
     text-decoration: none;
     transition: all 0.3s;
+}
+
+#content {
+    width: calc(100% - 250px);
+    padding: 40px;
+    padding-top: 70px;
+    min-height: 100vh;
+    transition: all 0.3s;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+#content.active {
+    width: 100%;
+}
+
+.line {
+    
+    height: 1px;
+    border-bottom: 1px solid #c0c0c0;
+    margin: 20px 12% 20px 3%;
+    text-align: center;
+}
+
+ul.breadcrumb {
+    padding: 10px 16px;
+    list-style: none;
+    background: none;
+}
+ul.breadcrumb li {
+    display: inline;
+    font-size: 25px;
+}
+ul.breadcrumb li+li:before {
+    padding: 8px;
+    color: #3e3e3e;
+    content: ">\00a0";
 }
 
 /* -----------------------------------------
@@ -50,7 +97,6 @@ a, a:hover, a:focus {
     margin-left: 0;
     font-size: 26px !important;
 }
-
 
 /* -----------------------------------------
     SIDEBAR
@@ -147,7 +193,6 @@ ul ul a {
 .front-stars, .back-stars{
     position: absolute;
     width: 100%;
-
 }
 
 .fa-star{
@@ -163,20 +208,16 @@ ul ul a {
 }
 
 /* ---------------------------------------------------
-    CONTENT STYLE
+    PROFILO
 ----------------------------------------------------- */
-#content {
-    width: calc(100% - 250px);
-    padding: 40px;
-    padding-top: 70px;
-    min-height: 100vh;
-    transition: all 0.3s;
-    position: absolute;
-    top: 0;
-    right: 0;
+
+.form-horizontal .control-label {
+    text-align: left !important;
 }
-#content.active {
+
+.profile-data {
     width: 100%;
+    padding: 0 7% 0 7%;
 }
 
 /* ---------------------------------------------------
@@ -199,7 +240,7 @@ ul ul a {
         display: none;
     }
     #topNav{
-        width: 768px;
+        width: 100%;
     }
     .right-side-nav{
         padding-right: 2%;
