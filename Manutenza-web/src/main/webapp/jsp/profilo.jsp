@@ -8,7 +8,7 @@
 
 <!DOCTYPE html>
 <html>
-    
+
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,7 +24,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
         <!-- Font Awesome -->
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
-        
+
         <!-- jQuery CDN -->
         <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
         <!-- Bootstrap Js CDN -->
@@ -32,12 +32,12 @@
         <!-- Custom Scroll Js CDN -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
     </head>
-    
+
     <body>
-        
+
         <!-- MAIN CONTAINER -->
         <div class="container">
-            
+
             <!-- NAVIGATION BAR -->
             <nav id="topNav" class="navbar navbar-default navbar-fixed-top">
                 <div class="container-fluid">
@@ -56,7 +56,7 @@
                     </div>
                 </div>
             </nav>
-            
+
             <!-- SIDEBAR -->
             <nav id="sidebar">
 
@@ -64,7 +64,7 @@
                 <div class="container-fluid profile-box">
                     <div class="row">
                         <div class="col-md-12" align="center">
-                            <img class="profile-img" src="https://cdn.onlinewebfonts.com/svg/img_215059.png" alt="profile-img">
+                            <img class="profile-img" src="../images/profile_img.png" alt="profile-img">
                             <h4 class="account-name">Account Name</h4>
                             <div class="rating-star">
                                 <!-- RATING STAR -->                            
@@ -111,14 +111,107 @@
                     </li>
                 </ul>
             </nav>
-            
+
             <!-- MAIN CONTENT -->
             <div id="content">
-                <h1>Profilo</h1>
+                <ul class="breadcrumb">
+                    <li></li>
+                    <li>Profilo</li>
+                </ul>
+
+                <div class="profile-data">
+                    <!-- DATI DEL PROFILO -->
+                    <form class="form-horizontal" action="#">
+
+                        <!-- EMAIL -->
+                        <div class="form-group">
+                            <label class="control-label col-md-2 col-xs-2" for="email">Email: </label>
+                            <div class="col-md-9 col-xs-9">
+                                <input class="form-control" id="email" name="email" type="email" readonly value="example@mail.it">
+                            </div>
+                        </div>
+                        <!-- NOME -->
+                        <div class="form-group">
+                            <label class="control-label col-md-2 col-xs-2" for="nome">Nome: </label>
+                            <div class="col-md-9 col-xs-9">
+                                <input class="form-control" id="nome" name="nome" type="text" readonly value="Nome">
+                            </div>
+                        </div>
+                        <!-- COGNOME -->
+                        <div class="form-group">
+                            <label class="control-label col-md-2 col-xs-2" for="cognome">Cognome: </label>
+                            <div class="col-md-9 col-xs-9">
+                                <input class="form-control" id="cognome" name="cognome" type="text" readonly value="Cognome">
+                            </div>
+                        </div>
+                        <!-- DATA DI NASCITA -->
+                        <div class="form-group">
+                            <label class="control-label col-md-2 col-xs-2" for="datanascita">Data di nascita: </label>
+                            <div class="col-md-9 col-xs-9">
+                                <input class="form-control" id="datanascita" name="datanascita" type="text" readonly value="01/01/1970">
+                            </div>
+                        </div>
+                        <!-- CODICE FISCALE -->
+                        <div class="form-group">
+                            <label class="control-label col-md-2 col-xs-2" for="cf">Codice fiscale: </label>
+                            <div class="col-md-9 col-xs-9">
+                                <input class="form-control" id="cf" name="cf" type="text" readonly value="codice fiscale">
+                            </div>
+                        </div>
+
+                        <div class="line"></div>
+
+                        <!-- DOMICILII -->
+                        <div id="domicilio1">
+                            <p class="domicilio">Domicilio 1</p>
+                            <!-- Città e provincia -->
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-xs-2" for="citta">Citt&agrave;: </label>
+                                        <div class="col-md-8 col-xs-9">
+                                            <input class="form-control" id="citta" name="citta" type="text" readonly value="città 1">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-8 col-xs-2" for="provincia">Provincia: </label>
+                                        <div class="col-md-4 col-xs-2">
+                                            <input class="form-control" id="provincia" name="provincia" type="text" readonly value="PO">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Via e CAP -->
+                            <div class="row">
+                                <div class="col-md-8 ">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-xs-2" for="via">Via: </label>
+                                        <div class="col-md-8 col-xs-9">
+                                            <input class="form-control" id="via" name="via" type="text" readonly value="via 1">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 ">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-7 col-xs-2" for="cap">CAP: </label>
+                                        <div class="col-md-5 col-xs-2">
+                                            <input class="form-control" id="cap" name="cap" type="text" readonly value="00000">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </form>
+                </div>
+
             </div>
-            
+
         </div>
-        
+
         <script type="text/javascript">
 
             function setRate(rate) {
@@ -155,8 +248,8 @@
             });
 
         </script>
-        
+
     </body>
-    
+
 </html>
 
