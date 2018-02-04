@@ -56,6 +56,36 @@ public class MainController extends HttpServlet {
             //vai al sotto controller per fare una nuova richiesta
         }
         
+        /* ### RICHIESTE IN CORSO ### */
+        else if(action.equals("richiesteInCorso")){
+            //visualizza richieste in corso (lavori commissionati ad un ManUtente ma che devono ancora essere svolti)
+        }
+        
+        /* ### RICHIESTE PASSATE ### */
+        else if(action.equals("richiestePassate")){
+            //visualizza richieste passate (lavori commissionati e completati)
+        }
+        
+        /* ### LE MIE COMPETENZE (solo ManUtente) ### */
+        else if(action.equals("competenze")){
+            //visualizza competenze di un ManUtente
+        }
+        
+        /* ### PROPOSTE DI LAVORO (solo ManUtente) ### */
+        else if(action.equals("nuoveProposte")){
+            //visualizza nuove proposte di lavoro
+        }
+        
+        /* ### PROPOSTE DI LAVORO ACCETTATE (solo ManUtente) ### */
+        else if(action.equals("proposteAccettate")){
+            //visualizza proposte di lavoro accettate (lavori accettati dal ManUtente ma che devono essere ancora fatti)
+        }
+        
+        /* ### LAVORI COMPLETATI (solo ManUtente) ### */
+        else if(action.equals("lavoriCompletati")){
+            //visualizza lavori completati (lavori accettati e completati dal ManUtente)
+        }
+        
         /* ### AZIONI NON GESTITE -> ERRORE! ### */
 	else {
 	    ctx.getRequestDispatcher("/error.html").forward(request, response); //vai alla pagina di errore

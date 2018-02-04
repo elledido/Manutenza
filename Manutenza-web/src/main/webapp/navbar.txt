@@ -114,17 +114,17 @@
 			<a href="#gestioneRichieste" data-toggle="collapse" aria-expanded="false">Le mie richieste</a>
 			<ul class="collapse list-unstyled" id="gestioneRichieste">
 				<li><a href="/Manutenza-web/MainController?action=nuovaRichiesta">Nuova richiesta</a></li>
-				<li><a href="#">In corso</a></li>
-				<li><a href="#">Passate</a></li>
+				<li><a href="/Manutenza-web/MainController?action=richiesteInCorso">In corso</a></li>
+				<li><a href="/Manutenza-web/MainController?action=richiestePassate">Passate</a></li>
 			</ul>
 		</li>
-		<li><a href="#">Le mie competenze</a></li>
+		<li><a href="/Manutenza-web/MainController?action=competenze">Le mie competenze</a></li>
 		<li>
 			<a href="#gestioneProposte" data-toggle="collapse" aria-expanded="false">Proposte di lavoro</a>
 			<ul class="collapse list-unstyled" id="gestioneProposte">
-				<li><a href="#">Nuove proposte</a></li>
-				<li><a href="#">Accettate</a></li>
-				<li><a href="#">Completate</a></li>
+				<li><a href="/Manutenza-web/MainController?action=nuoveProposte">Nuove proposte</a></li>
+				<li><a href="/Manutenza-web/MainController?action=proposteAccettate">Accettate</a></li>
+				<li><a href="/Manutenza-web/MainController?action=lavoriCompletati">Completate</a></li>
 			</ul>
 		</li>
 	</ul>
