@@ -1,6 +1,7 @@
 package it.unito.taass.manutenza.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -20,7 +21,8 @@ import javax.persistence.Temporal;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @NamedQueries({
-    @NamedQuery(name = "Utente.carica", query = "SELECT u FROM Utente u WHERE u.email = :email AND u.password = :password")
+    @NamedQuery(name = "Utente.carica", query = "SELECT u FROM Utente u WHERE u.email = :email AND u.password = :password"),
+    @NamedQuery(name = "Utente.cercaPerId", query = "SELECT u FROM Utente u WHERE u.id = :id" )
 })
 public class Utente implements Serializable {
 
@@ -100,6 +102,25 @@ public class Utente implements Serializable {
 
     public void setPassword(String password) {
         this.password = sha256hash(password);
+    }
+    
+    public void initListaIndirizzi() {
+        this.listaIndirizzi = new ArrayList<>();
+    }
+    
+    public void addIndirizzo(Indirizzo indirizzo) {
+        this.listaIndirizzi.add(indirizzo);
+    }
+    
+    public void removeIndirizzo(Indirizzo indirizzo) {
+        for(Indirizzo daRimuovere : listaIndirizzi) {
+            if(indirizzo.getId().equals(daRimuovere.getId()))
+                this.listaIndirizzi.remove(indirizzo);
+        }
+    }
+    
+    public List<Indirizzo> getListaIndirizzi() {
+        return this.listaIndirizzi;
     }
 
     public boolean isAutenticato() {

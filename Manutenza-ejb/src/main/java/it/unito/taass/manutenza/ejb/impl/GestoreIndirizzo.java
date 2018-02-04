@@ -6,10 +6,10 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-@Stateless
+@Stateless(name = "GestoreIndirizzo")
 public class GestoreIndirizzo implements GestoreIndirizzoLocal {
     
-    @PersistenceContext(unitName = "ManutenzaPu")
+    @PersistenceContext
     private EntityManager em;
 
     @Override

@@ -5,8 +5,12 @@
  */
 package it.unito.taass.irevaleo.controller;
 
+import it.unito.taass.manutenza.ejb.GestoreUtenteLocal;
+import it.unito.taass.manutenza.entities.Indirizzo;
+import it.unito.taass.manutenza.entities.Utente;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import javax.ejb.EJB;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,6 +23,10 @@ import javax.servlet.http.HttpSession;
  * @author irene
  */
 public class Profilo extends HttpServlet {
+    
+    @EJB(beanName = "GestoreUtente")
+    private GestoreUtenteLocal gestoreUtente;
+    private Utente utente;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,18 +43,29 @@ public class Profilo extends HttpServlet {
         ServletContext ctx = getServletContext(); //contesto dell'applicazione
         HttpSession s = request.getSession(); //sessione
         
+        //Carico l'utente dal database
+        utente = gestoreUtente.caricaUtente("paolorossi@email.com", "paolorossi");
+      
+        //Formatto la data di nascita e poi la trasformo in una stringa
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        String dataDiNascita = sdf.format(utente.getDataDiNascita().getTime());
+        
         //setto staticamente i dati da inviare alla jsp
-        request.setAttribute("email", "example@mail.it"); //email
-        request.setAttribute("nome", "Nome Account"); //nome
-        request.setAttribute("cognome", "Cognome Account"); //cognome
-        request.setAttribute("dataNascita", "01/01/1970"); //data nascita
-        request.setAttribute("cf", "XXXXXX00X00X000X"); //codice fiscale
+        request.setAttribute("email", utente.getEmail()); //email
+        request.setAttribute("nome", utente.getNome()); //nome
+        request.setAttribute("cognome", utente.getCognome()); //cognome
+        request.setAttribute("dataNascita", dataDiNascita); //data nascita
+        request.setAttribute("cf", utente.getCodiceFiscale()); //codice fiscale
+        
+        //Prendo un indirizzo dalla lista degli indirizzi dell'utente
+        //Al caricamento dell'utente dal db la sua listaIndirizzi è caricata automaticamente
+        Indirizzo indirizzo = utente.getListaIndirizzi().get(0);
         
         //domicilio 1
-        request.setAttribute("citta", "città"); //città
-        request.setAttribute("provincia", "PR"); //provincia
-        request.setAttribute("via", "via 1"); //via
-        request.setAttribute("cap", "00000"); //CAP
+        request.setAttribute("citta", indirizzo.getCitta()); //città
+        request.setAttribute("provincia", indirizzo.getProvincia()); //provincia
+        request.setAttribute("via", indirizzo.getVia()); //via
+        request.setAttribute("cap", indirizzo.getCap()); //CAP
         
         ctx.getRequestDispatcher("/jsp/profilo.jsp").forward(request, response); //vai alla pagina del profilo
         
