@@ -1,20 +1,20 @@
 <%-- 
-    Document   : dashboard
-    Created on : 2-feb-2018, 11.48.34
+    Document   : nuovaRichiesta
+    Created on : 3-feb-2018, 19.37.11
     Author     : irene
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
-<html>
 
+<html>
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-        <title>Dashboard</title>
+        <title>Nuova Richiesta</title>
 
         <!-- Bootstrap CSS CDN -->
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
@@ -34,7 +34,7 @@
         <!-- Custom JS -->
         <script src="manutenza.js" type="text/javascript"></script>
     </head>
-
+    
     <body>
         <!-- MAIN CONTAINER -->
         <div class="container">
@@ -44,10 +44,9 @@
 
             <!-- MAIN CONTENT -->
             <div id="content">
-                <h1>Dashboard</h1>
+                <h1>Nuova Richiesta</h1>
             </div>
 
         </div>
     </body>
-
 </html>
