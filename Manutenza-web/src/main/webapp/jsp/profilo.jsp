@@ -58,35 +58,35 @@
                         <div class="form-group">
                             <label class="control-label col-md-2 col-xs-2" for="email">Email: </label>
                             <div class="col-md-9 col-xs-9">
-                                <input class="form-control" id="email" name="email" type="email" readonly value="example@mail.it">
+                                <input class="form-control" name="email" type="email" readonly value="<%out.print(request.getAttribute("email"));%>">
                             </div>
                         </div>
                         <!-- NOME -->
                         <div class="form-group">
                             <label class="control-label col-md-2 col-xs-2" for="nome">Nome: </label>
                             <div class="col-md-9 col-xs-9">
-                                <input class="form-control" id="nome" name="nome" type="text" readonly value="Nome">
+                                <input class="form-control" name="nome" type="text" readonly value="<%out.print(request.getAttribute("nome"));%>">
                             </div>
                         </div>
                         <!-- COGNOME -->
                         <div class="form-group">
                             <label class="control-label col-md-2 col-xs-2" for="cognome">Cognome: </label>
                             <div class="col-md-9 col-xs-9">
-                                <input class="form-control" id="cognome" name="cognome" type="text" readonly value="Cognome">
+                                <input class="form-control" name="cognome" type="text" readonly value="<%out.print(request.getAttribute("cognome"));%>">
                             </div>
                         </div>
                         <!-- DATA DI NASCITA -->
                         <div class="form-group">
                             <label class="control-label col-md-2 col-xs-2" for="datanascita">Data di nascita: </label>
                             <div class="col-md-9 col-xs-9">
-                                <input class="form-control" id="datanascita" name="datanascita" type="text" readonly value="01/01/1970">
+                                <input class="form-control" name="datanascita" type="text" readonly value="<%out.print(request.getAttribute("dataNascita"));%>">
                             </div>
                         </div>
                         <!-- CODICE FISCALE -->
                         <div class="form-group">
                             <label class="control-label col-md-2 col-xs-2" for="cf">Codice fiscale: </label>
                             <div class="col-md-9 col-xs-9">
-                                <input class="form-control" id="cf" name="cf" type="text" readonly value="codice fiscale">
+                                <input class="form-control" name="cf" type="text" readonly value="<%out.print(request.getAttribute("cf"));%>">
                             </div>
                         </div>
 
@@ -101,7 +101,7 @@
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-xs-2" for="citta">Citt&agrave;: </label>
                                         <div class="col-md-8 col-xs-9">
-                                            <input class="form-control" id="citta" name="citta" type="text" readonly value="città 1">
+                                            <input class="form-control" id="citta" name="citta" type="text" readonly value="<%out.print(request.getAttribute("citta"));%>">
                                         </div>
                                     </div>
                                 </div>
@@ -109,7 +109,7 @@
                                     <div class="form-group">
                                         <label class="control-label col-md-8 col-xs-2" for="provincia">Provincia: </label>
                                         <div class="col-md-4 col-xs-2">
-                                            <input class="form-control" id="provincia" name="provincia" type="text" readonly value="PO">
+                                            <input class="form-control" id="provincia" name="provincia" type="text" readonly value="<%out.print(request.getAttribute("provincia"));%>">
                                         </div>
                                     </div>
                                 </div>
@@ -120,7 +120,7 @@
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-xs-2" for="via">Via: </label>
                                         <div class="col-md-8 col-xs-9">
-                                            <input class="form-control" id="via" name="via" type="text" readonly value="via 1">
+                                            <input class="form-control" id="via" name="via" type="text" readonly value="<%out.print(request.getAttribute("via"));%>">
                                         </div>
                                     </div>
                                 </div>
@@ -128,7 +128,7 @@
                                     <div class="form-group">
                                         <label class="control-label col-md-7 col-xs-2" for="cap">CAP: </label>
                                         <div class="col-md-5 col-xs-2">
-                                            <input class="form-control" id="cap" name="cap" type="text" readonly value="00000">
+                                            <input class="form-control" id="cap" name="cap" type="text" readonly value="<%out.print(request.getAttribute("cap"));%>">
                                         </div>
                                     </div>
                                 </div>

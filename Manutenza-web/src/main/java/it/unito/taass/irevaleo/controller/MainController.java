@@ -45,7 +45,7 @@ public class MainController extends HttpServlet {
         
         /* ### VISUALIZZA DATI PROFILO ### */
         else if(action.equals("profilo")){
-            ctx.getRequestDispatcher("/jsp/profilo.jsp").forward(request, response); //vai alla pagina del profilo
+            ctx.getNamedDispatcher("Profilo").forward(request, response);
         }
         
         /* ### NUOVA RICHIESTA ### */
