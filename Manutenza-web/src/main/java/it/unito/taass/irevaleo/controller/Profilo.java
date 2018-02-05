@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package it.unito.taass.irevaleo.controller;
 
 import it.unito.taass.manutenza.ejb.GestoreUtenteLocal;
@@ -59,13 +54,13 @@ public class Profilo extends HttpServlet {
         
         //Prendo un indirizzo dalla lista degli indirizzi dell'utente
         //Al caricamento dell'utente dal db la sua listaIndirizzi è caricata automaticamente
-        Indirizzo indirizzo = utente.getListaIndirizzi().get(0);
+        //Indirizzo indirizzo = utente.getListaIndirizzi().get(0);
         
         //domicilio 1
-        request.setAttribute("citta", indirizzo.getCitta()); //città
-        request.setAttribute("provincia", indirizzo.getProvincia()); //provincia
-        request.setAttribute("via", indirizzo.getVia()); //via
-        request.setAttribute("cap", indirizzo.getCap()); //CAP
+        request.setAttribute("citta", ""); //città
+        request.setAttribute("provincia", ""); //provincia
+        request.setAttribute("via", ""); //via
+        request.setAttribute("cap", ""); //CAP
         
         ctx.getRequestDispatcher("/jsp/profilo.jsp").forward(request, response); //vai alla pagina del profilo
         

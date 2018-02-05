@@ -19,12 +19,13 @@ public class GestoreUtente implements GestoreUtenteLocal {
         em.persist(utente);
     }
     
-   
     @Override
     public void registraUtente(String nome, String cognome, Calendar dataDiNascita, 
             String codiceFiscale, String email, String password) 
     {
+        System.out.println("Creo nuovo utente e inserisco i dati");
         Utente utente = new Utente();
+        System.out.println("Creato nuovo utente " + utente);
         utente.setNome(nome);
         utente.setCognome(cognome);
         utente.setDataDiNascita(dataDiNascita);
@@ -32,7 +33,9 @@ public class GestoreUtente implements GestoreUtenteLocal {
         utente.setEmail(email);
         utente.setPassword(password);
         
+        System.out.println("Registro utente" + utente.getNome() + " " + utente.getCognome());
         em.persist(utente);
+        System.out.println("Utente registrato");
     }
     
     @Override

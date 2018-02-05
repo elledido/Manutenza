@@ -38,6 +38,16 @@ public class MainController extends HttpServlet {
 	    ctx.getRequestDispatcher("/index.html").forward(request, response); //vai alla index
 	}
         
+        /* ### PAGINA REGISTRAZIONE UTENTE ### */
+        else if(action.equals("nuovoUtente")) {
+            ctx.getRequestDispatcher("/jsp/nuovoUtente.jsp").forward(request, response);
+        }
+        
+        /* ### AZIONE REGISTRA NUOVO UTENTE ### */
+        else if(action.equals("registraUtente")) {
+            ctx.getNamedDispatcher("RegistraUtente").forward(request, response);
+        }
+        
         /* ### DASHBOARD ### */
         else if(action.equals("dashboard")){
             ctx.getRequestDispatcher("/jsp/dashboard.jsp").forward(request, response); //vai alla dashboard

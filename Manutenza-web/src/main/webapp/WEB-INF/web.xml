@@ -8,6 +8,10 @@
         <servlet-name>Profilo</servlet-name>
         <servlet-class>it.unito.taass.irevaleo.controller.Profilo</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RegistraUtente</servlet-name>
+        <servlet-class>it.unito.taass.irevaleo.controller.RegistraUtente</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MainController</servlet-name>
         <url-pattern>/MainController</url-pattern>
@@ -15,6 +19,10 @@
     <servlet-mapping>
         <servlet-name>Profilo</servlet-name>
         <url-pattern>/Profilo</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RegistraUtente</servlet-name>
+        <url-pattern>/RegistraUtente</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
