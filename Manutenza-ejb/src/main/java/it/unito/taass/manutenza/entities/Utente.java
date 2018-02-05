@@ -22,7 +22,8 @@ import javax.persistence.Temporal;
 @Inheritance(strategy = InheritanceType.JOINED)
 @NamedQueries({
     @NamedQuery(name = "Utente.carica", query = "SELECT u FROM Utente u WHERE u.email = :email AND u.password = :password"),
-    @NamedQuery(name = "Utente.cercaPerId", query = "SELECT u FROM Utente u WHERE u.id = :id" )
+    @NamedQuery(name = "Utente.cercaPerId", query = "SELECT u FROM Utente u WHERE u.id = :id" ),
+    @NamedQuery(name = "Utente.cercaPerEmail", query = "SELECT u FROM Utente u WHERE u.email = :email")
 })
 public class Utente implements Serializable {
 
@@ -104,11 +105,13 @@ public class Utente implements Serializable {
         this.password = sha256hash(password);
     }
     
-    public void initListaIndirizzi() {
+    private void inizializzaListaIndirizzi() {
         this.listaIndirizzi = new ArrayList<>();
     }
-    
+   
     public void addIndirizzo(Indirizzo indirizzo) {
+        if (this.listaIndirizzi == null) 
+            this.inizializzaListaIndirizzi();
         this.listaIndirizzi.add(indirizzo);
     }
     

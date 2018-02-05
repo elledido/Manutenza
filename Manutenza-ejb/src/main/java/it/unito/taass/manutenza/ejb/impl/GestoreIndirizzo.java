@@ -13,7 +13,8 @@ public class GestoreIndirizzo implements GestoreIndirizzoLocal {
     private EntityManager em;
 
     @Override
-    public void aggiungiIndirizzo(String via, String citta, String cap, String provincia) {
+    public void aggiungiIndirizzo(String via, String citta, String cap, String provincia) 
+    {
         Indirizzo indirizzo = new Indirizzo();
         indirizzo.setVia(via);
         indirizzo.setCitta(citta);

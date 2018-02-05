@@ -18,7 +18,8 @@ public class GestoreUtente implements GestoreUtenteLocal {
     public void registraUtente(Utente utente) {
         em.persist(utente);
     }
-
+    
+   
     @Override
     public void registraUtente(String nome, String cognome, Calendar dataDiNascita, 
             String codiceFiscale, String email, String password) 
@@ -33,15 +34,16 @@ public class GestoreUtente implements GestoreUtenteLocal {
         
         em.persist(utente);
     }
-
+    
     @Override
     public Utente caricaUtente(String email, String password) {
         try{
-            Utente utente = em.createNamedQuery("Utente.carica", Utente.class)
+            Utente utente = em.createNamedQuery("Utente.cercaPerEmail", Utente.class)
                     .setParameter("email", email)
-                    .setParameter("password", sha256hash(password))
                     .getSingleResult();
-            return utente;
+            utente.verifica(password);
+            if(!utente.isAutenticato()) return null;
+            else return utente;
         }catch(NoResultException nre){
            return null;
         }
@@ -54,23 +56,5 @@ public class GestoreUtente implements GestoreUtenteLocal {
                .getSingleResult();
        em.remove(daEliminare);
     }
-    
-    private String sha256hash(String password) {
-        String hashString = null;
-        try {
-            java.security.MessageDigest digest = java.security.MessageDigest.getInstance("SHA-256");
-            byte[] hash = digest.digest(password.getBytes());
-            hashString = "";
-            for (int i = 0; i < hash.length; i++) {
-                hashString += Integer.toHexString( 
-                                  (hash[i] & 0xFF) | 0x100 
-                              ).toLowerCase().substring(1,3);
-            }
-        } catch (java.security.NoSuchAlgorithmException e) {
-            System.out.println(e);
-        }
-        return hashString;
-    }
 
-    
 }
