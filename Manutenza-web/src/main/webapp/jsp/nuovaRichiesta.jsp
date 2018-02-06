@@ -57,7 +57,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-3 col-xs-3" for="titolo">Titolo: </label>
                             <div class="col-md-8 col-xs-8">
-                                <input class="form-control" id="titolo" name="titolo" type="text">
+                                <input class="form-control" id="titolo" name="titolo" type="text" required>
                             </div>
                         </div>
 
@@ -65,7 +65,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-3 col-xs-3" for="categoria">Categoria: </label>
                             <div class="col-md-8 col-xs-8">
-                                <select class="form-control" id="categoria" name="categoria">
+                                <select class="form-control" id="categoria" name="categoria" required>
                                     <option>Cat 1</option>
                                     <option>Cat 2</option>
                                     <option>Cat 3</option>
@@ -79,7 +79,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-3 col-xs-3" for="descrizione">Descrizione: </label>
                             <div class="col-md-8 col-xs-8">
-                                <textarea class="form-control noresize" id="descrizione" name="descrizione"></textarea>
+                                <textarea class="form-control noresize" id="descrizione" name="descrizione" rows="5" required></textarea>
                             </div>
                         </div>
 
@@ -87,7 +87,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-3 col-xs-3" for="indirizzo">Indirizzo: </label>
                             <div class="col-md-8 col-xs-8">
-                                <select class="form-control" id="indirizzo" name="indirizzo">
+                                <select class="form-control" id="indirizzo" name="indirizzo" required>
                                     <option>Via Indirizzo, 1, Città1 (C1)</option>
                                     <option>Via Indirizzo, 2, Città2 (C2)</option>
                                 </select>
@@ -99,7 +99,7 @@
                             <label class="control-label col-md-3 col-xs-3" for="budget">Budget massimo: </label>
                             <div class="input-group col-md-2 col-xs-3">
                                 <span class="input-group-addon">€</span>
-                                <input class="form-control currency" id="budget" name="budget" type="number" value="0" min="0">
+                                <input class="form-control currency" id="budget" name="budget" type="number" placeholder="0" min="0" required>
                             </div>
                         </div>
 

@@ -220,6 +220,11 @@ ul ul a {
     padding: 0 7% 0 7%;
 }
 
+.input-group {
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+}
+
 input.currency {
     text-align: right;
     padding-right: 15px;
@@ -232,6 +237,10 @@ input.currency::-webkit-inner-spin-button {
 }
 input.currency {
     -moz-appearance: textfield;
+}
+
+.noresize {
+    resize: none;
 }
 
 .btn {
