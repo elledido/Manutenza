@@ -215,9 +215,35 @@ ul ul a {
     text-align: left !important;
 }
 
-.profile-data {
+.form-box {
     width: 100%;
     padding: 0 7% 0 7%;
+}
+
+input.currency {
+    text-align: right;
+    padding-right: 15px;
+}
+
+input.currency::-webkit-outer-spin-button,
+input.currency::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input.currency {
+    -moz-appearance: textfield;
+}
+
+.btn-ok {
+    background-color: #ff8000;
+    color: #fffffa;
+    border: 1px solid #cc6600;
+}
+
+.btn-annul {
+    background-color: #e6e6e6;
+    color: #b3b3b3;
+    border: 1px solid #b3b3b3;
 }
 
 /* ---------------------------------------------------
