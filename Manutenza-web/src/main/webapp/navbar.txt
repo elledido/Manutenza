@@ -29,7 +29,12 @@
 
 		//voci di sotto menu
 		if ($('.components > li > a[href="' + path + '"]').length === 0) {
-			$('.collapse > li > a[href="' + path + '"]').parent().addClass('active');
+                        //voce di menù attiva
+                        $('.collapse > li > a[href="' + path + '"]').parent().parent().prev().attr('aria-expanded', 'true');
+                        //apri il sottomenù
+                        $('.collapse > li > a[href="' + path + '"]').parent().parent().addClass('in');
+                        //voce di sottomenù attiva
+                        $('.collapse > li > a[href="' + path + '"]').parent().addClass('activeSub');
 		}
 		//voci della navbar
 		else {
@@ -41,7 +46,7 @@
 		});
 
 		$('#sidebarCollapse').on('click', function () {
-			// open or close navbar
+			// apre e chiude la navbar
 			$('#sidebar, #content').toggleClass('active');
 			// close dropdowns
 			$('.collapse.in').toggleClass('in');

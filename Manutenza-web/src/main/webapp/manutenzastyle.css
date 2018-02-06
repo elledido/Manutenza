@@ -133,7 +133,7 @@ ul.breadcrumb li+li:before {
     display: block;
 }
 
-#sidebar ul li a:hover {
+#sidebar ul li a:hover, .activeSub {
     color: #ff8000;
     background: #3e3e3e;
 }
@@ -208,7 +208,7 @@ ul ul a {
 }
 
 /* ---------------------------------------------------
-    PROFILO
+    FORM
 ----------------------------------------------------- */
 
 .form-horizontal .control-label {
@@ -232,6 +232,10 @@ input.currency::-webkit-inner-spin-button {
 }
 input.currency {
     -moz-appearance: textfield;
+}
+
+.btn {
+    border-radius: 10px;
 }
 
 .btn-ok {
