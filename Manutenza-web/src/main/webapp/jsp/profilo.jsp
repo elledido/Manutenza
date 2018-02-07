@@ -42,7 +42,7 @@
 
             <!-- NAVBAR E SIDEBAR -->
             <%@include file="/navbar.txt"%>
-            
+
             <!-- MAIN CONTENT -->
             <div id="content">
                 <ul class="breadcrumb">
@@ -50,7 +50,7 @@
                     <li>Profilo</li>
                 </ul>
 
-                <div class="profile-data">
+                <div class="form-box">
                     <!-- DATI DEL PROFILO -->
                     <form class="form-horizontal" action="#">
 

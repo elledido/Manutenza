@@ -5,6 +5,7 @@ import it.unito.taass.manutenza.entities.Indirizzo;
 import it.unito.taass.manutenza.entities.Utente;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import javax.ejb.EJB;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -45,7 +46,7 @@ public class Profilo extends HttpServlet {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         String dataDiNascita = sdf.format(utente.getDataDiNascita().getTime());
         
-        //setto staticamente i dati da inviare alla jsp
+        //dati anagrafici dell'utente
         request.setAttribute("email", utente.getEmail()); //email
         request.setAttribute("nome", utente.getNome()); //nome
         request.setAttribute("cognome", utente.getCognome()); //cognome
@@ -55,6 +56,10 @@ public class Profilo extends HttpServlet {
         //Prendo un indirizzo dalla lista degli indirizzi dell'utente
         //Al caricamento dell'utente dal db la sua listaIndirizzi è caricata automaticamente
         Indirizzo indirizzo = utente.getListaIndirizzi().get(0);
+        
+        //per i domicili (nella jsp basterà usare un for each per iterare tutti i domicili)
+        //ArrayList<Indirizzo> domicilii = new ArrayList(utente.getListaIndirizzi());
+        //request.setAttribute("domicilii", domicilii);
         
         //domicilio 1
         request.setAttribute("citta", indirizzo.getCitta()); //città
