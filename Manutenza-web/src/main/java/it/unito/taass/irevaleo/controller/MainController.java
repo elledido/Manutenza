@@ -38,6 +38,10 @@ public class MainController extends HttpServlet {
 	    ctx.getRequestDispatcher("/index.html").forward(request, response); //vai alla index
 	}
         
+        else if(action.equals("home")) {
+           ctx.getRequestDispatcher("/jsp/home.jsp").forward(request, response);
+        }
+        
         /* ### PAGINA REGISTRAZIONE UTENTE ### */
         else if(action.equals("nuovoUtente")) {
             ctx.getRequestDispatcher("/jsp/nuovoUtente.jsp").forward(request, response);

@@ -1,6 +1,8 @@
 package it.unito.taass.irevaleo.controller;
 
 import it.unito.taass.manutenza.ejb.GestoreUtenteLocal;
+import it.unito.taass.manutenza.entities.Indirizzo;
+import it.unito.taass.manutenza.entities.Utente;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -41,6 +43,8 @@ public class RegistraUtente extends HttpServlet {
         String cognome = request.getParameter("cognome");
         String data = request.getParameter("dataDiNascita");
         
+        System.out.println("Data " + data);
+        
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Calendar dataDiNascita = null;
         try {
@@ -55,17 +59,33 @@ public class RegistraUtente extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         
-        System.out.println("Nome: " + nome);
-        System.out.println("Cognome: " + cognome);
-        System.out.println("Data di Nascita: " + data);
-        System.out.println("Codice Fiscale: " + codiceFiscale);
-        System.out.println("Email: " + email);
-        System.out.println("Password: " + password);
+        //DATI INDIRIZZO
+        String citta = request.getParameter("citta");
+        String via = request.getParameter("via");
+        String provincia = request.getParameter("provincia");
+        String cap = request.getParameter("cap");
         
-        System.out.println("Richiamo funzione gestoreUtente.registraUtente");
-        gestoreUtente.registraUtente(nome, cognome, dataDiNascita, codiceFiscale, email, password);
-   
-        ctx.getRequestDispatcher("/jsp/nuovoUtente.jsp").forward(request, response);
+        
+        Utente utente = new Utente();
+        Indirizzo indirizzo = new Indirizzo();
+       
+        utente.setNome(nome);
+        utente.setCognome(cognome);
+        utente.setDataDiNascita(dataDiNascita);
+        utente.setCodiceFiscale(codiceFiscale);
+        utente.setEmail(email);
+        utente.setPassword(password);
+        
+        indirizzo.setVia(via);
+        indirizzo.setCitta(citta);
+        indirizzo.setProvincia(provincia);
+        indirizzo.setCap(cap);
+        
+        utente.addIndirizzo(indirizzo);
+        
+        gestoreUtente.registraUtente(utente);
+        
+        ctx.getRequestDispatcher("/jsp/home.jsp").forward(request, response);
         
     }
 
