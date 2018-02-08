@@ -66,8 +66,8 @@ public class MainController extends HttpServlet {
         else if(action.equals("nuovaRichiesta")){
             ctx.getRequestDispatcher("/jsp/nuovaRichiesta.jsp").forward(request, response); //vai alla pagina nuova richiesta
         }
-        else if(action.equals("effettuaRichiesta")){
-            //vai al sotto controller per fare una nuova richiesta
+        else if(action.equals("inviaRichiesta")){
+            ctx.getNamedDispatcher("InviaRichiesta").forward(request, response);
         }
         
         /* ### RICHIESTE IN CORSO ### */

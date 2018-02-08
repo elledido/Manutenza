@@ -51,7 +51,7 @@
                 </ul>
 
                 <div class="form-box">
-                    <form class="form-horizontal" action="#" method="post">
+                    <form class="form-horizontal" action="/Manutenza-web/MainController" method="post">
 
                         <!-- TITOLO -->
                         <div class="form-group">
@@ -66,9 +66,9 @@
                             <label class="control-label col-md-3 col-xs-3" for="categoria">Categoria: </label>
                             <div class="col-md-8 col-xs-8">
                                 <select class="form-control" id="categoria" name="categoria" required>
-                                    <option>Cat 1</option>
-                                    <option>Cat 2</option>
-                                    <option>Cat 3</option>
+                                    <option value="cat1">Cat 1</option>
+                                    <option value="cat2">Cat 2</option>
+                                    <option value="cat3">Cat 3</option>
                                     <option>Cat 4</option>
                                     <option>Cat 5</option>
                                 </select>
@@ -88,8 +88,8 @@
                             <label class="control-label col-md-3 col-xs-3" for="indirizzo">Indirizzo: </label>
                             <div class="col-md-8 col-xs-8">
                                 <select class="form-control" id="indirizzo" name="indirizzo" required>
-                                    <option>Via Indirizzo, 1, Città1 (C1)</option>
-                                    <option>Via Indirizzo, 2, Città2 (C2)</option>
+                                    <option value="id1">Via Indirizzo, 1, Città1 (C1)</option>
+                                    <option value="id2">Via Indirizzo, 2, Città2 (C2)</option>
                                 </select>
                             </div>
                         </div>
@@ -112,7 +112,7 @@
                                 <button type="button" class="btn btn-block btn-annul"><a href="#">Annulla</a></button>
                             </div>
                             <div class="col-md-2 col-xs-3">
-                                <button type="submit" class="btn btn-block btn-ok" name="action" value="effettuaRichiesta">Invia richiesta</button>
+                                <button type="submit" class="btn btn-block btn-ok" name="action" value="inviaRichiesta">Invia richiesta</button>
                             </div>
                         </div>
 
