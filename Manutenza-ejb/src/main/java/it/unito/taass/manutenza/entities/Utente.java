@@ -17,6 +17,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
+import javax.persistence.Transient;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -42,6 +43,7 @@ public class Utente implements Serializable {
     private String password;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Indirizzo> listaIndirizzi;
+    @Transient
     private boolean autenticato;
 
     public Long getId() {
