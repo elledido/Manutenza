@@ -5,7 +5,6 @@ import it.unito.taass.manutenza.entities.Indirizzo;
 import it.unito.taass.manutenza.entities.Utente;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import javax.ejb.EJB;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
