@@ -42,7 +42,6 @@ a, a:hover, a:focus {
 }
 
 .line {
-    
     height: 1px;
     border-bottom: 1px solid #c0c0c0;
     margin: 20px 12% 20px 3%;
@@ -216,8 +215,16 @@ ul ul a {
 }
 
 .form-box {
-    width: 100%;
-    padding: 0 7% 0 7%;
+    background-color: #c0c0c0;
+    width: calc(100% - 100px);
+    margin: 0 50px 25px 50px;
+    padding: 10px 30px;
+    
+}
+
+.titolo {
+    padding-top: 5px;
+    font-size: large;
 }
 
 .input-group {
@@ -243,6 +250,12 @@ input.currency {
     resize: none;
 }
 
+.img-box{
+    height: 180px;
+    width: 180px;
+    background-color: #333333;
+}
+
 .btn {
     border-radius: 10px;
 }
@@ -257,6 +270,34 @@ input.currency {
     background-color: #e6e6e6;
     color: #b3b3b3;
     border: 1px solid #b3b3b3;
+}
+
+.btn-badge {
+    position: relative;
+}
+
+.btn-badge[data-badge]:after {
+    content: attr(data-badge);
+    position: absolute;
+    top: -7px;
+    right: -3px;
+    font-size: .7em;
+    background: #3e3e3e;
+    color: #fffffa;
+    width: 18px;
+    height: 18px;
+    text-align: center;
+    line-height: 18px;
+    border-radius: 50%;
+    box-shadow: 0 0 1px #333;
+}
+
+.modal-body {
+    padding: 0px !important;
+}
+
+.modal-footer {
+    padding-left: 0px !important;
 }
 
 /* ---------------------------------------------------
@@ -289,5 +330,9 @@ input.currency {
     }
     .navbar-brand {
         padding-left: 10px;
+    }
+    .form-box {
+        width: 100%;
+        margin: 0 7% 7% 7%;
     }
 }

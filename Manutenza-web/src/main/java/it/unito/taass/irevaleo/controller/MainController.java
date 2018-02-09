@@ -73,11 +73,18 @@ public class MainController extends HttpServlet {
         /* ### RICHIESTE IN CORSO ### */
         else if(action.equals("richiesteInCorso")){
             //visualizza richieste in corso (lavori commissionati ad un ManUtente ma che devono ancora essere svolti)
+            ctx.getRequestDispatcher("/jsp/richiesteInCorso.jsp").forward(request, response);
+        }
+        else if(action.equals("visualizzaProposte")){
+            //visualizza tutte le proposte dei manutenti per la determinata richiesta
         }
         
         /* ### RICHIESTE PASSATE ### */
         else if(action.equals("richiestePassate")){
             //visualizza richieste passate (lavori commissionati e completati)
+        }
+        else if(action.equals("valutaManutente")){
+            //invia i dati della valutazione
         }
         
         /* ### LE MIE COMPETENZE (solo ManUtente) ### */

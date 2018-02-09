@@ -106,7 +106,7 @@
                         <!-- FOTO (da vedere come gestirle) -->
 
                         <!-- SUBMIT -->
-                        <div>
+                        <div class="row">
                             <div class="col-md-8 col-xs-6"></div>
                             <div class="col-md-2 col-xs-3">
                                 <button type="button" class="btn btn-block btn-annul"><a href="#">Annulla</a></button>
