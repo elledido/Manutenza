@@ -206,6 +206,26 @@ ul ul a {
     color: rgb(192, 192, 192);
 }
 
+.rating-star ul {
+    list-style-type:none;
+    padding:0;
+
+    -moz-user-select:none;
+    -webkit-user-select:none;
+}
+.rating-star ul > li.star {
+    display:inline-block;
+}
+.rating-star ul > li.star > i.fa-star {
+    color: rgb(192, 192, 192);
+}
+.rating-star ul > li.star.hover > i.fa-star {
+    color: rgb(255, 128, 0);
+}
+.rating-star ul > li.star.selected > i.fa-star {
+    color: rgb(255, 128, 0);
+}
+
 /* ---------------------------------------------------
     FORM
 ----------------------------------------------------- */
@@ -219,7 +239,7 @@ ul ul a {
     width: calc(100% - 100px);
     margin: 0 50px 25px 50px;
     padding: 10px 30px;
-    
+
 }
 
 .titolo {

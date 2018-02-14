@@ -79,7 +79,6 @@
 
                         </div>
                     </div>
-                    <!-- buttons -->
                     <div class="row">
                         <div class="col-md-10 col-xs-8"></div>
                         <div class="col-md-2 col-xs-4">
@@ -124,11 +123,10 @@
 
                         </div>
                     </div>
-                    <!-- buttons -->
                     <div class="row">
                         <div class="col-md-10 col-xs-8"></div>
                         <div class="col-md-2 col-xs-4">
-                            <button type="button" class="btn btn-block btn-ok" data-toggle="modal" data-target="#exampleModalCenter">
+                            <button type="button" class="btn btn-block btn-ok" data-toggle="modal" data-target="#mostraQRcode">
                                 Mostra QR code
                             </button>
                         </div>
@@ -136,7 +134,7 @@
                 </div>
 
                 <!-- Mosta QR code -->
-                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal fade" id="mostraQRcode" tabindex="-1" role="dialog" aria-hidden="true">
                     <div class="modal-dialog modal-sm" role="document">
                         <div class="modal-content">
                             <div class="modal-body row">
