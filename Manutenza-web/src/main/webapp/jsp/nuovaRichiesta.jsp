@@ -39,7 +39,7 @@
         <!-- MAIN CONTAINER -->
         <div class="container">
 
-            <!-- NAVBAR E SIDEBAR -->
+            <!-- NAVBAR -->
             <%@include file="/navbar.txt"%>
 
             <!-- MAIN CONTENT -->

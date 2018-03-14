@@ -41,7 +41,7 @@ public class MainController extends HttpServlet {
         else if(action.equals("home")) {
            ctx.getRequestDispatcher("/jsp/home.jsp").forward(request, response);
         }
-        
+                
         else if(action.equals("registrati")) {
            ctx.getRequestDispatcher("/jsp/registratiFacebook.jsp").forward(request, response);
         }
@@ -85,6 +85,7 @@ public class MainController extends HttpServlet {
         }
         else if(action.equals("visualizzaProposte")){
             //visualizza tutte le proposte dei manutenti per la determinata richiesta
+            ctx.getRequestDispatcher("/jsp/proposte.jsp").forward(request, response);
         }
         
         /* ### RICHIESTE PASSATE ### */
@@ -105,6 +106,11 @@ public class MainController extends HttpServlet {
         /* ### PROPOSTE DI LAVORO (solo ManUtente) ### */
         else if(action.equals("nuoveProposte")){
             //visualizza nuove proposte di lavoro
+            ctx.getRequestDispatcher("/jsp/nuoveProposte.jsp").forward(request, response);
+        }
+        /* ### PMOSTRA INTERESSE (solo ManUtente) ### */
+        else if(action.equals("mostraInteresse")){
+            //invia una notifica all'Utente
         }
         
         /* ### PROPOSTE DI LAVORO ACCETTATE (solo ManUtente) ### */
@@ -115,6 +121,11 @@ public class MainController extends HttpServlet {
         /* ### LAVORI COMPLETATI (solo ManUtente) ### */
         else if(action.equals("lavoriCompletati")){
             //visualizza lavori completati (lavori accettati e completati dal ManUtente)
+        }
+        
+        /* ### CONTATTI ### */
+        else if(action.equals("contatti")) {
+           ctx.getRequestDispatcher("/jsp/contatti.jsp").forward(request, response);
         }
         
         /* ### AZIONI NON GESTITE -> ERRORE! ### */

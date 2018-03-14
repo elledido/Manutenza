@@ -28,17 +28,9 @@ a, a:hover, a:focus {
 }
 
 #content {
-    width: calc(100% - 250px);
-    padding: 40px;
+    
     padding-top: 70px;
     min-height: 100vh;
-    transition: all 0.3s;
-    position: absolute;
-    top: 0;
-    right: 0;
-}
-#content.active {
-    width: 100%;
 }
 
 .line {
@@ -67,102 +59,127 @@ ul.breadcrumb li+li:before {
     NAVBAR
 ----------------------------------------- */
 
-#topNav {
-    background: #ff8000;
-    color: #fffffa;
-    border: none;
-    border-radius: 0px;
-    margin-bottom: 40px;
-    box-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+.navbar {
+    border-radius: 0px 0px;
+    margin-bottom: 0px;
 }
 
-#topNav a, i {
+.navbar-default {      
+    background-color: #333333;
+    border-color: #333333;
+}
+
+.navbar-default .navbar-brand {
     color: #fffffa;
 }
 
-#sidebarCollapse {
-    float: left;
-    margin: 12px 10px 0 10px;
-    padding: 0;
-    box-shadow: none;
-    outline: none !important;
-    border: none;
-    height: 28px;
-    width: 30px;
+.navbar-default .navbar-brand:focus, .navbar-default .navbar-brand:hover {
+    color: #fffffa;
+}
+
+.navbar-default .navbar-nav>li>a {   
+    color: #fffffa;
+}
+
+.navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-nav>li>a:hover {
+    color: #ff9933; 
+}
+
+.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover {
+    color: #ff9933;
     background: none;
 }
 
-.navbar-brand {
-    margin-left: 0;
-    font-size: 26px !important;
+.navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:hover {
+    color: #ff9933;
+    background: none;
 }
 
-/* -----------------------------------------
-    SIDEBAR
------------------------------------------ */
-#sidebar {
-    width: 250px;
-    position: fixed;
-    top: 50px;
-    left: 0;
-    height: 100vh;
-    z-index: 999;
-    background: #333333;
+.navbar-default ul li p {
     color: #fffffa;
-    transition: all 0.3s;
 }
 
-#sidebar.active {
-    margin-left: -250px;
+.dropdown-menu {
+    background-color: #333333;
 }
 
-#sidebar ul.components {
-    padding: 0;
-    margin: 1px;
-}
-
-#sidebar ul p {
+.dropdown-menu>li>a {
     color: #fffffa;
-    padding: 10px;
 }
 
-#sidebar ul li a {
-    padding: 10px;
-    font-size: 1.1em;
-    display: block;
-}
-
-#sidebar ul li a:hover, .activeSub {
-    color: #ff8000;
+.dropdown-menu>li>a:hover{
+    color: #ff9933;
     background: #3e3e3e;
 }
 
-#sidebar ul li.active > a, a[aria-expanded="true"] {
+.dropdown-menu>.active>a, .dropdown-menu>.active>a:focus, .dropdown-menu>.active>a:hover{
+    color: #ff9933;
+    background: #3e3e3e; 
+}
+
+.dropdown-account {
+    min-width: 300px;
+}
+
+.account-data {
+    padding-top: 5px;
+}
+
+.profile-link {
     color: #fffffa;
-    background: rgb(255, 128, 0);
+    text-decoration: none;
 }
 
-a[data-toggle="collapse"] {
-    position: relative;
+.profile-link:focus, .profile-link:hover {
+    color: #ff9933;
+    text-decoration: none;
 }
 
-a[aria-expanded="false"]::before, a[aria-expanded="true"]::before {
-    content: '\e259';
-    display: block;
-    position: absolute;
-    right: 20px;
-    font-family: 'Glyphicons Halflings';
-    font-size: 0.6em;
+.profile-img-mini{
+    width: 90px;
+    height: 90px;
+}
+
+.profile-img {
+    width: 180px;
+    height: 180px;
+}
+
+.navbar-default .navbar-toggle{
+    background-color: #3e3e3e;
     color: #fffffa;
+    border: none;
+    text-align: center;
+    font-size: 12px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding: 5px 8px;
 }
 
-a[aria-expanded="true"]::before {
-    content: '\e260';
+.navbar-default .navbar-toggle:focus, .navbar-default .navbar-toggle:hover {
+    background-color: #3e3e3e;
+    color: #ff9933;
+    text-align: center;
 }
 
-ul ul a {
-    font-size: 0.9em !important;
-    padding-left: 20px !important;
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: #fffffa;
+}
+
+@media (max-width: 768px){
+    .navbar-default .navbar-nav .open .dropdown-menu>li>a {
+        color: #fffffa;
+    }
+
+    .navbar-default .navbar-nav .open .dropdown-menu>li>a:hover {
+        color: #ff9933;
+        background: none; 
+    }
+
+    .navbar-default .navbar-nav .open .dropdown-menu>.active>a, .navbar-default .navbar-nav .open .dropdown-menu>.active>a:focus, .navbar-default .navbar-nav .open .dropdown-menu>.active>a:hover{
+        color: #ff9933;
+        background: none;
+    }
 }
 
 /* -----------------------------------------
@@ -173,10 +190,10 @@ ul ul a {
     padding: 20px 20px 10px 20px;
 }
 
-.profile-img{
+/*.profile-img{
     width: 160px;
     height: 160px;
-}
+}/*
 
 /* -----------------------------------------
     RATING STARS
@@ -274,6 +291,7 @@ input.currency {
     height: 180px;
     width: 180px;
     background-color: #333333;
+    padding: 0;
 }
 
 .btn {
@@ -324,33 +342,6 @@ input.currency {
     MEDIAQUERIES
 ----------------------------------------------------- */
 @media (max-width: 768px) {
-    #sidebar {
-        margin-left: -250px;
-    }
-    #sidebar.active {
-        margin-left: 0;
-    }
-    #content {
-        width: 100%;
-    }
-    #content.active {
-        width: calc(100% - 250px);
-    }
-    #sidebarCollapse span {
-        display: none;
-    }
-    #topNav{
-        width: 100%;
-    }
-    .right-side-nav{
-        padding-right: 2%;
-    }
-    .navbar-button {
-        margin: 12px 0 0 10px;
-    }
-    .navbar-brand {
-        padding-left: 10px;
-    }
     .form-box {
         width: 100%;
         margin: 0 7% 7% 7%;

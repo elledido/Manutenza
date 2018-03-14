@@ -82,7 +82,10 @@
                     <div class="row">
                         <div class="col-md-10 col-xs-8"></div>
                         <div class="col-md-2 col-xs-4">
-                            <button type="button" class="btn btn-block btn-ok btn-badge" data-badge="10"><a href=#">Visualizza proposte</a></button>
+                            <!--<button type="button" class="btn btn-block btn-ok btn-badge" data-badge="10">
+                                <a href="/Manutenza-web/MainController?action=visualizzaProposte">Visualizza proposte</a>
+                            </button> -->
+                            <a href="/Manutenza-web/MainController?action=visualizzaProposte" class="btn btn-block btn-ok btn-badge" data-badge="10" role="button">Visualizza proposte</a>
                         </div>
                     </div>
                 </div>

@@ -1,54 +1,42 @@
 <script type="text/javascript">
 
 	$(document).ready(function () {
-		setRate(4);
 
 		var pathname = window.location.pathname;
-
+		
 		var getUrlParameter = function getUrlParameter(sParam) {
-			var sPageURL = decodeURIComponent(window.location.search.substring(1));
-			var sURLVariables = sPageURL.split('&');
-			var sParameterName;
-			var i;
+		    var sPageURL = decodeURIComponent(window.location.search.substring(1));
+		    var sURLVariables = sPageURL.split('&');
+		    var sParameterName;
+		    var i;
+		    
+		    for (i = 0; i < sURLVariables.length; i++) {
+			sParameterName = sURLVariables[i].split('=');
 
-			for (i = 0; i < sURLVariables.length; i++) {
-				sParameterName = sURLVariables[i].split('=');
-
-				if (sParameterName[0] === sParam) {
-					return sParameterName[1] === undefined ? true : sParameterName[1];
-				}
+			if (sParameterName[0] === sParam) {
+			    return sParameterName[1] === undefined ? true : sParameterName[1];
 			}
+		    }
 		};
 
 		//pagina home all'avvio dell'app o dopo il login
-		if (getUrlParameter('action') === undefined || getUrlParameter('action') === 'logout') {
-			var path = pathname + "?action=home";
-		} else {
-			var path = pathname + "?action=" + getUrlParameter('action');
+		if(getUrlParameter('action') === undefined || getUrlParameter('action') === 'logout'){
+		    var path = pathname + "?action=home";
 		}
-
+		else {
+		    var path = pathname + "?action=" + getUrlParameter('action');
+		}
+		
 		//voci di sotto menu
-		if ($('.components > li > a[href="' + path + '"]').length === 0) {
-                        //voce di menù attiva
-                        $('.collapse > li > a[href="' + path + '"]').parent().parent().prev().attr('aria-expanded', 'true');
-                        //apri il sottomenù
-                        $('.collapse > li > a[href="' + path + '"]').parent().parent().addClass('in');
-                        //voce di sottomenù attiva
-                        $('.collapse > li > a[href="' + path + '"]').parent().addClass('activeSub');
+		if($('.nav > li > a[href="'+path+'"]').length === 0){
+		    //console.log($('.dropdown-menu > li > a[href="'+path+'"]'));
+		    $('.dropdown-menu > li > a[href="'+path+'"]').parent().addClass('active');
 		}
 		//voci della navbar
 		else {
-			$('.components > li > a[href="' + path + '"]').parent().addClass('active');
+		    //console.log($('.nav > li > a[href="'+path+'"]'));
+		    $('.nav > li > a[href="'+path+'"]').parent().addClass('active'); 
 		}
-
-		$("#sidebar").mCustomScrollbar({
-			theme: "minimal"
-		});
-
-		$('#sidebarCollapse').on('click', function () {
-			// apre e chiude la navbar
-			$('#sidebar, #content').toggleClass('active');
-		});
 
 	});
 
@@ -56,75 +44,87 @@
 		
 		
 <!-------------------- NAVIGATION BAR -------------------->
-<nav id="topNav" class="navbar navbar-default navbar-fixed-top">
+<nav id=topNav" class="navbar navbar-default navbar-fixed-top">
 	<div class="container-fluid">
 		<!-- NAVIGATION HEADER -->
-		<div class="navbar-header pull-left">
-			<button type="button" id="sidebarCollapse" class="btn btn-default navbar-button">
-				<i class="fa fa-bars fa-2x" aria-hidden="true"></i>
+		<div class="navbar-header">
+			<!-- bottone di collapse (appare solo per finestre piccole) -->
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="fa fa-bars fa-2x" aria-hidden="true"></span> 
 			</button>
 			<a class="navbar-brand" href="#">ManUtenza</a>
 		</div>
-		<!-- RIGHT-SIDE NAVBAR -->
-		<div class="navbar-header pull-right right-side-nav">
-			<ul class="nav navbar-nav">
-				<li><a href="#"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></li>
+
+		<!-- MAIN NAVBAR -->
+		<div class="navbar-collapse collapse" id="myNavbar">
+		<%
+				//utente loggato
+				if(session.getAttribute("email")!=null) { %>
+					<ul class="nav navbar-nav">
+						<li><a href="/Manutenza-web/MainController?action=dashboard">Dashboard</a></li>
+						<li class="dropdown">
+							<a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Le mie richieste <span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a href="/Manutenza-web/MainController?action=nuovaRichiesta">Nuova richiesta</a></li>
+								<li><a href="/Manutenza-web/MainController?action=richiesteInCorso">In corso</a></li>
+								<li><a href="/Manutenza-web/MainController?action=richiestePassate">Passate</a></li>
+							</ul>
+						</li>
+						<li><a href="/Manutenza-web/MainController?action=competenze">Le mie competenze</a></li>
+						<li class="dropdown">
+							<a class=dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Proposte di lavoro <span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a href="/Manutenza-web/MainController?action=nuoveProposte">Nuove proposte</a></li>
+								<li><a href="/Manutenza-web/MainController?action=proposteAccettate">Accettate</a></li>
+								<li><a href="/Manutenza-web/MainController?action=lavoriCompletati">Completate</a></li>
+							</ul>
+						</li>
+					</ul>
+				<%}
+			%>
+				
+			<!-- RIGHT-SIDE NAVBAR -->
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a href="/Manutenza-web/MainController?action=contatti">
+						<div class="hidden-sm"><span class="glyphicon glyphicon-info-sign"></span> Contatti</div>
+						<span class="glyphicon glyphicon-info-sign visible-sm"</span>
+					</a>
+				</li>
+				<%
+					//utente loggato
+					if(session.getAttribute("email")!=null) { %>
+					<li class="dropdown">
+						<a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+							<span class="fa fa-user"></span><span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu dropdown-account">
+							<li>
+								<div class="container-fluid account-data">
+									<div class="row">
+										<div class="col-xs-4">
+											<img class="profile-img-mini" src="images/profile_img.png" alt="profile-img"/>
+										</div>
+										<div class="col-xs-8">
+											<p><b>Nome Account</b></p>
+											<p>example@mail.it</p>
+											<a class="profile-link" href="/Manutenza-web/MainController?action=profilo">Profilo</a>
+										</div>
+									</div>
+								</div>
+							</li>
+							<li role="separator" class="divider"></li>
+							<li><a href="#"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></li>
+						</ul>
+					</li>
+					<%}
+					//utente non loggato
+					else {
+						//mostra bottone login FB
+					}
+				%>
 			</ul>
 		</div>
 	</div>
-</nav>
-
-		
-<!-------------------- SIDEBAR -------------------->
-<nav id="sidebar">
-
-	<!-- PROFILE BOX -->
-	<div class="container-fluid profile-box">
-		<div class="row">
-			<div class="col-md-12" align="center">
-				<img class="profile-img" src="images/profile_img.png" alt="profile-img"/>
-				<h4 class="account-name">Account Name</h4>
-				<div class="rating-star">
-					<!-- RATING STAR -->                            
-					<div class="container-fluid back-stars">
-						<i class="fa fa-star fa-2x back-star" aria-hidden="true"></i>
-						<i class="fa fa-star fa-2x back-star" aria-hidden="true"></i>
-						<i class="fa fa-star fa-2x back-star" aria-hidden="true"></i>
-						<i class="fa fa-star fa-2x back-star" aria-hidden="true"></i>
-						<i class="fa fa-star fa-2x back-star" aria-hidden="true"></i>
-					</div>
-					<div class="container-fluid front-stars">
-						<i id="star1" class="fa fa-star-o fa-2x" aria-hidden="true"></i>
-						<i id="star2" class="fa fa-star-o fa-2x" aria-hidden="true"></i>
-						<i id="star3" class="fa fa-star-o fa-2x" aria-hidden="true"></i>
-						<i id="star4" class="fa fa-star-o fa-2x" aria-hidden="true"></i>
-						<i id="star5" class="fa fa-star-o fa-2x" aria-hidden="true"></i>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<!-- MENU' VOICES -->
-	<ul class="components list-unstyled">
-		<li><a href="/Manutenza-web/MainController?action=dashboard">Dashboard</a></li>
-		<li><a href="/Manutenza-web/MainController?action=profilo">Profilo</a></li>
-		<li>
-			<a href="#gestioneRichieste" data-toggle="collapse" aria-expanded="false">Le mie richieste</a>
-			<ul class="collapse list-unstyled" id="gestioneRichieste">
-				<li><a href="/Manutenza-web/MainController?action=nuovaRichiesta">Nuova richiesta</a></li>
-				<li><a href="/Manutenza-web/MainController?action=richiesteInCorso">In corso</a></li>
-				<li><a href="/Manutenza-web/MainController?action=richiestePassate">Passate</a></li>
-			</ul>
-		</li>
-		<li><a href="/Manutenza-web/MainController?action=competenze">Le mie competenze</a></li>
-		<li>
-			<a href="#gestioneProposte" data-toggle="collapse" aria-expanded="false">Proposte di lavoro</a>
-			<ul class="collapse list-unstyled" id="gestioneProposte">
-				<li><a href="/Manutenza-web/MainController?action=nuoveProposte">Nuove proposte</a></li>
-				<li><a href="/Manutenza-web/MainController?action=proposteAccettate">Accettate</a></li>
-				<li><a href="/Manutenza-web/MainController?action=lavoriCompletati">Completate</a></li>
-			</ul>
-		</li>
-	</ul>
 </nav>
