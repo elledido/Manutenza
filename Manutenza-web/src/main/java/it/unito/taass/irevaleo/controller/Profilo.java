@@ -39,7 +39,7 @@ public class Profilo extends HttpServlet {
         HttpSession s = request.getSession(); //sessione
         
         //Carico l'utente dal database
-        utente = gestoreUtente.caricaUtente("giuseppeverdi@email.com", "giuseppeverdi");
+        //utente = gestoreUtente.caricaUtente("giuseppeverdi@email.com", "giuseppeverdi");
       
         //Formatto la data di nascita e poi la trasformo in una stringa
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");

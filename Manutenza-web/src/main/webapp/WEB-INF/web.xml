@@ -20,6 +20,14 @@
         <servlet-name>ValutaManutente</servlet-name>
         <servlet-class>it.unito.taass.irevaleo.controller.ValutaManutente</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GoRegistrati</servlet-name>
+        <servlet-class>it.unito.taass.irevaleo.controller.GoRegistrati</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>VerificaUtente</servlet-name>
+        <servlet-class>it.unito.taass.irevaleo.controller.VerificaUtente</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MainController</servlet-name>
         <url-pattern>/MainController</url-pattern>
@@ -39,6 +47,14 @@
     <servlet-mapping>
         <servlet-name>ValutaManutente</servlet-name>
         <url-pattern>/ValutaManutente</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GoRegistrati</servlet-name>
+        <url-pattern>/GoRegistrati</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VerificaUtente</servlet-name>
+        <url-pattern>/VerificaUtente</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

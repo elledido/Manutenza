@@ -39,14 +39,12 @@ public class GestoreUtente implements GestoreUtenteLocal {
     }
     
     @Override
-    public Utente caricaUtente(String email, String password) {
+    public Utente caricaUtente(String email) {
         try{
             Utente utente = em.createNamedQuery("Utente.cercaPerEmail", Utente.class)
                     .setParameter("email", email)
                     .getSingleResult();
-            utente.verifica(password);
-            if(!utente.isAutenticato()) return null;
-            else return utente;
+            return utente;
         }catch(NoResultException nre){
            return null;
         }

@@ -36,11 +36,11 @@
                         <legend>Dati Utente</legend>
                     <div class="form-group col-md-6">
                         <label for="nome">Nome</label>
-                        <input type="text" class="form-control" name="nome" placeholder="Inserisci il tuo nome" required>
+                        <input type="text" class="form-control" name="nome" >
                     </div>
                     <div class="form-group col-md-6">
                         <label for="cognome">Cognome</label>
-                        <input type="text" class="form-control" name="cognome" placeholder="Inserisci il tuo cognome" required>
+                        <input type="text" class="form-control" name="cognome">
                     </div>
                     <div class="form-group col-md-6">
                         <label for="dataDiNascita">Data di Nascita</label>
@@ -52,7 +52,7 @@
                     </div>
                     <div class="form-group col-md-12">
                         <label for="email">Email</label>
-                        <input type="email" class="form-control" name="email" placeholder="Inserisci indirizzo email" required>
+                        <input type="text" class="form-control" name="email">
                     </div>
                     <div class="form-group col-md-6">
                         <label for="password">Password</label>

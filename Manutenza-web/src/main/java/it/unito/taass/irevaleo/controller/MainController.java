@@ -42,6 +42,10 @@ public class MainController extends HttpServlet {
            ctx.getRequestDispatcher("/jsp/home.jsp").forward(request, response);
         }
         
+        else if(action.equals("registrati")) {
+           ctx.getRequestDispatcher("/jsp/registratiFacebook.jsp").forward(request, response);
+        }
+        
         /* ### PAGINA REGISTRAZIONE UTENTE ### */
         else if(action.equals("nuovoUtente")) {
             ctx.getRequestDispatcher("/jsp/nuovoUtente.jsp").forward(request, response);
@@ -68,6 +72,10 @@ public class MainController extends HttpServlet {
         }
         else if(action.equals("inviaRichiesta")){
             ctx.getNamedDispatcher("InviaRichiesta").forward(request, response);
+        }
+        
+        else if(action.equals("goRegistrati")){
+            ctx.getNamedDispatcher("GoRegistrati").forward(request, response);
         }
         
         /* ### RICHIESTE IN CORSO ### */

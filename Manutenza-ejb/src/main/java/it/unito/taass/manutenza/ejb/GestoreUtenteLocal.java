@@ -11,6 +11,6 @@ public interface GestoreUtenteLocal {
     public void registraUtente(String nome, String cognome, Calendar dataDiNascita, 
             String codiceFiscale,String email, String password);
     public void eliminaUtente(Utente utente);
-    public Utente caricaUtente(String email, String password);
+    public Utente caricaUtente(String email);
     
 }
