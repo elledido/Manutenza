@@ -37,34 +37,28 @@ public class Profilo extends HttpServlet {
         
         ServletContext ctx = getServletContext(); //contesto dell'applicazione
         HttpSession s = request.getSession(); //sessione
+              
+        utente = (Utente) s.getAttribute("utente"); //utente in sessione
         
-        //Carico l'utente dal database
-        //utente = gestoreUtente.caricaUtente("giuseppeverdi@email.com", "giuseppeverdi");
-      
         //Formatto la data di nascita e poi la trasformo in una stringa
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         String dataDiNascita = sdf.format(utente.getDataDiNascita().getTime());
         
-        //dati anagrafici dell'utente
-        request.setAttribute("email", utente.getEmail()); //email
-        request.setAttribute("nome", utente.getNome()); //nome
-        request.setAttribute("cognome", utente.getCognome()); //cognome
         request.setAttribute("dataNascita", dataDiNascita); //data nascita
-        request.setAttribute("cf", utente.getCodiceFiscale()); //codice fiscale
         
-        //Prendo un indirizzo dalla lista degli indirizzi dell'utente
+        /*//Prendo un indirizzo dalla lista degli indirizzi dell'utente
         //Al caricamento dell'utente dal db la sua listaIndirizzi è caricata automaticamente
         Indirizzo indirizzo = utente.getListaIndirizzi().get(0);
         
         //per i domicili (nella jsp basterà usare un for each per iterare tutti i domicili)
         //ArrayList<Indirizzo> domicilii = new ArrayList(utente.getListaIndirizzi());
-        //request.setAttribute("domicilii", domicilii);
+        //request.setAttribute("domicilii", domicilii); */
         
         //domicilio 1
-        request.setAttribute("citta", indirizzo.getCitta()); //città
-        request.setAttribute("provincia", indirizzo.getProvincia()); //provincia
-        request.setAttribute("via", indirizzo.getVia()); //via
-        request.setAttribute("cap", indirizzo.getCap()); //CAP
+        request.setAttribute("citta", "citta"); //città
+        request.setAttribute("provincia", "po"); //provincia
+        request.setAttribute("via", "via qualcosa"); //via
+        request.setAttribute("cap", "10100"); //CAP
         
         ctx.getRequestDispatcher("/jsp/profilo.jsp").forward(request, response); //vai alla pagina del profilo
         
