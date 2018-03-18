@@ -4,6 +4,7 @@
     Author     : irene
 --%>
 
+<%@page import="it.unito.taass.manutenza.entities.Utente"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
@@ -45,6 +46,9 @@
             <!-- MAIN CONTENT -->
             <div id="content">
                 <h1>Dashboard</h1>
+                
+                <p><%out.print(((Utente)session.getAttribute("utente")).getCognome());%></p>
+                
             </div>
 
         </div>
