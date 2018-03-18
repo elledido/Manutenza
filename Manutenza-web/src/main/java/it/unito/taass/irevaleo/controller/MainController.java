@@ -33,10 +33,6 @@ public class MainController extends HttpServlet {
         
         System.out.println("ACTION = " + action);
         
-        if(s.getAttribute("email")!=null){
-            System.out.println("SESSION = " + s.getAttribute("email"));
-        }
-        
         /* ### AVVIO DELL'APPLICAZIONE ### */
 	if(action == null){
 	    ctx.getRequestDispatcher("/index.html").forward(request, response); //vai alla index
@@ -45,20 +41,22 @@ public class MainController extends HttpServlet {
         else if(action.equals("home")) {
            ctx.getRequestDispatcher("/jsp/home.jsp").forward(request, response);
         }
-                
+        
+        /* ### TEST PAGES ### */
         else if(action.equals("registrati")) {
            ctx.getRequestDispatcher("/jsp/registratiFacebook.jsp").forward(request, response);
         }
-        
-        /* ### PAGINA REGISTRAZIONE UTENTE ### */
         else if(action.equals("nuovoUtente")) {
             ctx.getRequestDispatcher("/jsp/nuovoUtente.jsp").forward(request, response);
-        }
+        }  
         
-        /* ### AZIONE REGISTRA NUOVO UTENTE ### */
+        /* ### LOGIN e REGISTRAZIONE UTENTE ### */
+        else if(action.equals("goRegistrati")){
+            ctx.getNamedDispatcher("GoRegistrati").forward(request, response);
+        }
         else if(action.equals("registraUtente")) {
             ctx.getNamedDispatcher("RegistraUtente").forward(request, response);
-        }
+        }        
         
         /* ### DASHBOARD ### */
         else if(action.equals("dashboard")){
@@ -76,10 +74,6 @@ public class MainController extends HttpServlet {
         }
         else if(action.equals("inviaRichiesta")){
             ctx.getNamedDispatcher("InviaRichiesta").forward(request, response);
-        }
-        
-        else if(action.equals("goRegistrati")){
-            ctx.getNamedDispatcher("GoRegistrati").forward(request, response);
         }
         
         /* ### RICHIESTE IN CORSO ### */
@@ -132,37 +126,17 @@ public class MainController extends HttpServlet {
            ctx.getRequestDispatcher("/jsp/contatti.jsp").forward(request, response);
         }
         
+        /* ### LOGOUT ### */
+	else if(action.equals("logout") && s.getAttribute("utente")!=null){
+	    s.invalidate(); //distrugge la sessione
+	    ctx.getRequestDispatcher("/index.html").forward(request, response); //vai alla index
+	}
+        
         /* ### AZIONI NON GESTITE -> ERRORE! ### */
 	else {
 	    ctx.getRequestDispatcher("/error.html").forward(request, response); //vai alla pagina di errore
 	}
         
-    }
-    
-    /**
-     * Verifica se un utente è loggato
-     * @param s session
-     * @return true se è loggato, false altrimenti
-     */
-    public static boolean isLogged(HttpSession s){
-        
-        //username dell'utente
-        String username = (String) s.getAttribute("username");
-        
-        if(username == null || username.equals(""))
-            return false;
-        else
-            return true;
-    }
-    
-    /**
-     * Verifica se l'utente in questione è un amministratore
-     * @param s sessione
-     * @return true se è amministratore, false altrimenti
-     */
-    public static boolean isAdmin(HttpSession s){
-        String ruolo = (String) s.getAttribute("ruolo");
-        return(ruolo.equals("Amministratore"));
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

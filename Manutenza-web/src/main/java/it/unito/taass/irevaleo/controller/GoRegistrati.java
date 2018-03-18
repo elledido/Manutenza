@@ -33,11 +33,8 @@ public class GoRegistrati extends HttpServlet {
         request.setAttribute("email", email);
         request.setAttribute("nome", nome);
         request.setAttribute("cognome", cognome);
-        //inserire anche nome e cognome
         
         ctx.getRequestDispatcher("/jsp/completaProfilo.jsp").forward(request, response);
-        
-        
         
     }
 

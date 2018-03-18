@@ -18,9 +18,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-
 public class RegistraUtente extends HttpServlet {
-    
+
     @EJB(beanName = "GestoreUtente")
     private GestoreUtenteLocal gestoreUtente;
 
@@ -35,16 +34,15 @@ public class RegistraUtente extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         ServletContext ctx = getServletContext();
-        HttpSession session = request.getSession();
-        
+
         String nome = request.getParameter("nome");
         String cognome = request.getParameter("cognome");
         String data = request.getParameter("dataDiNascita");
-        
+
         System.out.println("Data " + data);
-        
+
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Calendar dataDiNascita = null;
         try {
@@ -54,39 +52,44 @@ public class RegistraUtente extends HttpServlet {
         } catch (ParseException ex) {
             Logger.getLogger(RegistraUtente.class.getName()).log(Level.SEVERE, null, ex);
         }
-                
+
         String codiceFiscale = request.getParameter("codiceFiscale");
         String email = request.getParameter("email");
         //String password = request.getParameter("password");
-        
+
         //DATI INDIRIZZO
         String citta = request.getParameter("citta");
         String via = request.getParameter("indirizzo");
         String provincia = request.getParameter("provincia");
         String cap = request.getParameter("cap");
-        
-        
+
         Utente utente = new Utente();
         Indirizzo indirizzo = new Indirizzo();
-       
+
         utente.setNome(nome);
         utente.setCognome(cognome);
         utente.setDataDiNascita(dataDiNascita);
         utente.setCodiceFiscale(codiceFiscale);
         utente.setEmail(email);
         //utente.setPassword(password);
-        
+
         indirizzo.setVia(via);
         indirizzo.setCitta(citta);
         indirizzo.setProvincia(provincia);
         indirizzo.setCap(cap);
-        
+
         utente.addIndirizzo(indirizzo);
-        
+
         gestoreUtente.registraUtente(utente);
-        
-        ctx.getRequestDispatcher("/jsp/home.jsp").forward(request, response);
-        
+
+        //inizializzo la sessione
+        HttpSession s = request.getSession(); //creo la sessione
+
+        //salva i dati dell'utente in sessione
+        s.setAttribute("utente", utente);
+
+        ctx.getRequestDispatcher("/jsp/dashboard.jsp").forward(request, response);
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

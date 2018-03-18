@@ -47,7 +47,7 @@
             <div id="content">
                 <h1>Dashboard</h1>
                 
-                <p><%out.print(((Utente)session.getAttribute("utente")).getCognome());%></p>
+                
                 
             </div>
 
