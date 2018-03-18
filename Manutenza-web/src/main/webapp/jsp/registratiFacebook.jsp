@@ -30,7 +30,7 @@
       // Logged into your app and Facebook.
       if (controllo) testAPI();
       //sendValues();
-      console.log("Sono entrato nell'if dopo testapi")
+      console.log("Sono entrato nell'if dopo testapi");
       
       
     } else {
@@ -113,6 +113,8 @@
               //$("html").empty();
               //$("html").append(msg);
               //console.log('wow' + msg);
+              
+              console.log("Name: " + response.first_name + " " + response.last_name);
               
               if(msg === 'esiste'){
                   window.location.href= "/Manutenza-web/MainController?action=dashboard";

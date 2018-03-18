@@ -33,6 +33,10 @@ public class MainController extends HttpServlet {
         
         System.out.println("ACTION = " + action);
         
+        if(s.getAttribute("email")!=null){
+            System.out.println("SESSION = " + s.getAttribute("email"));
+        }
+        
         /* ### AVVIO DELL'APPLICAZIONE ### */
 	if(action == null){
 	    ctx.getRequestDispatcher("/index.html").forward(request, response); //vai alla index
@@ -133,6 +137,32 @@ public class MainController extends HttpServlet {
 	    ctx.getRequestDispatcher("/error.html").forward(request, response); //vai alla pagina di errore
 	}
         
+    }
+    
+    /**
+     * Verifica se un utente è loggato
+     * @param s session
+     * @return true se è loggato, false altrimenti
+     */
+    public static boolean isLogged(HttpSession s){
+        
+        //username dell'utente
+        String username = (String) s.getAttribute("username");
+        
+        if(username == null || username.equals(""))
+            return false;
+        else
+            return true;
+    }
+    
+    /**
+     * Verifica se l'utente in questione è un amministratore
+     * @param s sessione
+     * @return true se è amministratore, false altrimenti
+     */
+    public static boolean isAdmin(HttpSession s){
+        String ruolo = (String) s.getAttribute("ruolo");
+        return(ruolo.equals("Amministratore"));
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

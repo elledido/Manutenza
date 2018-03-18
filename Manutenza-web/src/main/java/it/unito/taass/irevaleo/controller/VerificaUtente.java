@@ -14,13 +14,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author leonardo
  */
 public class VerificaUtente extends HttpServlet {
-    
+
     @EJB(beanName = "GestoreUtente")
     private GestoreUtenteLocal gestoreUtente;
 
@@ -35,23 +36,27 @@ public class VerificaUtente extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         ServletContext ctx = getServletContext();
-        
+
         String email = request.getParameter("email");
-        
+
         Utente utente = gestoreUtente.caricaUtente(email);
         String messaggio;
-        if(utente == null) {
+        if (utente == null) {
             messaggio = "nonEsiste";
         } else {
-           messaggio = "esiste";
+            messaggio = "esiste";
+            HttpSession s = request.getSession(); //creo la sessione
+
+            //salva i dati dell'utente in sessione
+            s.setAttribute("utente", utente);
         }
-        
+
         response.setContentType("text");
         response.setHeader("Cache-Control", "no-cache");
         response.getWriter().write(messaggio);
-        
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
