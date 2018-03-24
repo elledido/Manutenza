@@ -17,7 +17,7 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </head>
     <body>
-        
+
         <nav class="navbar navbar-inverse" style="border-radius: 0">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -25,47 +25,47 @@
                 </div>
             </div>
         </nav>
-        
+
         <div class="container">
             <div class="row">
-                 
+
                 <div class="col-md-8 col-md-offset-2">
                     <form role="form" action="?action=registraUtente" method="post">   
-                        
-                    <filedset>
-                        <legend>Dati Utente</legend>
-                    <div class="form-group col-md-6">
-                        <label for="nome">Nome</label>
-                        <input type="text" class="form-control" name="nome" >
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="cognome">Cognome</label>
-                        <input type="text" class="form-control" name="cognome">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="dataDiNascita">Data di Nascita</label>
-                        <input type="date" class="form-control" name="dataDiNascita" required>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="codiceFiscale">Codice Fiscale</label>
-                        <input type="text" class="form-control" name="codiceFiscale" placeholder="Inserisci il codice fiscale" required>
-                    </div>
-                    <div class="form-group col-md-12">
-                        <label for="email">Email</label>
-                        <input type="text" class="form-control" name="email">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="password">Password</label>
-                        <input type="password" class="form-control" name="password" placeholder="Inserisci una password" required>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="confirmPassword">Conferma Password</label>
-                        <input type="password" class="form-control" name="confirmPassword" placeholder="Conferma password" required>
-                    </div>
-                    </filedset>
-                        
+
+                        <filedset>
+                            <legend>Dati Utente</legend>
+                            <div class="form-group col-md-6">
+                                <label for="nome">Nome</label>
+                                <input type="text" class="form-control" name="nome" >
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="cognome">Cognome</label>
+                                <input type="text" class="form-control" name="cognome">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="dataDiNascita">Data di Nascita</label>
+                                <input type="date" class="form-control" name="dataDiNascita" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="codiceFiscale">Codice Fiscale</label>
+                                <input type="text" class="form-control" name="codiceFiscale" placeholder="Inserisci il codice fiscale" required>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="email">Email</label>
+                                <input type="text" class="form-control" name="email">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="password">Password</label>
+                                <input type="password" class="form-control" name="password" placeholder="Inserisci una password" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="confirmPassword">Conferma Password</label>
+                                <input type="password" class="form-control" name="confirmPassword" placeholder="Conferma password" required>
+                            </div>
+                        </filedset>
+
                         <legend>Dati Domicilio</legend>
-                        
+
                         <div class="form-group col-md-8">
                             <label for="citta">Citta&acute;</label>
                             <input type="text" class="form-control" name="citta" placeholder="Inserisci la tua citta&acute;" required>
@@ -82,28 +82,28 @@
                             <label for="cap">Cap</label>
                             <input type="text" class="form-control" name="cap" placeholder="" required>
                         </div>
-                        
+
                         <div class="form-group">
-                        <div class="col-md-12">
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" value="" id="">
-                                    Accetto <a href="#">termini e condizioni</a>.
-                                </label>
+                            <div class="col-md-12">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" value="" id="">
+                                        Accetto <a href="#">termini e condizioni</a>.
+                                    </label>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="form-group">
-                        <div class="col-md-12">
-                            <button type="submit" class="btn btn-primary">
-                                Registrami
-                            </button>
-                            <a href="#">Hai un account?</a>
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <button type="submit" class="btn btn-primary">
+                                    Registrami
+                                </button>
+                                <a href="#">Hai un account?</a>
+                            </div>
                         </div>
-                    </div>
-                       
-                </form>
+
+                    </form>
                 </div>
             </div>
         </div>

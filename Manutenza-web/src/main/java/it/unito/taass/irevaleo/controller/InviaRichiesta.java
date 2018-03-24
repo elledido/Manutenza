@@ -6,6 +6,7 @@
 package it.unito.taass.irevaleo.controller;
 
 import java.io.IOException;
+import java.util.Arrays;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -40,6 +41,11 @@ public class InviaRichiesta extends HttpServlet {
         //Indirizzo indirizzo = request.getParameter("indirizzo");
         String indirizzo = request.getParameter("indirizzo");
         int budget = Integer.parseInt(request.getParameter("budget"));
+        
+        String[] photos = request.getParameterValues("photos");
+        System.out.println(photos[0]);
+        System.out.println(photos[1]);
+        System.out.println(photos[2]);
         
         //invia i dati al DB
         //vai alla pagina delle richieste

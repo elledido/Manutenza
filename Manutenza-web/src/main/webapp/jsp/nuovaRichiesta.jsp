@@ -5,7 +5,15 @@
 --%>
 
 <%@page import="it.unito.taass.manutenza.entities.Utente"%>
+<%@page import="it.unito.taass.manutenza.entities.Indirizzo"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<%@ taglib prefix="c"uri="http://java.sun.com/jsp/jstl/core" %>
+
+<%
+    //dati dell'utente in sessione
+    Utente utente = (Utente) session.getAttribute("utente");
+%>
 
 <!DOCTYPE html>
 
@@ -34,94 +42,200 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
         <!-- Custom JS -->
         <script src="manutenza.js" type="text/javascript"></script>
+
     </head>
 
     <body>
+        <!-- NAVBAR -->
+        <%@include file="/navbar.txt"%>
+
+        <div class="jumbotron"></div>
         <!-- MAIN CONTAINER -->
         <div class="container">
 
-            <!-- NAVBAR -->
-            <%@include file="/navbar.txt"%>
+            <ul class="breadcrumb">
+                <li></li>
+                <li>Le mie richieste</li>
+                <li>Nuova richiesta</li>
+            </ul>
 
-            <!-- MAIN CONTENT -->
-            <div id="content">
-                <ul class="breadcrumb">
-                    <li></li>
-                    <li>Le mie richieste</li>
-                    <li>Nuova richiesta</li>
-                </ul>
+            <div class="form-box">
+                <form class="form-horizontal" action="/Manutenza-web/MainController" method="post">
 
-                <div class="form-box">
-                    <form class="form-horizontal" action="/Manutenza-web/MainController" method="post">
+                    <!-- TITOLO -->
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-xs-3" for="titolo">Titolo: </label>
+                        <div class="col-md-8 col-xs-8">
+                            <input class="form-control" id="titolo" name="titolo" type="text" required>
+                        </div>
+                    </div>
 
-                        <!-- TITOLO -->
-                        <div class="form-group">
-                            <label class="control-label col-md-3 col-xs-3" for="titolo">Titolo: </label>
-                            <div class="col-md-8 col-xs-8">
-                                <input class="form-control" id="titolo" name="titolo" type="text" required>
+                    <!-- CATEGORIA (l'elenco delle categorie dovrebbe essere fornito dalla servlet come array di stringhe) -->
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-xs-3" for="categoria">Categoria: </label>
+                        <div class="col-md-8 col-xs-8">
+                            <select class="form-control" id="categoria" name="categoria" required>
+                                <option value="cat1">Cat 1</option>
+                                <option value="cat2">Cat 2</option>
+                                <option value="cat3">Cat 3</option>
+                                <option>Cat 4</option>
+                                <option>Cat 5</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- DESCRIZIONE -->
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-xs-3" for="descrizione">Descrizione: </label>
+                        <div class="col-md-8 col-xs-8">
+                            <textarea class="form-control noresize" id="descrizione" name="descrizione" rows="5" required></textarea>
+                        </div>
+                    </div>
+
+                    <!-- INDIRIZZO (l'elenco degli indirizzi dovrebbe essere fornito dalla servlet come array di stringhe) -->
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-xs-3" for="indirizzo">Indirizzo: </label>
+                        <div class="col-md-8 col-xs-8">
+                            <select class="form-control" id="indirizzo" name="indirizzo" required>
+                                <c:forEach items="${utente.getListaIndirizzi()}" var="domicilio">
+                                    <option value="${domicilio.getId()}">${domicilio.getVia()}, ${domicilio.getCitta()} (${domicilio.getProvincia()})</option>
+                                </c:forEach>                                    
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- BUDGET MASSIMO -->
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-xs-3" for="budget">Budget massimo: </label>
+                        <div class="input-group col-md-2 col-xs-3">
+                            <span class="input-group-addon">€</span>
+                            <input class="form-control currency" id="budget" name="budget" type="number" placeholder="0" min="0" required>
+                        </div>
+                    </div>
+
+                    <!-- FOTO (l'utente inserisce il link di una foto caricata in rete) -->
+                    <div id="photoGallery" class="row">
+                        <div id="addImg" class="col-md-3 text-center">
+                            <button type="button" class="btn btn-block btn-img" data-toggle="modal" data-target="#nuovaFoto">
+                                <img class="img-responsive img-rounded" src="images/add_img.jpg">
+                            </button>
+                        </div>
+                    </div>
+                    <div id="photoLinks" class="form-group">
+
+                    </div>
+
+                    <!-- SUBMIT -->
+                    <div class="row">
+                        <div class="col-md-8 col-xs-6"></div>
+                        <div class="col-md-2 col-xs-3">
+                            <button type="button" class="btn btn-block btn-annul"><a href="#">Annulla</a></button>
+                        </div>
+                        <div class="col-md-2 col-xs-3">
+                            <button type="submit" class="btn btn-block btn-ok" name="action" value="inviaRichiesta">Invia richiesta</button>
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+            <!-- Form Aggiungi foto -->
+            <div class="modal fade" id="nuovaFoto" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body row">
+                            <div class="col-xs-12" align="center">
+                                <form>
+                                    <label class="control-label col-md-3 col-xs-3" for="url">URL: </label>
+                                    <div class="col-md-8 col-xs-8">
+                                        <input class="form-control" id="url" name="url" type="url" placeholder="http://www.myimagelink.com" required>
+                                    </div>
+                                </form>
                             </div>
                         </div>
-
-                        <!-- CATEGORIA (l'elenco delle categorie dovrebbe essere fornito dalla servlet come array di stringhe) -->
-                        <div class="form-group">
-                            <label class="control-label col-md-3 col-xs-3" for="categoria">Categoria: </label>
-                            <div class="col-md-8 col-xs-8">
-                                <select class="form-control" id="categoria" name="categoria" required>
-                                    <option value="cat1">Cat 1</option>
-                                    <option value="cat2">Cat 2</option>
-                                    <option value="cat3">Cat 3</option>
-                                    <option>Cat 4</option>
-                                    <option>Cat 5</option>
-                                </select>
+                        <div class="modal-footer">
+                            <div class="col-xs-3"></div>
+                            <div class="col-xs-3">
+                                <button type="button" class="btn btn-block btn-annul" data-dismiss="modal">Annulla</button>
                             </div>
+                            <div class="col-xs-3">
+                                <button id="addPhotoLink" type="button" class="btn btn-block btn-ok" data-dismiss="modal">Aggiungi</button>
+                            </div>
+                            <div class="col-xs-3"></div>
                         </div>
-
-                        <!-- DESCRIZIONE -->
-                        <div class="form-group">
-                            <label class="control-label col-md-3 col-xs-3" for="descrizione">Descrizione: </label>
-                            <div class="col-md-8 col-xs-8">
-                                <textarea class="form-control noresize" id="descrizione" name="descrizione" rows="5" required></textarea>
-                            </div>
-                        </div>
-
-                        <!-- INDIRIZZO (l'elenco degli indirizzi dovrebbe essere fornito dalla servlet come array di stringhe) -->
-                        <div class="form-group">
-                            <label class="control-label col-md-3 col-xs-3" for="indirizzo">Indirizzo: </label>
-                            <div class="col-md-8 col-xs-8">
-                                <select class="form-control" id="indirizzo" name="indirizzo" required>
-                                    <option value="id1">Via Indirizzo, 1, Città1 (C1)</option>
-                                    <option value="id2">Via Indirizzo, 2, Città2 (C2)</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <!-- BUDGET MASSIMO -->
-                        <div class="form-group">
-                            <label class="control-label col-md-3 col-xs-3" for="budget">Budget massimo: </label>
-                            <div class="input-group col-md-2 col-xs-3">
-                                <span class="input-group-addon">€</span>
-                                <input class="form-control currency" id="budget" name="budget" type="number" placeholder="0" min="0" required>
-                            </div>
-                        </div>
-
-                        <!-- FOTO (da vedere come gestirle) -->
-
-                        <!-- SUBMIT -->
-                        <div class="row">
-                            <div class="col-md-8 col-xs-6"></div>
-                            <div class="col-md-2 col-xs-3">
-                                <button type="button" class="btn btn-block btn-annul"><a href="#">Annulla</a></button>
-                            </div>
-                            <div class="col-md-2 col-xs-3">
-                                <button type="submit" class="btn btn-block btn-ok" name="action" value="inviaRichiesta">Invia richiesta</button>
-                            </div>
-                        </div>
-
-                    </form>
+                    </div>
                 </div>
-
             </div>
 
         </div>
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+
+                var numPhotos = 0;
+                var maxPhotos = 10;
+
+                $('#addPhotoLink').on("click", function() {
+                    numPhotos++; //aumento il numero di foto
+                    var link = $('#url').val(); //link della foto
+                    var photoLinks = $('#photoLinks');
+                    var photoGallery = $('#photoGallery');
+                    var addImg = $('#addImg');
+
+                    //campo hidden per il link della foto
+                    var photoField = document.createElement("input");
+                    photoField.name = "photos";
+                    photoField.type = "hidden";
+                    photoField.value = link;
+
+                    photoLinks.append(photoField); //aggiungo il campo hidden al form
+                    
+                    //faccio visualizzare la foto appena inserita
+                    var photoDiv = document.createElement("div");
+                    photoDiv.className = "col-md-3";
+                    
+                    var photoImg = document.createElement("img");
+                    photoImg.className = "img-responsive img-rounded photo-gallery";
+                    photoImg.src = link;
+                    
+                    //bottone per eliminare l'immagine
+                    var closeBtn = document.createElement("button");
+                    closeBtn.className = "btn close btn-close";
+                    closeBtn.onclick = function(event) {
+                        deleteImg($(this), event);
+                    };
+                    
+                    var closeIcon = document.createElement("i");
+                    closeIcon.className = "fa fa-times fa-2x";
+                    closeBtn.appendChild(closeIcon);
+                    
+                    photoDiv.appendChild(photoImg);
+                    photoDiv.appendChild(closeBtn);
+                    
+                    $('#addImg').remove();
+                    photoGallery.append(photoDiv);
+                    //se non ho raggiunto il numero di foto massime
+                    if(numPhotos !== maxPhotos){
+                        photoGallery.append(addImg);
+                    }
+                    
+                });
+                
+                function deleteImg(element, event) {
+                    event.preventDefault();
+                    
+                    var photoDiv = element.parent(); //div contenente la foto
+                    var photoIndex = photoDiv.index(); //posizione della foto nell'elenco
+                    var photoField = $('#photoLinks').children().eq(photoIndex); //campo hidden della foto
+                    
+                    photoDiv.remove(); //rimuovo la foto
+                    photoField.remove(); //rimuovo il campo hidden
+                    
+                    numPhotos--; //diminuisco il numero delle foto
+                }
+
+            });
+        </script>
+
     </body>
 </html>

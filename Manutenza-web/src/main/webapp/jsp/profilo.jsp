@@ -100,14 +100,13 @@
                             </div>
                         </div>
 
-                        <div class="line"></div>
-
                         <!-- DOMICILII -->
                         <c:set var="i" value="${0}"/>
 
                         <c:forEach items="${utente.getListaIndirizzi()}" var="domicilio">
                             <c:set var="i" value="${i+1}"/>
 
+                            <div class="line"></div>
                             <div>
                                 <p class="domicilio">Domicilio ${i}</p>
                                 <!-- Città e provincia -->

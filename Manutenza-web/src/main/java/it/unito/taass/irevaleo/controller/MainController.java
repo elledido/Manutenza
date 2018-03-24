@@ -1,6 +1,8 @@
 package it.unito.taass.irevaleo.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -15,6 +17,17 @@ import javax.servlet.http.HttpSession;
  */
 public class MainController extends HttpServlet {
 
+    @Override
+    public void init(ServletConfig conf) throws ServletException {
+	
+	super.init(conf); //metodo della superclasse
+	
+	//recupero l'elenco delle categorie dal db
+	
+	//getServletContext().setAttribute("categorie", categorie); //salva l'elenco delle categorie nel contesto dell'applicazione
+	
+    }
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.

@@ -243,8 +243,11 @@
 					//utente non loggato
 					else { %>
 					<li>
-						<fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>
-						<form id="sign-in-form" method="post" action="/Manutenza-web/MainController?action=goRegistrati"></form>
+                                                <a>
+                                                        <fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>
+                                                        <form id="sign-in-form" method="post" action="/Manutenza-web/MainController?action=goRegistrati"></form>
+                                                </a>
+						
 					</li>
 					<%}
 				%>

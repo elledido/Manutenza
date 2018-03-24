@@ -213,7 +213,7 @@
                                 <div class="modal-footer">
                                     <div class="col-xs-3"></div>
                                     <div class="col-xs-3">
-                                        <button type="button" class="btn btn-block btn-annul" data-dismiss="modal">Annula</button>
+                                        <button type="button" class="btn btn-block btn-annul" data-dismiss="modal">Annulla</button>
                                     </div>
                                     <div class="col-xs-3">
                                         <button type="submit" class="btn btn-block btn-ok" name="action" value="valutaManutente">Conferma</button>

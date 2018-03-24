@@ -9,6 +9,7 @@
     #8c8c8c rgb(140, 140, 140)
     #c0c0c0 rgb(192, 192, 192)
     #fffffa rgb(255, 255, 250)
+    #ffe0b3 rgb(255, 224, 179)
     #ff8000 rgb(255, 128, 0)
 */
 
@@ -21,6 +22,14 @@ body {
     color: #3e3e3e;
 }
 
+.jumbotron{
+    background: url("images/jumbo4.jpg") no-repeat center top;
+    background-size: cover;
+    height: 400px;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
 a, a:hover, a:focus {
     color: inherit;
     text-decoration: none;
@@ -28,7 +37,6 @@ a, a:hover, a:focus {
 }
 
 #content {
-    
     padding-top: 70px;
     min-height: 100vh;
 }
@@ -252,11 +260,14 @@ ul.breadcrumb li+li:before {
 }
 
 .form-box {
-    background-color: #c0c0c0;
-    width: calc(100% - 100px);
+    background-color: #ffe0b3;
     margin: 0 50px 25px 50px;
     padding: 10px 30px;
 
+}
+
+.add-img {
+    background: url("images/add_img.jpg") no-repeat center;
 }
 
 .titolo {
@@ -294,6 +305,10 @@ input.currency {
     padding: 0;
 }
 
+.photo-gallery {
+    position: relative;
+}
+
 .btn {
     border-radius: 10px;
 }
@@ -308,6 +323,17 @@ input.currency {
     background-color: #e6e6e6;
     color: #b3b3b3;
     border: 1px solid #b3b3b3;
+}
+
+.btn-img {
+    padding: 0;
+    border: none;
+}
+
+.btn-close {
+    position: absolute;
+    top: 0;
+    right: 20px;
 }
 
 .btn-badge {
