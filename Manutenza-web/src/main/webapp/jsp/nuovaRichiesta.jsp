@@ -121,9 +121,7 @@
                             </button>
                         </div>
                     </div>
-                    <div id="photoLinks" class="form-group">
-
-                    </div>
+                    <div id="photoLinks" class="form-group"></div>
 
                     <!-- SUBMIT -->
                     <div class="row">
