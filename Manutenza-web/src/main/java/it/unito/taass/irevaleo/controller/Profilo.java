@@ -1,7 +1,6 @@
 package it.unito.taass.irevaleo.controller;
 
 import it.unito.taass.manutenza.ejb.GestoreUtenteLocal;
-import it.unito.taass.manutenza.entities.Indirizzo;
 import it.unito.taass.manutenza.entities.Utente;
 import java.io.IOException;
 import java.text.SimpleDateFormat;

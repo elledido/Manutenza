@@ -12,5 +12,6 @@ public interface GestoreUtenteLocal {
             String codiceFiscale,String email, String password);
     public void eliminaUtente(Utente utente);
     public Utente caricaUtente(String email);
-    
+    public Utente caricaUtente(Long id);
+    public void aggiornaUtente(Utente daAggiornare);
 }

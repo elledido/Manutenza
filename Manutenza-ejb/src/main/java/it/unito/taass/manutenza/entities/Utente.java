@@ -26,7 +26,7 @@ import javax.persistence.Transient;
     @NamedQuery(name = "Utente.cercaPerId", query = "SELECT u FROM Utente u WHERE u.id = :id" ),
     @NamedQuery(name = "Utente.cercaPerEmail", query = "SELECT u FROM Utente u WHERE u.email = :email")
 })
-public class Utente implements Serializable {
+public class Utente implements Serializable { //l'interfaccia Serializable è necessaria per rendere persistenti gli oggetti
 
     private static final long serialVersionUID = 1L;
     @Id
