@@ -1,0 +1,119 @@
+<script type="text/javascript">
+
+    //invio del messaggio
+    function sendMsg() {
+
+        //nome utente
+        //var nameAccount = "<%//out.print(((Utente)session.getAttribute("utente")).getNome() + " " + ((Utente)session.getAttribute("utente")).getCognome()); %>";
+        var nameAccount = "Account";
+
+        //prendi il testo del messaggio
+        var msg = $("input[name='msg']").val();
+
+        var date = new Date();
+        console.log(date.getHours() + '.' + (date.getMinutes()<10?'0':'') + date.getMinutes());
+
+        //verifica il testo del messaggio
+        //invia il messaggio al backend JMS tramite funzione Ajax
+
+        //se tutto è andato bene, stampa il messaggio a video e il momento in cui è stato inviato
+        var control = '<li class="right clearfix">' +
+                        '<span class="pull-right">' +
+                            '<img class="chat-img img-circle" src="http://placehold.it/50/FA6F57/fff&text=ME" alt="profile-img"/>' +
+                        '</span>' +
+                        '<div class="chat-body clearfix">' +
+                            '<div class="header">' +
+                                '<small class="text-muted"><span class="glyphicon glyphicon-time"></span>'+
+                                    (date.getHours()<10?'0':'') + date.getHours() + ':' + (date.getMinutes()<10?'0':'') + date.getMinutes() + '</small>' +
+                                '<strong class="pull-right">' + nameAccount + '</strong>'+
+                            '</div>' +
+                            '<p>'+ msg + '</p>' +
+                        '</div>' +
+                    '</li>';
+
+        $('#chat-list').append(control).scrollTop($('#chat-list').prop('scrollHeight'));
+
+        $("input[name='msg']").val("");
+
+    }
+
+    //ricevi i messaggi
+    function receiveMsg() {
+        //funzione ajax che prende il messaggio
+    }
+
+    $(document).ready(function () {
+        //nascondi chat
+        $('#chat-head').on('click', function () {
+            $('#chat').toggleClass('collapse');
+        });
+        //chiudi chat
+        $('#chat-close').on('click', function () {
+            $('.chat-box').toggleClass('collapse');
+        });
+
+        $('#sendMsgChat').on('submit', function(e) {
+            e.preventDefault();
+            sendMsg();
+        });
+
+    });
+</script>
+
+<!------------------------------------ CHAT ------------------------------------>
+
+<div class="panel chat-box" role="button">
+    <div id="chat-head" class="panel-heading chat-header">
+        CHAT
+        <div class="btn-group pull-right">
+            <button id="chat-close" class="btn btn-xs close"><span class="fa fa-times"></span></button>
+        </div>
+    </div>
+    <div class="panel-collapse" id="chat">
+        <div class="panel-body">
+            <ul id="chat-list">
+                <li class="left clearfix">
+                    <span class="pull-left">
+                        <img class="chat-img img-circle" src="images/profile_img.png" alt="profile-img"/>
+                    </span>
+                    <div class="chat-body clearfix">
+                        <div class="header">
+                            <strong>OtherAccount</strong>
+                            <small class="pull-right text-muted"><span class="glyphicon glyphicon-time"></span>10:06</small>
+                        </div>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
+                            dolor, quis ullamcorper ligula sodales.
+                        </p>
+                    </div>
+                </li>
+                <li class="right clearfix">
+                    <span class="pull-right">
+                        <img class="chat-img img-circle" src="http://placehold.it/50/FA6F57/fff&text=ME" alt="profile-img"/>
+                    </span>
+                    <div class="chat-body clearfix">
+                        <div class="header">
+                            <small class="text-muted"><span class="glyphicon glyphicon-time"></span>10:11</small>
+                            <strong class="pull-right">Account</strong>
+                        </div>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
+                            dolor, quis ullamcorper ligula sodales.
+                        </p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="panel-footer">
+            <form id="sendMsgChat">
+                <div class="input-group">
+                    <input class="form-control input-sm" name="msg" type="text" placeholder="Scrivi un messaggio..." required>
+                    <span class="input-group-btn">
+                        <button type="submit" class="btn btn-sm btn-send" id="btn-chat">Invia</button>
+                    </span>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

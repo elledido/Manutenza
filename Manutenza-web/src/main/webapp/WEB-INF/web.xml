@@ -28,6 +28,10 @@
         <servlet-name>VerificaUtente</servlet-name>
         <servlet-class>it.unito.taass.irevaleo.controller.VerificaUtente</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AggiungiCompetenza</servlet-name>
+        <servlet-class>it.unito.taass.irevaleo.controller.AggiungiCompetenza</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MainController</servlet-name>
         <url-pattern>/MainController</url-pattern>
@@ -55,6 +59,10 @@
     <servlet-mapping>
         <servlet-name>VerificaUtente</servlet-name>
         <url-pattern>/VerificaUtente</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AggiungiCompetenza</servlet-name>
+        <url-pattern>/AggiungiCompetenza</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

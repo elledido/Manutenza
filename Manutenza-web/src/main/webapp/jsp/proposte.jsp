@@ -20,6 +20,7 @@
         <!-- Bootstrap CSS CDN -->
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
         <!-- Custom CSS -->
+        <link href='https://fonts.googleapis.com/css?family=Andika' rel='stylesheet'>
         <link href="manutenzastyle.css" rel="stylesheet" type="text/css"/>
         <!-- Scrollbar Custom CSS -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
@@ -37,82 +38,82 @@
     </head>
 
     <body>
+        <!-- NAVBAR -->
+        <%@include file="/navbar.txt"%>
+        <div class="jumbotron"></div>
+
         <!-- MAIN CONTAINER -->
         <div class="container">
 
-            <!-- NAVBAR E SIDEBAR -->
-            <%@include file="/navbar.txt"%>
+            <h2>Titolo richiesta</h2>
 
-            <!-- MAIN CONTENT -->
-            <div id="content">
-                <ul class="breadcrumb">
-                    <li></li>
-                    <li>Le mie richieste</li>
-                    <li>In corso</li>
-                    <li>Titolo richiesta</li>
-                </ul>
-
-                <div class="form-box">
-                    <div class="row">
-                        <!-- Foto -->
-                        <div class="img-box col-md-2 col-xs-2">
-                            <img class="profile-img" src="images/profile_img.png" alt="profile-img"/>
-                        </div>
-                        <!-- Dati richiesta -->
-                        <div class="col-md-9 col-xs-8">
-                            <p class="titolo">Nome Manutente 1</p>
-                            <form class="form-horizontal">
-                                <!-- Categoria -->
-                                <div class="form-group">
-                                    <label class="control-label col-md-3 col-xs-3" for="categoria">Categoria: </label>
-                                    <div class="col-md-6 col-xs-8">
-                                        <input class="form-control" id="categoria" name="categoria" type="text" readonly value="Categoria">
-                                    </div>
-                                </div>
-                                <!-- Valutazione -->
-                                <div class="form-group">
-                                    <label class="control-label col-md-3 col-xs-3" for="valutazione">Valutazione: </label>
-                                    <div class="col-md-6 col-xs-8 rating-star">
-                                        <!-- RATING STAR -->                            
-                                        <div class="container-fluid back-stars">
-                                            <i class="fa fa-star fa-2x back-star" aria-hidden="true"></i>
-                                            <i class="fa fa-star fa-2x back-star" aria-hidden="true"></i>
-                                            <i class="fa fa-star fa-2x back-star" aria-hidden="true"></i>
-                                            <i class="fa fa-star fa-2x back-star" aria-hidden="true"></i>
-                                            <i class="fa fa-star fa-2x back-star" aria-hidden="true"></i>
-                                        </div>
-
-                                        <div class="container-fluid front-stars">
-                                            <c:forEach var="i" begin="1" end="4">
-                                                <i id="star<c:out value="${i}"/>" class="fa fa-star fa-2x" aria-hidden="true"></i>
-                                            </c:forEach>
-                                            <c:forEach var="i" begin="5" end="5">
-                                                <i id="star<c:out value="${i}"/>" class="fa fa-star-o fa-2x" aria-hidden="true"></i>
-                                            </c:forEach>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Budget proposto -->
-                                <div class="form-group">
-                                    <label class="control-label col-md-3 col-xs-3" for="budget">Budget: </label>
-                                    <div class="input-group col-md-2 col-xs-4">
-                                        <span class="input-group-addon">€</span>
-                                        <input class="form-control currency" id="budget" name="budget" type="number" readonly value="50">
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
+            <div class="form-box">
+                <div class="row">
+                    <!-- Foto -->
+                    <div class="img-box col-md-2 col-xs-2">
+                        <img class="profile-img" src="images/profile_img.png" alt="profile-img"/>
                     </div>
-                    <div class="row">
-                        <div class="col-md-10 col-xs-8"></div>
-                        <div class="col-md-2 col-xs-4">
-                            <button type="button" class="btn btn-block btn-ok"><a href=#">Accetta proposta</a></button>
-                            <!-- apre la chat -->
-                        </div>
+                    <!-- Dati richiesta -->
+                    <div class="col-md-9 col-xs-8">
+                        <p class="titolo">Nome Manutente 1</p>
+                        <form class="form-horizontal">
+                            <!-- Categoria -->
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-xs-3" for="categoria">Categoria: </label>
+                                <div class="col-md-6 col-xs-8">
+                                    <input class="form-control" id="categoria" name="categoria" type="text" readonly value="Categoria">
+                                </div>
+                            </div>
+                            <!-- Valutazione -->
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-xs-3" for="valutazione">Valutazione: </label>
+                                <div class="col-md-6 col-xs-8 rating-star">
+                                    <!-- RATING STAR -->                            
+                                    <div class="container-fluid back-stars">
+                                        <i class="fa fa-star fa-2x back-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star fa-2x back-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star fa-2x back-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star fa-2x back-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star fa-2x back-star" aria-hidden="true"></i>
+                                    </div>
+
+                                    <div class="container-fluid front-stars">
+                                        <c:forEach var="i" begin="1" end="4">
+                                            <i id="star<c:out value="${i}"/>" class="fa fa-star fa-2x" aria-hidden="true"></i>
+                                        </c:forEach>
+                                        <c:forEach var="i" begin="5" end="5">
+                                            <i id="star<c:out value="${i}"/>" class="fa fa-star-o fa-2x" aria-hidden="true"></i>
+                                        </c:forEach>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Budget proposto -->
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-xs-3" for="budget">Budget: </label>
+                                <div class="input-group budget col-md-2 col-xs-4">
+                                    <span class="input-group-addon">€</span>
+                                    <input class="form-control currency" id="budget" name="budget" type="number" readonly value="50">
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
-
+                <div class="row">
+                    <div class="col-md-10 col-xs-8"></div>
+                    <div class="col-md-2 col-xs-4">
+                        <button type="button" class="btn btn-block btn-ok"><a href=#">Accetta proposta</a></button>
+                        <!-- apre la chat -->
+                    </div>
+                </div>
             </div>
+
+            <!-- FOOTER -->
+            <%@include file="/footer.txt"%>
+            
         </div>
+        
+        <!-- CHAT -->
+        <%@include file="/chat.txt"%>
+        
     </body>
 </html>

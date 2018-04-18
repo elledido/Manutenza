@@ -20,6 +20,7 @@
         <!-- Bootstrap CSS CDN -->
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
         <!-- Custom CSS -->
+        <link href='https://fonts.googleapis.com/css?family=Andika' rel='stylesheet'>
         <link href="manutenzastyle.css" rel="stylesheet" type="text/css"/>
         <!-- Scrollbar Custom CSS -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
@@ -37,21 +38,23 @@
     </head>
 
     <body>
+
+        <!-- NAVBAR -->
+        <%@include file="/navbar.txt"%>
+        <div class="jumbotron"></div>
+
         <!-- MAIN CONTAINER -->
         <div class="container">
-
-            <!-- NAVBAR E SIDEBAR -->
-            <%@include file="/navbar.txt"%>
-
-            <!-- MAIN CONTENT -->
-            <div id="content">
-                <h1>Dashboard</h1>
-                
-                
-                
-            </div>
-
+            <h2>Dashboard</h2>
+            
+            <!-- FOOTER -->
+            <%@include file="/footer.txt"%>
+            
         </div>
+        
+        <!-- CHAT -->
+        <%@include file="/chat.txt"%>
+
     </body>
 
 </html>

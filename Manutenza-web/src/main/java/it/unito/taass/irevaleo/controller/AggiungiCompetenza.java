@@ -1,27 +1,23 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package it.unito.taass.irevaleo.controller;
 
-import it.unito.taass.manutenza.ejb.GestoreUtenteLocal;
-import it.unito.taass.manutenza.entities.Utente;
+import it.unito.taass.manutenza.entities.Competenza;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import javax.ejb.EJB;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
- * POTREBBE ESSERE ELIMINATA!!!!!!!!
- * Scarica i dati relativi al profilo dell'utente in sessione e li visualizza nella jsp corrispondente
+ *
  * @author irene
  */
-public class Profilo extends HttpServlet {
-    
-    @EJB(beanName = "GestoreUtente")
-    private GestoreUtenteLocal gestoreUtente;
-    private Utente utente;
+public class AggiungiCompetenza extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,33 +31,21 @@ public class Profilo extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        ServletContext ctx = getServletContext(); //contesto dell'applicazione
-        HttpSession s = request.getSession(); //sessione
-              
-        utente = (Utente) s.getAttribute("utente"); //utente in sessione
+        ServletContext ctx = getServletContext(); //contesto della Servlet
         
-        //Formatto la data di nascita e poi la trasformo in una stringa
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        String dataDiNascita = sdf.format(utente.getDataDiNascita().getTime());
+        /* dati del form*/
+        String categoria = request.getParameter("categoria");
+        String tipo = request.getParameter("tipo");
+        String partitaIVA = request.getParameter("partitaIVA");
+        String zona = request.getParameter("zona");
         
-        request.setAttribute("dataNascita", dataDiNascita); //data nascita
+        //verifica della partita IVA???
         
-        /*//Prendo un indirizzo dalla lista degli indirizzi dell'utente
-        //Al caricamento dell'utente dal db la sua listaIndirizzi è caricata automaticamente
-        Indirizzo indirizzo = utente.getListaIndirizzi().get(0);
+        Competenza competenza = new Competenza();
         
-        //per i domicili (nella jsp basterà usare un for each per iterare tutti i domicili)
-        //ArrayList<Indirizzo> domicilii = new ArrayList(utente.getListaIndirizzi());
-        //request.setAttribute("domicilii", domicilii); */
+        System.out.println(categoria + " " + tipo + " " + partitaIVA + " " + zona);
         
-        //domicilio 1
-        request.setAttribute("citta", "citta"); //città
-        request.setAttribute("provincia", "po"); //provincia
-        request.setAttribute("via", "via qualcosa"); //via
-        request.setAttribute("cap", "10100"); //CAP
-        
-        ctx.getRequestDispatcher("/jsp/profilo.jsp").forward(request, response); //vai alla pagina del profilo
-        
+        ctx.getRequestDispatcher("/jsp/leMieCompetenze.jsp").forward(request, response); //torna alla pagina delle competenze
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

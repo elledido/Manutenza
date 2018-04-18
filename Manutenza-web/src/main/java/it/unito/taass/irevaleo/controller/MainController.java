@@ -112,6 +112,10 @@ public class MainController extends HttpServlet {
         /* ### LE MIE COMPETENZE (solo ManUtente) ### */
         else if(action.equals("competenze")){
             //visualizza competenze di un ManUtente
+            ctx.getRequestDispatcher("/jsp/leMieCompetenze.jsp").forward(request, response);
+        }
+        else if(action.equals("aggiungiCompetenza")){
+            ctx.getNamedDispatcher("AggiungiCompetenza").forward(request, response);
         }
         
         /* ### PROPOSTE DI LAVORO (solo ManUtente) ### */
