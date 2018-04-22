@@ -5,19 +5,32 @@
  */
 package it.unito.taass.irevaleo.controller;
 
+import it.unito.taass.manutenza.ejb.GestoreRichiesteLocal;
+import it.unito.taass.manutenza.entities.Foto;
+import it.unito.taass.manutenza.entities.Indirizzo;
+import it.unito.taass.manutenza.entities.Utente;
 import java.io.IOException;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
+import javax.ejb.EJB;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author irene
  */
 public class InviaRichiesta extends HttpServlet {
+    
+    @EJB(beanName = "GestoreRichieste")
+    private GestoreRichiesteLocal gestoreRichieste;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,24 +45,62 @@ public class InviaRichiesta extends HttpServlet {
             throws ServletException, IOException {
         
         ServletContext ctx = getServletContext(); //contesto della Servlet
+        HttpSession s = request.getSession();
+        
+        /* Utente che sta compilando la richiesta */
+        Utente utente = (Utente)s.getAttribute("utente");
         
         /* campi del form */
         String titolo = request.getParameter("titolo");
-        //Categoria categoria = request.getParameter("categoria");
         String categoria = request.getParameter("categoria");
         String descrizione = request.getParameter("descrizione");
-        //Indirizzo indirizzo = request.getParameter("indirizzo");
-        String indirizzo = request.getParameter("indirizzo");
-        int budget = Integer.parseInt(request.getParameter("budget"));
+        Indirizzo indirizzo = this.ceracIndirizzo(utente, request);
+        float budget = Float.parseFloat(request.getParameter("budget"));
+        List<Foto> listaFoto = this.caricaListaFoto(request);
         
-        String[] photos = request.getParameterValues("photos");
-        System.out.println(photos[0]);
-        System.out.println(photos[1]);
-        System.out.println(photos[2]);
+        /*altri campi necessari per salvare la richiesta nel db */
+        String statoCompletamento = "in attesa";
+        Calendar dataDiCreazione = Calendar
+                .getInstance(TimeZone.getTimeZone("Europe/Rome"), Locale.ITALY);
+        Calendar dataDiCompletamento = null;
         
         //invia i dati al DB
+        gestoreRichieste.createRichiesta(utente, 
+            indirizzo, 
+            titolo,
+            descrizione,
+            categoria,
+            budget,
+            listaFoto,
+            dataDiCreazione,
+            dataDiCompletamento,
+            statoCompletamento);
+                
+        
         //vai alla pagina delle richieste
         
+    }
+ 
+    private Indirizzo ceracIndirizzo(Utente utente, HttpServletRequest request) {
+        Long indirizzoId = Long.parseLong(request.getParameter("indirizzo"));
+        Indirizzo daCercare = null;
+        for(Indirizzo i : utente.getListaIndirizzi()) {
+            if(i.getId().equals(indirizzoId)) {
+                daCercare = i;
+            }
+        }
+    return daCercare;
+    }
+    
+    private List<Foto> caricaListaFoto(HttpServletRequest request) {
+        String[] photos = request.getParameterValues("photos");
+        List<Foto> listaFoto = new ArrayList<>();
+        for(String photoLink : photos) {
+            Foto foto = new Foto();
+            foto.setLink(photoLink);
+            listaFoto.add(foto);
+        }
+    return listaFoto;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

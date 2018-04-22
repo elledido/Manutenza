@@ -62,7 +62,7 @@
 
 <!------------------------------------ CHAT ------------------------------------>
 
-<div class="panel chat-box" role="button">
+<div class="panel chat-box collapse" role="button">
     <div id="chat-head" class="panel-heading chat-header">
         CHAT
         <div class="btn-group pull-right">

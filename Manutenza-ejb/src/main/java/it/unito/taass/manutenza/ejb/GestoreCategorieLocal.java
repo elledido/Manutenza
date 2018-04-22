@@ -17,6 +17,7 @@ import javax.ejb.Local;
 public interface GestoreCategorieLocal {
     
     public void registraCategoria(Categoria categoria);
+    public void eliminaCategoria(Categoria daEliminare);
     public List<Categoria> caricaListaCategorie();
     
 }

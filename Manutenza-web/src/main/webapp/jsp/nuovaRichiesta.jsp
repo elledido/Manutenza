@@ -6,6 +6,7 @@
 
 <%@page import="it.unito.taass.manutenza.entities.Utente"%>
 <%@page import="it.unito.taass.manutenza.entities.Indirizzo"%>
+<%@page import="it.unito.taass.manutenza.entities.Categoria"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <%@ taglib prefix="c"uri="http://java.sun.com/jsp/jstl/core" %>
@@ -72,11 +73,9 @@
                         <label class="control-label col-md-3 col-xs-3" for="categoria">Categoria: </label>
                         <div class="col-md-8 col-xs-8">
                             <select class="form-control" id="categoria" name="categoria" required>
-                                <option value="cat1">Cat 1</option>
-                                <option value="cat2">Cat 2</option>
-                                <option value="cat3">Cat 3</option>
-                                <option>Cat 4</option>
-                                <option>Cat 5</option>
+                                <c:forEach items="${applicationScope.categorie}" var="categoria">
+                                    <option value="${categoria.getNome()}">${categoria.getNome()}</option>
+                                </c:forEach>  
                             </select>
                         </div>
                     </div>

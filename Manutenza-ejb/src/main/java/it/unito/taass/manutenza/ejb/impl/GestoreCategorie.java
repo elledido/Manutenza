@@ -34,4 +34,9 @@ public class GestoreCategorie implements GestoreCategorieLocal {
     public void registraCategoria(Categoria categoria) {
         em.persist(categoria);
     }
+
+    @Override
+    public void eliminaCategoria(Categoria daEliminare) {
+        em.remove(daEliminare);
+    }
 }

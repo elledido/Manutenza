@@ -31,7 +31,7 @@ public class CategoryUploader {
    
     private Categoria categoria;
     private Categoria categoria2;
-    //private List<Categoria> listaCategorie;
+    private List<Categoria> listaCategorie;
 
     @Transactional //Per via di un big(?) i metodi con PostConstruct vanno resi transactional
     @PostConstruct
@@ -47,18 +47,20 @@ public class CategoryUploader {
         gestoreCategorie.registraCategoria(categoria2);
     }
     
-    public void upload() {
-        List<Categoria> listaCategoria = gestoreCategorie.caricaListaCategorie();
+    public List<Categoria> upload() {
+        List<Categoria> listaCategorie = gestoreCategorie.caricaListaCategorie();
         
-        for(Categoria categoria : listaCategoria) {
+        for(Categoria categoria : listaCategorie) {
             System.out.println("Categoria: " + categoria.getNome());
         }
+    return listaCategorie;
     }
     
 //    @PreDestroy
 //    public void cleanDB() {
 //        System.out.println("Elimino utente");
-//        gestoreUtente.eliminaUtente(utente);
+//        gestoreCategorie.eliminaCategoria(categoria);
+//        gestoreCategorie.eliminaCategoria(categoria2);
 //    }
-//    
+    
 }

@@ -1,12 +1,16 @@
 package it.unito.taass.manutenza.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 
@@ -25,7 +29,9 @@ public class Richiesta implements Serializable {
     private String descrizione;
     private String categoria; //idraulico eccetera
     private float budget;
-    @Temporal(javax.persistence.TemporalType.DATE)
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Foto> listaFoto = new ArrayList<>();
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Calendar dataDiCreazione;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Calendar dataDiCompletamento;
@@ -87,6 +93,14 @@ public class Richiesta implements Serializable {
         this.budget = budget;
     }
 
+    public List<Foto> getListaFoto() {
+        return listaFoto;
+    }
+
+    public void setListaFoto(List<Foto> listaFoto) {
+        this.listaFoto = listaFoto;
+    }
+
     public Calendar getDataDiCreazione() {
         return dataDiCreazione;
     }
@@ -109,6 +123,18 @@ public class Richiesta implements Serializable {
 
     public void setStato(String stato) {
         this.stato = stato;
+    }
+    
+    public void aggiungiFoto(Foto foto) {
+        this.listaFoto.add(foto);
+    }
+    
+    public void eliminaFoto(Foto daEliminare) {
+        for(Foto daCercare : listaFoto) {
+            if(daCercare.getId().equals(daEliminare.getId())) {
+                this.listaFoto.remove(daEliminare);
+            }
+        }
     }
 
 }
