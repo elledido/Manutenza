@@ -1,15 +1,11 @@
 package it.unito.taass.irevaleo.controller;
 
+import it.unito.taass.irevaleo.Utilita;
 import it.unito.taass.manutenza.ejb.GestoreUtenteLocal;
 import it.unito.taass.manutenza.entities.Indirizzo;
 import it.unito.taass.manutenza.entities.Utente;
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -37,49 +33,38 @@ public class RegistraUtente extends HttpServlet {
 
         ServletContext ctx = getServletContext();
 
+        /* DATI UTENTE PRELEVATI DALLA FORM */
         String nome = request.getParameter("nome");
         String cognome = request.getParameter("cognome");
-        String data = request.getParameter("dataDiNascita");
-
-        System.out.println("Data " + data);
-
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        Calendar dataDiNascita = null;
-        try {
-            Date date = sdf.parse(data);
-            dataDiNascita = Calendar.getInstance();
-            dataDiNascita.setTime(date);
-        } catch (ParseException ex) {
-            Logger.getLogger(RegistraUtente.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
+        Calendar dataDiNascita = Utilita.getDataDiNascita(request.getParameter("dataDiNascita"));
         String codiceFiscale = request.getParameter("codiceFiscale");
         String email = request.getParameter("email");
         //String password = request.getParameter("password");
 
-        //DATI INDIRIZZO
+        /* DATI INDIRIZZO PRELEVATI DALLA FORM */
         String citta = request.getParameter("citta");
         String via = request.getParameter("indirizzo");
         String provincia = request.getParameter("provincia");
         String cap = request.getParameter("cap");
 
+        /* CREAZIONE NUOVO UTENTE */
         Utente utente = new Utente();
-        Indirizzo indirizzo = new Indirizzo();
-
         utente.setNome(nome);
         utente.setCognome(cognome);
         utente.setDataDiNascita(dataDiNascita);
         utente.setCodiceFiscale(codiceFiscale);
         utente.setEmail(email);
         //utente.setPassword(password);
-
+        
+        /*CREAZIONE NUOVO INDIRIZZO UTENTE */
+        Indirizzo indirizzo = new Indirizzo();
         indirizzo.setVia(via);
         indirizzo.setCitta(citta);
         indirizzo.setProvincia(provincia);
         indirizzo.setCap(cap);
-
         utente.addIndirizzo(indirizzo);
 
+        /* REGISTRO UTENTE SU DB */
         gestoreUtente.registraUtente(utente);
 
         //inizializzo la sessione
