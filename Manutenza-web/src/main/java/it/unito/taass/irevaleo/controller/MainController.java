@@ -1,6 +1,6 @@
 package it.unito.taass.irevaleo.controller;
 
-import it.unito.taass.manutenza.ejb.impl.CategoryUploader;
+import it.unito.taass.manutenza.ejb.GestoreCategorieLocal;
 import it.unito.taass.manutenza.entities.Categoria;
 import java.io.IOException;
 import java.util.List;
@@ -20,8 +20,8 @@ import javax.servlet.http.HttpSession;
  */
 public class MainController extends HttpServlet {
 
-    @EJB
-    private CategoryUploader categoryUploader;
+    @EJB(beanName = "GestoreCategorie")
+    private GestoreCategorieLocal gestoreCategorie;
 
     @Override
     public void init(ServletConfig conf) throws ServletException {
@@ -29,7 +29,7 @@ public class MainController extends HttpServlet {
 	super.init(conf); //metodo della superclasse
         
 	//recupero l'elenco delle categorie dal db
-        List<Categoria> listaCategorie = categoryUploader.upload();
+        List<Categoria> listaCategorie = gestoreCategorie.caricaListaCategorie();
         
 	//salva l'elenco delle categorie nel contesto dell'applicazione
 	getServletContext().setAttribute("categorie", listaCategorie); 

@@ -23,7 +23,7 @@ import javax.persistence.PersistenceContext;
 @Stateless(name = "GestoreRichieste")
 public class GestoreRichieste implements GestoreRichiesteLocal {
     
-    @PersistenceContext
+    @PersistenceContext(unitName = "ManutenzaPU_postgres")
     private EntityManager em;
 
     @Override
@@ -56,6 +56,15 @@ public class GestoreRichieste implements GestoreRichiesteLocal {
         em.persist(nuovaRichiesta);
         
         System.out.println("Richiesta salvata su db.");
+    }
+
+    @Override
+    public List<Richiesta> cercaRichieste(Utente utente, String stato) {
+        List<Richiesta> listaRichieste = em.createNamedQuery("Richieste utente e stato", Richiesta.class)
+                .setParameter("utente", utente)
+                .setParameter("stato", stato)
+                .getResultList();
+        return listaRichieste;
     }
 
 }

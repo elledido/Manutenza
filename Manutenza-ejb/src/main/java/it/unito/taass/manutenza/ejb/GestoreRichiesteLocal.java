@@ -7,6 +7,7 @@ package it.unito.taass.manutenza.ejb;
 
 import it.unito.taass.manutenza.entities.Foto;
 import it.unito.taass.manutenza.entities.Indirizzo;
+import it.unito.taass.manutenza.entities.Richiesta;
 import it.unito.taass.manutenza.entities.Utente;
 import java.util.Calendar;
 import java.util.List;
@@ -32,4 +33,5 @@ public interface GestoreRichiesteLocal {
             String stato
     );
     
+    public List<Richiesta> cercaRichieste(Utente utente, String stato);
 }

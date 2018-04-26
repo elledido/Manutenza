@@ -16,6 +16,11 @@ import java.util.GregorianCalendar;
  */
 public class Utilita {
     
+    public static final String IN_ATTESA = "I";
+    public static final String COMPLETATA = "C";
+    public static final String VALUTATA = "V";
+    public static final String ACCETTATA = "A";
+    
     public static final String[] MESI = {
         "gennaio", "febbraio", "marzo", "aprile",
         "maggio", "giugno", "luglio", "agosto",

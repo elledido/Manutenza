@@ -9,7 +9,7 @@ import javax.persistence.PersistenceContext;
 @Stateless(name = "GestoreIndirizzo")
 public class GestoreIndirizzo implements GestoreIndirizzoLocal {
     
-    @PersistenceContext
+    @PersistenceContext(unitName = "ManutenzaPU_postgres")
     private EntityManager em;
 
     @Override

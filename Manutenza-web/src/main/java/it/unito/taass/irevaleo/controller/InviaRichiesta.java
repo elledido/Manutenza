@@ -5,6 +5,7 @@
  */
 package it.unito.taass.irevaleo.controller;
 
+import it.unito.taass.irevaleo.Utilita;
 import it.unito.taass.manutenza.ejb.GestoreRichiesteLocal;
 import it.unito.taass.manutenza.entities.Foto;
 import it.unito.taass.manutenza.entities.Indirizzo;
@@ -59,7 +60,7 @@ public class InviaRichiesta extends HttpServlet {
         List<Foto> listaFoto = this.caricaListaFoto(request);
         
         /*altri campi necessari per salvare la richiesta nel db */
-        String statoCompletamento = "in attesa";
+        String statoCompletamento = Utilita.IN_ATTESA;
         Calendar dataDiCreazione = Calendar
                 .getInstance(TimeZone.getTimeZone("Europe/Rome"), Locale.ITALY);
         Calendar dataDiCompletamento = null;

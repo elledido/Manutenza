@@ -15,7 +15,7 @@ import javax.persistence.PersistenceContext;
 @Stateless(name = "GestoreCategorie")
 public class GestoreCategorie implements GestoreCategorieLocal {
     
-    @PersistenceContext
+    @PersistenceContext(unitName = "ManutenzaPU_postgres")
     private EntityManager em;
 
     @Override
