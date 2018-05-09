@@ -39,13 +39,24 @@ public class RegistraUtente extends HttpServlet {
         Calendar dataDiNascita = Utilita.getDataDiNascita(request.getParameter("dataDiNascita"));
         String codiceFiscale = request.getParameter("codiceFiscale");
         String email = request.getParameter("email");
-        //String password = request.getParameter("password");
 
-        /* DATI INDIRIZZO PRELEVATI DALLA FORM */
-        String citta = request.getParameter("citta");
-        String via = request.getParameter("indirizzo");
-        String provincia = request.getParameter("provincia");
-        String cap = request.getParameter("cap");
+        /* DATI DOMICILIO 1 */
+        String citta1 = request.getParameter("citta1");
+        String via1 = request.getParameter("indirizzo1");
+        String provincia1 = request.getParameter("provincia1");
+        String cap1 = request.getParameter("cap1");
+        
+        /* DATI DOMICILIO 2 */
+        String citta2 = request.getParameter("citta2");
+        String via2 = request.getParameter("indirizzo2");
+        String provincia2 = request.getParameter("provincia2");
+        String cap2 = request.getParameter("cap2");
+        
+        /* DATI DOMICILIO 3 */
+        String citta3 = request.getParameter("citta3");
+        String via3 = request.getParameter("indirizzo3");
+        String provincia3 = request.getParameter("provincia3");
+        String cap3 = request.getParameter("cap3");
 
         /* CREAZIONE NUOVO UTENTE */
         Utente utente = new Utente();
@@ -54,15 +65,36 @@ public class RegistraUtente extends HttpServlet {
         utente.setDataDiNascita(dataDiNascita);
         utente.setCodiceFiscale(codiceFiscale);
         utente.setEmail(email);
-        //utente.setPassword(password);
         
-        /*CREAZIONE NUOVO INDIRIZZO UTENTE */
+        /* CREAZIONE DOMICILIO 1 */
         Indirizzo indirizzo = new Indirizzo();
-        indirizzo.setVia(via);
-        indirizzo.setCitta(citta);
-        indirizzo.setProvincia(provincia);
-        indirizzo.setCap(cap);
+        indirizzo.setVia(via1);
+        indirizzo.setCitta(citta1);
+        indirizzo.setProvincia(provincia1);
+        indirizzo.setCap(cap1);
         utente.addIndirizzo(indirizzo);
+        
+        //se l'utente ha inserito un secondo domicilio
+        if(citta2 != null) {
+            /* CREAZIONE DOMICILIO 2 */
+            Indirizzo indirizzo2 = new Indirizzo();
+            indirizzo2.setVia(via2);
+            indirizzo2.setCitta(citta2);
+            indirizzo2.setProvincia(provincia2);
+            indirizzo2.setCap(cap2);
+            utente.addIndirizzo(indirizzo2);
+        }
+        
+        //se l'utente ha inserito un terzo domicilio
+        if(citta3 != null) {
+            /* CREAZIONE DOMICILIO 3 */
+            Indirizzo indirizzo3 = new Indirizzo();
+            indirizzo3.setVia(via3);
+            indirizzo3.setCitta(citta3);
+            indirizzo3.setProvincia(provincia3);
+            indirizzo3.setCap(cap3);
+            utente.addIndirizzo(indirizzo3);
+        }
 
         /* REGISTRO UTENTE SU DB */
         gestoreUtente.registraUtente(utente);

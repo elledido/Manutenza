@@ -43,7 +43,7 @@ h2 {
 .jumbotron{
     background: url("images/jumbo4.jpg") no-repeat center top;
     background-size: cover;
-    height: 300px;
+    height: 250px;
     padding-bottom: 0;
     margin-bottom: 0;
 }
@@ -66,16 +66,36 @@ a, a:hover, a:focus {
     text-align: center;
 }
 
-.footer{
+.footer {
     background-color: #333333;
     position: absolute;
-    right: -175px;
-    bottom: 0;
-    left: -175px;
     padding: 1rem 60px;
-    height: 50px;
     color: #fffffa;
     font-size: 14px;
+    bottom: 0;
+}
+
+.home-footer {
+    right: 0;
+    left: 0;
+    height: 55px;
+}
+
+.main-footer{
+    height: 50px;
+    right: -175px;
+    left: -175px;
+}
+
+.home-container {
+    position: absolute;
+    z-index: 10;
+    left: 716px;
+}
+
+.home-background {
+    position: absolute;
+    top: 51px;
 }
 
 /* -----------------------------------------
@@ -85,6 +105,7 @@ a, a:hover, a:focus {
 .navbar {
     border-radius: 0px 0px;
     margin-bottom: 0px;
+    position: relative;
 }
 
 .navbar-default {      
@@ -339,8 +360,29 @@ a, a:hover, a:focus {
 
 }
 
+fieldset {
+    padding-bottom: 15px;
+}
+
+fieldset.sign-in {
+    padding-top: 15px;
+    padding-bottom: 0;
+}
+
+legend {
+    font-size: 36px;
+}
+
 label {
     font-size: 18px;
+}
+
+label.form-check-label {
+    font-size: 14px;
+}
+
+a.termini-condizioni, p.add-domicile, p.remove-domicile {
+    color: #ff9933;
 }
 
 .form-control {
@@ -416,6 +458,12 @@ input.currency {
     border-radius: 10px;
 }
 
+.btn-primary {
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: bolder;
+}
+
 .btn-img {
     padding: 0;
     border: none;
@@ -427,6 +475,11 @@ input.currency {
     top: 0;
     right: 20px;
     border-radius: 10px;
+}
+
+button.sign-in {
+    font-size: 14px;
+    font-weight: bolder;
 }
 
 .btn-badge {

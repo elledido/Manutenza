@@ -71,8 +71,7 @@
                             <div class="form-group">
                                 <label class="control-label col-xs-3" for="email">Email: </label>
                                 <div class="col-xs-8">
-                                    <input class="form-control" name="email" type="email" readonly 
-                                           value="<%out.print(utente.getEmail());%>">
+                                    <input class="form-control" name="email" type="email" readonly value="<%out.print(utente.getEmail());%>">
                                 </div>
                             </div>
                             <!-- NOME -->

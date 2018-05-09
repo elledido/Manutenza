@@ -56,11 +56,15 @@ public class MainController extends HttpServlet {
         
         /* ### AVVIO DELL'APPLICAZIONE ### */
 	if(action == null){
-	    ctx.getRequestDispatcher("/index.html").forward(request, response); //vai alla index
+	    ctx.getRequestDispatcher("/jsp/home.jsp").forward(request, response); //vai alla homepage
 	}
         
         else if(action.equals("home")) {
            ctx.getRequestDispatcher("/jsp/home.jsp").forward(request, response);
+        }
+        
+        else if(action.equals("test")) {
+           ctx.getRequestDispatcher("/jsp/test.jsp").forward(request, response);
         }
         
         /* ### TEST PAGES ### */
@@ -154,7 +158,7 @@ public class MainController extends HttpServlet {
         /* ### LOGOUT ### */
 	else if(action.equals("logout") && s.getAttribute("utente")!=null){
 	    s.invalidate(); //distrugge la sessione
-	    ctx.getRequestDispatcher("/index.html").forward(request, response); //vai alla index
+	    ctx.getRequestDispatcher("/jsp/home.jsp").forward(request, response); //vai alla homepage
 	}
         
         /* ### AZIONI NON GESTITE -> ERRORE! ### */

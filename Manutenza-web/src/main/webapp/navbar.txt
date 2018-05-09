@@ -166,6 +166,14 @@
 		
 <!-------------------- NAVIGATION BAR -------------------->
 <nav id=topNav" class="navbar navbar-default navbar-fixed-top">
+    
+    <%
+        if(session.getAttribute("utente") == null && request.getParameter("action") == null) { %>
+            <div class="home-container">
+                <img class="home-img responsive" src="images/helmet.png" alt="homepage"/>
+            </div>
+        <%}
+    %>
 	<div class="container-fluid">
 		<!-- NAVIGATION HEADER -->
 		<div class="navbar-header">
@@ -269,7 +277,7 @@
 					</li>
 					<%}
 					//utente non loggato
-					else { %>
+					else if(request.getParameter("action") == null) { %>
 					<li>
                                                 <a>
                                                         <fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>
