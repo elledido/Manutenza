@@ -104,7 +104,7 @@ public class MainController extends HttpServlet {
         /* ### RICHIESTE IN CORSO ### */
         else if(action.equals("richiesteInCorso")){
             //visualizza richieste in corso (lavori che devono ancora essere svolti)
-            ctx.getRequestDispatcher("/jsp/richiesteInCorso.jsp").forward(request, response);
+            ctx.getNamedDispatcher("RichiesteInCorso").forward(request, response);
         }
         else if(action.equals("visualizzaProposte")){
             //visualizza tutte le proposte dei manutenti per la determinata richiesta

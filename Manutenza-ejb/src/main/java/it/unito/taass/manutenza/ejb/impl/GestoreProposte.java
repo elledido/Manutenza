@@ -51,4 +51,15 @@ public class GestoreProposte implements GestoreProposteLocal {
                 .getResultList();
         return listaProposte;
     }
+
+    @Override
+    public Proposta cercaPropostaAccettata(Long richiestaId) {
+        List<Proposta> proposteAccettate = em.createNamedQuery("Ricerca proposta accettata per richiesta", Proposta.class)
+                .setParameter("richiestaId", richiestaId)
+                .getResultList();
+        if(proposteAccettate != null)
+            return proposteAccettate.get(0);
+        return null;
+    }
+    
 }

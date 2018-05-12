@@ -21,5 +21,7 @@ public interface GestoreProposteLocal {
     public void creaProposta(Manutente manutente, Richiesta richiesta, float prezzo);
     public List<Proposta> cercaProposteAccettate(Manutente manutente, String stato);
     public List<Proposta> cercaProposteRichieste(Long richiestaId);
+
+    Proposta cercaPropostaAccettata(Long richiestaId);
     
 }
