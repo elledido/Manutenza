@@ -6,7 +6,9 @@
 package it.unito.taass.irevaleo.controller;
 
 import it.unito.taass.irevaleo.Utilita;
+import it.unito.taass.manutenza.ejb.GestoreProposteLocal;
 import it.unito.taass.manutenza.ejb.GestoreRichiesteLocal;
+import it.unito.taass.manutenza.entities.Proposta;
 import it.unito.taass.manutenza.entities.Richiesta;
 import it.unito.taass.manutenza.entities.Utente;
 import java.io.IOException;
@@ -25,9 +27,14 @@ import javax.servlet.http.HttpSession;
  * @author leonardo
  */
 public class RichiesteInCorso extends HttpServlet {
+
+    @EJB(beanName = "GestoreProposte")
+    private GestoreProposteLocal gestoreProposte;
     
     @EJB(beanName = "GestoreRichieste")
     private GestoreRichiesteLocal gestoreRichieste;
+    
+    
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -46,11 +53,20 @@ public class RichiesteInCorso extends HttpServlet {
         
         Utente utente = (Utente)s.getAttribute("utente");
         
-        List<Richiesta> listaRichieteInAttesa = gestoreRichieste.cercaRichieste(utente, Utilita.IN_ATTESA);
-        List<Richiesta> listaRichieteAccettate = gestoreRichieste.cercaRichieste(utente, Utilita.ACCETTATA);
+        List<Richiesta> listaRichiesteInAttesa = gestoreRichieste.cercaRichieste(utente, Utilita.IN_ATTESA);
+        List<Richiesta> listaRichiesteAccettate = gestoreRichieste.cercaRichieste(utente, Utilita.ACCETTATA);
         
-        request.setAttribute("richiesteInAttesa", listaRichieteInAttesa);
-        request.setAttribute("richiesteAccettate", listaRichieteAccettate);
+        ArrayList<Proposta> listaProposteAccettate = new ArrayList();
+        
+        //cerco le proposte relative alle richieste accettate
+        for(Richiesta r: listaRichiesteAccettate){
+            listaProposteAccettate.add(gestoreProposte.cercaPropostaAccettata(r.getId()));
+        }
+        
+        System.out.println("PROPOSTE ACCETTATE: " + listaProposteAccettate);
+        
+        request.setAttribute("richiesteInAttesa", listaRichiesteInAttesa);
+        request.setAttribute("proposteAccettate", listaProposteAccettate);
         
         ctx.getRequestDispatcher("/jsp/richiesteInCorso.jsp").forward(request, response);
         
