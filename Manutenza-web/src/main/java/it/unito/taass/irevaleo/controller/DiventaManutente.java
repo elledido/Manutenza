@@ -1,9 +1,14 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package it.unito.taass.irevaleo.controller;
 
 import it.unito.taass.irevaleo.Utilita;
-import it.unito.taass.manutenza.ejb.GestoreUtenteLocal;
+import it.unito.taass.manutenza.ejb.GestoreManutenteLocal;
 import it.unito.taass.manutenza.entities.Indirizzo;
-import it.unito.taass.manutenza.entities.Utente;
+import it.unito.taass.manutenza.entities.Manutente;
 import java.io.IOException;
 import java.util.Calendar;
 import javax.ejb.EJB;
@@ -12,12 +17,15 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-public class RegistraUtente extends HttpServlet {
-
-    @EJB(beanName = "GestoreUtente")
-    private GestoreUtenteLocal gestoreUtente;
+/**
+ *
+ * @author leonardo
+ */
+public class DiventaManutente extends HttpServlet {
+    
+    @EJB(beanName = "GestoreManutente")
+    private GestoreManutenteLocal gestoreManutente;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -30,16 +38,17 @@ public class RegistraUtente extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+       
         ServletContext ctx = getServletContext();
-
+        //HttpSession s = request.getSession();
+        
         /* DATI UTENTE PRELEVATI DALLA FORM */
         String nome = request.getParameter("nome");
         String cognome = request.getParameter("cognome");
         Calendar dataDiNascita = Utilita.getDataDiNascita(request.getParameter("dataDiNascita"));
         String codiceFiscale = request.getParameter("codiceFiscale");
         String email = request.getParameter("email");
-
+        
         /* DATI DOMICILIO 1 */
         String citta1 = request.getParameter("citta1");
         String via1 = request.getParameter("indirizzo1");
@@ -57,14 +66,16 @@ public class RegistraUtente extends HttpServlet {
         String via3 = request.getParameter("indirizzo3");
         String provincia3 = request.getParameter("provincia3");
         String cap3 = request.getParameter("cap3");
-
-        /* CREAZIONE NUOVO UTENTE */
-        Utente utente = new Utente();
-        utente.setNome(nome);
-        utente.setCognome(cognome);
-        utente.setDataDiNascita(dataDiNascita);
-        utente.setCodiceFiscale(codiceFiscale);
-        utente.setEmail(email);
+        
+        /*CREAZIONE NUOVO MANUTENTE */
+        Manutente manutente = new Manutente();
+        manutente.setNome(nome);
+        manutente.setCognome(cognome);
+        manutente.setDataDiNascita(dataDiNascita);
+        manutente.setCodiceFiscale(codiceFiscale);
+        manutente.setEmail(email);
+        manutente.setValutazioneComplessiva(0);
+        manutente.setListaCompetenze(null);
         
         /* CREAZIONE DOMICILIO 1 */
         Indirizzo indirizzo = new Indirizzo();
@@ -72,7 +83,7 @@ public class RegistraUtente extends HttpServlet {
         indirizzo.setCitta(citta1);
         indirizzo.setProvincia(provincia1);
         indirizzo.setCap(cap1);
-        utente.addIndirizzo(indirizzo);
+        manutente.addIndirizzo(indirizzo);
         
         //se l'utente ha inserito un secondo domicilio
         if(citta2 != null) {
@@ -82,7 +93,7 @@ public class RegistraUtente extends HttpServlet {
             indirizzo2.setCitta(citta2);
             indirizzo2.setProvincia(provincia2);
             indirizzo2.setCap(cap2);
-            utente.addIndirizzo(indirizzo2);
+            manutente.addIndirizzo(indirizzo2);
         }
         
         //se l'utente ha inserito un terzo domicilio
@@ -93,20 +104,17 @@ public class RegistraUtente extends HttpServlet {
             indirizzo3.setCitta(citta3);
             indirizzo3.setProvincia(provincia3);
             indirizzo3.setCap(cap3);
-            utente.addIndirizzo(indirizzo3);
+            manutente.addIndirizzo(indirizzo3);
         }
-
-        /* REGISTRO UTENTE SU DB */
-        gestoreUtente.registraUtente(utente);
-
-        //inizializzo la sessione
-        HttpSession s = request.getSession(); //creo la sessione
-
-        //salva i dati dell'utente in sessione
-        s.setAttribute("utente", utente);
-    
-        ctx.getRequestDispatcher("/jsp/dashboard.jsp").forward(request, response);
-
+        
+        //SALVO MANUTENTE NEL DB
+        gestoreManutente.resgistraManutente(manutente);
+        //s.setAttribute("manutenteDaCompletare", manutente);
+        request.setAttribute("emailManutenteDaCompletare", email);
+        
+        /* SISTEMARE LA PAGINA DI REINDIRIZZAMENTO!!*/
+        ctx.getRequestDispatcher("/jsp/registraManutente.jsp").forward(request, response);
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
