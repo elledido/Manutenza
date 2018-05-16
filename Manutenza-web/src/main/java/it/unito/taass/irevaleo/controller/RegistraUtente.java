@@ -104,6 +104,7 @@ public class RegistraUtente extends HttpServlet {
 
         //salva i dati dell'utente in sessione
         s.setAttribute("utente", utente);
+        s.setAttribute("ruolo", "utente");
     
         ctx.getRequestDispatcher("/jsp/dashboard.jsp").forward(request, response);
 

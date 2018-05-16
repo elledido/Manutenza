@@ -39,7 +39,6 @@
 
         <!-- NAVBAR -->
         <%@include file="/navbar.txt"%>
-        <!--        <div class="jumbotron"></div>-->
 
         <!-- MAIN CONTAINER -->
         <div class="container">
@@ -151,7 +150,7 @@
                                 <button type="submit" class="btn btn-block btn-primary" name="action" value="registraUtente">Registrami</button>
                             </div>
                             <div class="col-md-2 col-xs-4">
-                                <button type="submit" class="btn btn-block btn-ok sign-in" name="action" value="registraManutente">Diventa Manutente</button>
+                                <button type="submit" class="btn btn-block btn-ok sign-in" name="action" value="diventaManutente">Diventa Manutente</button>
                             </div>
                             <!-- TERMINI E CONDIZIONI D'USO -->
                             <div class="col-xs-4">
@@ -166,7 +165,7 @@
                     </fieldset>
 
                 </form>
-
+                            
             </div>
 
             <!-- FOOTER -->

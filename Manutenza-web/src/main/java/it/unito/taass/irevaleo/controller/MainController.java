@@ -81,7 +81,13 @@ public class MainController extends HttpServlet {
         }
         else if(action.equals("registraUtente")) {
             ctx.getNamedDispatcher("RegistraUtente").forward(request, response);
-        }        
+        }
+        else if(action.equals("diventaManutente")) {
+            ctx.getNamedDispatcher("DiventaManutente").forward(request, response);
+        }
+        else if(action.equals("registraManutente")) {
+            ctx.getNamedDispatcher("RegistraManutente").forward(request, response);
+        }
         
         /* ### DASHBOARD ### */
         else if(action.equals("dashboard")){

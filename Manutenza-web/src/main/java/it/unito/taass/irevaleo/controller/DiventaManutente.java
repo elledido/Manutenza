@@ -109,11 +109,12 @@ public class DiventaManutente extends HttpServlet {
         
         //SALVO MANUTENTE NEL DB
         gestoreManutente.resgistraManutente(manutente);
-        //s.setAttribute("manutenteDaCompletare", manutente);
-        request.setAttribute("emailManutenteDaCompletare", email);
         
-        /* SISTEMARE LA PAGINA DI REINDIRIZZAMENTO!!*/
-        ctx.getRequestDispatcher("/jsp/registraManutente.jsp").forward(request, response);
+        // passo a parametro email e indirizzi del nuovo ManUtente
+        request.setAttribute("emailManutenteDaCompletare", email);
+        request.setAttribute("indirizzi", manutente.getListaIndirizzi());
+        
+        ctx.getRequestDispatcher("/jsp/aggiungiCompetenze.jsp").forward(request, response);
         
     }
 

@@ -40,7 +40,7 @@
         <script src="manutenza.js" type="text/javascript"></script>
     </head>
     <body>
-
+        
         <!-- NAVBAR -->
         <%@include file="/navbar.txt"%>
 
@@ -55,6 +55,8 @@
 
                         <legend>Le tue competenze</legend>
 
+                        <input type="hidden" name="email" value="<% out.print(request.getAttribute("emailManutenteDaCompletare"));%>">
+                        
                         <!-- Categoria -->
                         <div id="ct1" class="form-group">
                             <label class="control-label col-md-3 col-xs-3" for="categoria1">Categoria: </label>
@@ -72,12 +74,9 @@
                             <label class="control-label col-xs-3" for="zona1">Zona di competenza: </label>
                             <div class="col-xs-8">
                                 <select class="form-control" id="zona1" name="zona1" required>
-                                    <option value="cat1">Cat 1</option>
-                                    <option value="cat2">Cat 2</option>
-                                    <option value="cat3">Cat 3</option>
-<!--                                    <c:forEach items="{utente.getListaIndirizzi()}" var="domicilio">
-                                        <option value="{domicilio.getCitta()}">{domicilio.getCitta()}</option>
-                                    </c:forEach>-->
+                                    <c:forEach items="${indirizzi}" var="domicilio">
+                                        <option value="${domicilio.getCitta()}">${domicilio.getCitta()}</option>
+                                    </c:forEach>
                                 </select>
                             </div>
                         </div>
@@ -113,7 +112,7 @@
                         <div class="row">
                             <!-- SUBMIT -->
                             <div class="col-xs-3">
-                                <button type="submit" class="btn btn-block btn-primary" name="action" value="">Completa registrazione</button>
+                                <button type="submit" class="btn btn-block btn-primary" name="action" value="registraManutente">Completa registrazione</button>
                             </div>
                         </div>
                     </fieldset>
@@ -159,9 +158,9 @@
                                     '<label class="control-label col-xs-3" for="zona' + skills + '">Zona di competenza: </label>' +
                                     '<div class="col-xs-8">' +
                                         '<select class="form-control" id="zona' + skills + '" name="zona' + skills + '" required>' +
-                                            '<option value="cat1">Cat 1</option>' +
-                                            '<option value="cat2">Cat 2</option>' +
-                                            '<option value="cat3">Cat 3</option>' +
+                                            '<c:forEach items="${indirizzi}" var="domicilio">' +
+                                                '<option value="${domicilio.getCitta()}">${domicilio.getCitta()}</option>' +
+                                            '</c:forEach>'+
                                         '</select>' +
                                     '</div>' +
                                 '</div>' +

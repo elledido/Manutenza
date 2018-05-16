@@ -381,7 +381,7 @@ label.form-check-label {
     font-size: 14px;
 }
 
-a.termini-condizioni, p.add-domicile, p.remove-domicile {
+a.termini-condizioni, p.add-domicile, p.remove-domicile, p.add-skill, p.remove-skill {
     color: #ff9933;
 }
 

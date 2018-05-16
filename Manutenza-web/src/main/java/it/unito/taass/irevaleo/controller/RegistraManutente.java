@@ -9,6 +9,7 @@ import it.unito.taass.manutenza.ejb.GestoreManutenteLocal;
 import it.unito.taass.manutenza.entities.Competenza;
 import it.unito.taass.manutenza.entities.Manutente;
 import java.io.IOException;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -42,36 +43,56 @@ public class RegistraManutente extends HttpServlet {
         HttpSession s = request.getSession();
        
         /* RECUPERO DELL'UTENTE DAL DB */
-        String email = request.getParameter("emailManutenteDaCompletare");
+        String email = (String) request.getParameter("email");
+        
+        System.out.println("EMAIL " + email);
+        
         Manutente manutente = gestoreManutente.cercaManutente(email);
-       
-        /* CREAZIONE PRIMA COMPETENZA */
-        String categoria1 = request.getParameter("categoria1");
-        String tipo1 = request.getParameter("tipo1");
-        String partitaIva1 = request.getParameter("partitaIva1");
-        String zonaDiCompetenza1 = request.getParameter("zonaDiCompetenza1");
         
-        Competenza competenza1 = new Competenza();
-        competenza1.setCategoria(categoria1);
-        competenza1.setTipo(tipo1);
-        competenza1.setPartitaIva(partitaIva1);
-        competenza1.setZonaDiCompetenza(zonaDiCompetenza1);
-          
-        /* CREAZIONE SECONDA COMPETENZA */
-        Competenza competenza2 = new Competenza();
-        String categoria2 = request.getParameter("categoria2");
-        String tipo2 = request.getParameter("tipo2");
-        String partitaIva2 = request.getParameter("partitaIva2");
-        String zonaDiCompetenza2 = request.getParameter("zonaDiCompetenza2");
+        //numero massimo di campi competenza
+        int numCompetenze = ((List) ctx.getAttribute("categorie")).size();
         
-        /* INSERT DELLE COMPETENZE NELLA LISTA COMPETENZE DEL MANUTENTE */
-        manutente.addCompetenza(competenza1);
-        manutente.addCompetenza(competenza2);
+        Competenza competenza;
+        String categoria;
+        String zona;
+        String tipo;
+        String partitaIva;
+        
+        for(int i=1; i<=numCompetenze; i++){
+            
+            //resetto i dati di competenza
+            competenza = null;
+            
+            /* dati del form */
+            categoria = request.getParameter("categoria"+i);
+            zona = request.getParameter("zona"+i);
+            tipo = request.getParameter("tipo"+i);
+            partitaIva = request.getParameter("partitaIVA1");
+            
+            System.out.println("COMPETENZA " + i + ": " + categoria + " " + zona + " " + tipo + " " + partitaIva);
+            
+            //se ho inserito l'ultima competenza al passo precedente
+            if(categoria == null){
+                i = numCompetenze+1; //lo forzo ad uscire dal ciclo
+            }
+            //inserisco al competenza nel DB
+            else {
+                competenza = new Competenza();
+                competenza.setCategoria(categoria);
+                competenza.setZonaDiCompetenza(zona);
+                competenza.setTipo(tipo);
+                competenza.setPartitaIva(partitaIva);
+                
+                manutente.addCompetenza(competenza);
+            }
+            
+        }
         
         /* AGGIORNAMENO DEL MANUTENTE*/
         gestoreManutente.aggiornaManutente(manutente);
         
         s.setAttribute("manutente", manutente);
+        s.setAttribute("ruolo", "manutente");
         
         ctx.getRequestDispatcher("/jsp/dashboard.jsp").forward(request, response);
     }

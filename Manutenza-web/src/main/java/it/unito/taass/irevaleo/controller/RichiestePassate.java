@@ -6,10 +6,13 @@
 package it.unito.taass.irevaleo.controller;
 
 import it.unito.taass.irevaleo.Utilita;
+import it.unito.taass.manutenza.ejb.GestoreProposteLocal;
 import it.unito.taass.manutenza.ejb.GestoreRichiesteLocal;
+import it.unito.taass.manutenza.entities.Proposta;
 import it.unito.taass.manutenza.entities.Richiesta;
 import it.unito.taass.manutenza.entities.Utente;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletContext;
@@ -24,9 +27,12 @@ import javax.servlet.http.HttpSession;
  * @author leonardo
  */
 public class RichiestePassate extends HttpServlet {
-    
+
     @EJB(beanName = "GestoreRichieste")
     private GestoreRichiesteLocal gestoreRichieste;
+    
+    @EJB(beanName = "GestoreProposte")
+    private GestoreProposteLocal gestoreProposte;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -49,7 +55,14 @@ public class RichiestePassate extends HttpServlet {
         List<Richiesta> listaRichiesteCompletate = this.gestoreRichieste.cercaRichieste(utente, Utilita.COMPLETATA);
         List<Richiesta> listaRichiesteValutate = this.gestoreRichieste.cercaRichieste(utente, Utilita.VALUTATA);
         
-        request.setAttribute("richiesteCompletate", listaRichiesteCompletate);
+        ArrayList<Proposta> listaLavoriCompletati = new ArrayList();
+        
+        //cerco le proposte relative alle richieste accettate
+        for(Richiesta r: listaRichiesteCompletate){
+            listaLavoriCompletati.add(gestoreProposte.cercaPropostaAccettata(r.getId()));
+        }
+        
+        request.setAttribute("lavoriCompletati", listaLavoriCompletati);
         request.setAttribute("richiesteValutate", listaRichiesteValutate);
         
         ctx.getRequestDispatcher("/jsp/richiesteAccettate.jsp").forward(request, response);

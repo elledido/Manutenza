@@ -33,7 +33,7 @@ public class AggiungiCompetenza extends HttpServlet {
         
         ServletContext ctx = getServletContext(); //contesto della Servlet
         
-        /* dati del form*/
+        /* dati del form */
         String categoria = request.getParameter("categoria");
         String tipo = request.getParameter("tipo");
         String partitaIVA = request.getParameter("partitaIVA");

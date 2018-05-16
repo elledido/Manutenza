@@ -30,12 +30,13 @@ public class ValutaManutente extends HttpServlet {
             throws ServletException, IOException {
         
         /* campi del form */
+        Integer id = Integer.parseInt(request.getParameter("richiestaId"));
         String vComplessiva = request.getParameter("val-complessiva");
         String professionalita = request.getParameter("professionalita");
         String comunicazione = request.getParameter("comunicazione");
         String commento = request.getParameter("commento");
         
-        System.out.println("FORM DATA: " + vComplessiva + " " + professionalita + " " + comunicazione + " " + commento);
+        System.out.println("FORM DATA: " + id + " " + vComplessiva + " " + professionalita + " " + comunicazione + " " + commento);
         
     }
 
