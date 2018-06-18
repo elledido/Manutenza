@@ -114,7 +114,7 @@ public class MainController extends HttpServlet {
         }
         else if(action.equals("visualizzaProposte")){
             //visualizza tutte le proposte dei manutenti per la determinata richiesta
-            ctx.getRequestDispatcher("/jsp/proposte.jsp").forward(request, response);
+            ctx.getNamedDispatcher("VisualizzaProposte").forward(request, response);
         }
         
         /* ### RICHIESTE PASSATE ### */

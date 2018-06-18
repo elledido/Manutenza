@@ -48,6 +48,10 @@
         <servlet-name>RegistraManutente</servlet-name>
         <servlet-class>it.unito.taass.irevaleo.controller.RegistraManutente</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>VisualizzaProposte</servlet-name>
+        <servlet-class>it.unito.taass.irevaleo.controller.VisualizzaProposte</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MainController</servlet-name>
         <url-pattern>/MainController</url-pattern>
@@ -95,6 +99,10 @@
     <servlet-mapping>
         <servlet-name>RegistraManutente</servlet-name>
         <url-pattern>/RegistraManutente</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VisualizzaProposte</servlet-name>
+        <url-pattern>/VisualizzaProposte</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

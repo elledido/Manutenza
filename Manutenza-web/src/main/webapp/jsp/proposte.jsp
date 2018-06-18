@@ -4,7 +4,10 @@
     Author     : irene
 --%>
 
+<%@page import="it.unito.taass.manutenza.entities.Manutente"%>
+<%@page import="it.unito.taass.manutenza.entities.Proposta"%>
 <%@page import="it.unito.taass.manutenza.entities.Utente"%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c"uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -15,7 +18,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-        <title>Titolo richiesta</title>
+        <title><% out.print(request.getAttribute("titolo")); %></title>
 
         <!-- Bootstrap CSS CDN -->
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
@@ -45,7 +48,72 @@
         <!-- MAIN CONTAINER -->
         <div class="container">
 
-            <h2>Titolo richiesta</h2>
+            <h2><% out.print(request.getAttribute("titolo"));%></h2>
+
+            <!-- Elenco delle proposte associate alla richiesta scelta -->
+            <c:forEach items="${proposte}" var="proposta">
+                <div class="form-box">
+                    <div class="row">
+                        <!-- Foto -->
+                        <div class="img-box col-md-2 col-xs-2">
+                            <img class="profile-img" src="images/profile_img.png" alt="profile-img"/>
+                        </div>
+                        <!-- Dati richiesta -->
+                        <div class="col-md-9 col-xs-8">
+                            <p class="titolo">${proposta.getManutente().getCognome()} ${proposta.getManutente().getNome()}</p>
+                            <form class="form-horizontal">
+                                <!-- Categoria -->
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-xs-3" for="categoria">Categoria: </label>
+                                    <div class="col-md-6 col-xs-8">
+                                        <input class="form-control" id="categoria" name="categoria" type="text" readonly 
+                                               value="${proposta.getRichiesta().getCategoria()}">
+                                    </div>
+                                </div>
+                                <!-- Valutazione -->
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-xs-3" for="valutazione">Valutazione: </label>
+                                    <div class="col-md-6 col-xs-8 rating-star">
+                                        <!-- RATING STAR -->                            
+                                        <div class="container-fluid back-stars">
+                                            <i class="fa fa-star fa-2x back-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star fa-2x back-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star fa-2x back-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star fa-2x back-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star fa-2x back-star" aria-hidden="true"></i>
+                                        </div>
+
+                                        <div class="container-fluid front-stars">
+                                            <c:forEach var="i" begin="1" end="${proposta.getManutente().getValutazioneComplessiva()}">
+                                                <i id="star<c:out value="${i}"/>" class="fa fa-star fa-2x" aria-hidden="true"></i>
+                                            </c:forEach>
+                                            <c:forEach var="i" begin="${proposta.getManutente().getValutazioneComplessiva() + 1}" end="5">
+                                                <i id="star<c:out value="${i}"/>" class="fa fa-star-o fa-2x" aria-hidden="true"></i>
+                                            </c:forEach>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Budget proposto -->
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-xs-3" for="budget">Budget: </label>
+                                    <div class="input-group budget col-md-2 col-xs-4">
+                                        <span class="input-group-addon">€</span>
+                                        <input class="form-control currency" id="budget" name="budget" type="number" readonly 
+                                               value="${proposta.getPrezzo()}">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-10 col-xs-8"></div>
+                        <div class="col-md-2 col-xs-4">
+                            <button type="button" class="btn btn-block btn-ok"><a href=#">Accetta proposta</a></button>
+                            <!-- apre la chat -->
+                        </div>
+                    </div>
+                </div>
+            </c:forEach>
 
             <div class="form-box">
                 <div class="row">
@@ -76,12 +144,12 @@
                                         <i class="fa fa-star fa-2x back-star" aria-hidden="true"></i>
                                         <i class="fa fa-star fa-2x back-star" aria-hidden="true"></i>
                                     </div>
-
+                                    
                                     <div class="container-fluid front-stars">
                                         <c:forEach var="i" begin="1" end="4">
                                             <i id="star<c:out value="${i}"/>" class="fa fa-star fa-2x" aria-hidden="true"></i>
                                         </c:forEach>
-                                        <c:forEach var="i" begin="5" end="5">
+                                        <c:forEach var="i" begin="${4+1}" end="5">
                                             <i id="star<c:out value="${i}"/>" class="fa fa-star-o fa-2x" aria-hidden="true"></i>
                                         </c:forEach>
                                     </div>
@@ -109,11 +177,11 @@
 
             <!-- FOOTER -->
             <%@include file="/footer.txt"%>
-            
+
         </div>
-        
+
         <!-- CHAT -->
         <%@include file="/chat.txt"%>
-        
+
     </body>
 </html>

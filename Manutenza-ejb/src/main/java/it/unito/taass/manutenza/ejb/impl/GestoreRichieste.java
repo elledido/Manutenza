@@ -14,6 +14,7 @@ import java.util.Calendar;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 /**
@@ -65,6 +66,19 @@ public class GestoreRichieste implements GestoreRichiesteLocal {
                 .setParameter("stato", stato)
                 .getResultList();
         return listaRichieste;
+    }
+
+    @Override
+    public Richiesta cercaRichiestaId(Long id) {
+        try {
+            Richiesta richiesta = em.createNamedQuery("Richiesta per id", Richiesta.class)
+                .setParameter("id", id)
+                .getSingleResult();
+            return richiesta;
+        } catch(NoResultException e) {
+            System.out.println("Non esiste alcuna richiesta con id " + id);
+            return null;
+        }
     }
 
 }

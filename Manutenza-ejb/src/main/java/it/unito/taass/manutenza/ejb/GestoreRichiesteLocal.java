@@ -34,4 +34,6 @@ public interface GestoreRichiesteLocal {
     );
     
     public List<Richiesta> cercaRichieste(Utente utente, String stato);
+
+    Richiesta cercaRichiestaId(Long id);
 }

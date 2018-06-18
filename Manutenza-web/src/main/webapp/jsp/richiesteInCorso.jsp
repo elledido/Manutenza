@@ -87,7 +87,7 @@
                         <div class="col-md-10 col-xs-8"></div>
                         <div class="col-md-2 col-xs-4">
                             <!--<a href="/Manutenza-web/MainController?action=visualizzaProposte" class="btn btn-block btn-ok btn-badge" data-badge="10" role="button">Visualizza proposte</a>-->
-                            <a href="/Manutenza-web/MainController?action=visualizzaProposte" class="btn btn-block btn-ok" role="button">Visualizza proposte</a>
+                            <a href="/Manutenza-web/MainController?action=visualizzaProposte&richiesta=${richiesta.getId()}" class="btn btn-block btn-ok" role="button">Visualizza proposte</a>
                         </div>
                     </div>
                 </div>
