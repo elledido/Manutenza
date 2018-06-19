@@ -1,11 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package it.unito.taass.irevaleo.controller;
 
+import it.unito.taass.manutenza.ejb.GestoreManutenteLocal;
+import it.unito.taass.manutenza.ejb.GestoreRichiesteLocal;
+import it.unito.taass.manutenza.entities.Feedback;
+import it.unito.taass.manutenza.entities.Manutente;
+import it.unito.taass.manutenza.entities.Richiesta;
 import java.io.IOException;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +18,13 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class ValutaManutente extends HttpServlet {
 
+    @EJB
+    private GestoreRichiesteLocal gestoreRichieste;
+
+    @EJB
+    private GestoreManutenteLocal gestoreManutente;
+    
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -30,13 +38,43 @@ public class ValutaManutente extends HttpServlet {
             throws ServletException, IOException {
         
         /* campi del form */
-        Integer id = Integer.parseInt(request.getParameter("richiestaId"));
-        String vComplessiva = request.getParameter("val-complessiva");
-        String professionalita = request.getParameter("professionalita");
-        String comunicazione = request.getParameter("comunicazione");
+        Long richiestaId = Long.parseLong(request.getParameter("richiestaId"));
+        String manutenteEmail = request.getParameter("manutenteEmail");
+        short vComplessiva = Short.parseShort(request.getParameter("val-complessiva"));
+        short professionalita = Short.parseShort(request.getParameter("professionalita"));
+        short comunicazione = Short.parseShort(request.getParameter("comunicazione"));
         String commento = request.getParameter("commento");
         
-        System.out.println("FORM DATA: " + id + " " + vComplessiva + " " + professionalita + " " + comunicazione + " " + commento);
+        //recupera la richiesta dal db
+        Richiesta richiesta = gestoreRichieste.cercaRichiestaId(richiestaId);
+        
+        //recupera il manutente dal db (ricerca per email
+        Manutente manutente = gestoreManutente.cercaManutente(manutenteEmail);
+        
+        //attuale valutazione del manutente
+        int vManutente = manutente.getValutazioneComplessiva();
+        
+        //la nuova valutazione è la media con la valutazione precendente
+        int val = (vManutente + vComplessiva)/2;
+        //aggiornamento della valutazione complessiva relativa al Manutente (aggiornaManutente)
+        manutente.setValutazioneComplessiva(val);
+        gestoreManutente.aggiornaManutente(manutente);
+        
+        //recupero il manutente aggiornato dal db
+        manutente = gestoreManutente.cercaManutente(manutenteEmail);
+        
+        //creazione oggetto feedback
+        Feedback feedback = new Feedback();
+        feedback.setRichiesta(richiesta);
+        feedback.setManutente(manutente);
+        feedback.setValutazioneComplessiva(vComplessiva);
+        feedback.setProfessionalita(professionalita);
+        feedback.setComunicazione(comunicazione);
+        feedback.setCommento(commento);
+        
+        //salvataggio del feedback sul db
+        
+        //System.out.println("FORM DATA: " + richiestaId + " " + vComplessiva + " " + professionalita + " " + comunicazione + " " + commento);
         
     }
 

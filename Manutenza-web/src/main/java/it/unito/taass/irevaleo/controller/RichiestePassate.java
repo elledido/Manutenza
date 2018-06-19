@@ -62,6 +62,8 @@ public class RichiestePassate extends HttpServlet {
             listaLavoriCompletati.add(gestoreProposte.cercaPropostaAccettata(r.getId()));
         }
         
+        /* MANCANO I FEEDBACK ASSOCIATI ALLE RICHIESTE VALUTATE!!! */
+        
         request.setAttribute("lavoriCompletati", listaLavoriCompletati);
         request.setAttribute("richiesteValutate", listaRichiesteValutate);
         

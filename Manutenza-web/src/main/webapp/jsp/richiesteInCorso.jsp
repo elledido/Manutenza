@@ -58,7 +58,14 @@
                     <div class="row">
                         <!-- Foto -->
                         <div class="img-box col-md-2 col-xs-2">
-                            <img class="img-box" src="${richiesta.getListaFoto().get(0).getLink()}">
+                            <c:choose> 
+                                <c:when test="${empty richiesta.getListaFoto()}">
+                                    <img class="img-box">
+                                </c:when>
+                                <c:otherwise>
+                                    <img class="img-box" src="${richiesta.getListaFoto().get(0).getLink()}">
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                         <!-- Dati richiesta -->
                         <div class="col-md-9 col-xs-8">

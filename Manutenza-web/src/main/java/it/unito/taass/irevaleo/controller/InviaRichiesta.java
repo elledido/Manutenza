@@ -29,7 +29,7 @@ import javax.servlet.http.HttpSession;
  * @author irene
  */
 public class InviaRichiesta extends HttpServlet {
-    
+
     @EJB(beanName = "GestoreRichieste")
     private GestoreRichiesteLocal gestoreRichieste;
 
@@ -44,13 +44,13 @@ public class InviaRichiesta extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         ServletContext ctx = getServletContext(); //contesto della Servlet
         HttpSession s = request.getSession();
-        
+
         /* Utente che sta compilando la richiesta */
-        Utente utente = (Utente)s.getAttribute("utente");
-        
+        Utente utente = (Utente) s.getAttribute("utente");
+
         /* campi del form */
         String titolo = request.getParameter("titolo");
         String categoria = request.getParameter("categoria");
@@ -58,50 +58,54 @@ public class InviaRichiesta extends HttpServlet {
         Indirizzo indirizzo = this.ceracIndirizzo(utente, request);
         float budget = Float.parseFloat(request.getParameter("budget"));
         List<Foto> listaFoto = this.caricaListaFoto(request);
-        
+
         /*altri campi necessari per salvare la richiesta nel db */
         String statoCompletamento = Utilita.IN_ATTESA;
         Calendar dataDiCreazione = Calendar
                 .getInstance(TimeZone.getTimeZone("Europe/Rome"), Locale.ITALY);
         Calendar dataDiCompletamento = null;
-        
+
         //invia i dati al DB
-        gestoreRichieste.createRichiesta(utente, 
-            indirizzo, 
-            titolo,
-            descrizione,
-            categoria,
-            budget,
-            listaFoto,
-            dataDiCreazione,
-            dataDiCompletamento,
-            statoCompletamento);
-                
+//        gestoreRichieste.createRichiesta(utente,
+//                indirizzo,
+//                titolo,
+//                descrizione,
+//                categoria,
+//                budget,
+//                listaFoto,
+//                dataDiCreazione,
+//                dataDiCompletamento,
+//                statoCompletamento);
         
-        //vai alla pagina delle richieste
+        //vai alla pagina delle richieste in corso
+        String url = request.getContextPath() + "/RichiesteInCorso";
+        response.sendRedirect(url);
         
     }
- 
+
     private Indirizzo ceracIndirizzo(Utente utente, HttpServletRequest request) {
         Long indirizzoId = Long.parseLong(request.getParameter("indirizzo"));
         Indirizzo daCercare = null;
-        for(Indirizzo i : utente.getListaIndirizzi()) {
-            if(i.getId().equals(indirizzoId)) {
+        for (Indirizzo i : utente.getListaIndirizzi()) {
+            if (i.getId().equals(indirizzoId)) {
                 daCercare = i;
             }
         }
-    return daCercare;
+        return daCercare;
     }
-    
+
     private List<Foto> caricaListaFoto(HttpServletRequest request) {
         String[] photos = request.getParameterValues("photos");
         List<Foto> listaFoto = new ArrayList<>();
-        for(String photoLink : photos) {
-            Foto foto = new Foto();
-            foto.setLink(photoLink);
-            listaFoto.add(foto);
+        //verifico se l'array è vuoto!
+        if (photos != null) {
+            for (String photoLink : photos) {
+                Foto foto = new Foto();
+                foto.setLink(photoLink);
+                listaFoto.add(foto);
+            }
         }
-    return listaFoto;
+        return listaFoto;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

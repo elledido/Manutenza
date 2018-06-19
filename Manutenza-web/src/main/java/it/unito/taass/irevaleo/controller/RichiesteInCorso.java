@@ -34,7 +34,6 @@ public class RichiesteInCorso extends HttpServlet {
     @EJB(beanName = "GestoreRichieste")
     private GestoreRichiesteLocal gestoreRichieste;
     
-    
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -55,6 +54,10 @@ public class RichiesteInCorso extends HttpServlet {
         
         List<Richiesta> listaRichiesteInAttesa = gestoreRichieste.cercaRichieste(utente, Utilita.IN_ATTESA);
         List<Richiesta> listaRichiesteAccettate = gestoreRichieste.cercaRichieste(utente, Utilita.ACCETTATA);
+        
+        for(Richiesta r: listaRichiesteInAttesa){
+            System.out.println(r.getId() + " " + r.getTitolo() + " " + r.getCategoria());
+        }
         
         ArrayList<Proposta> listaProposteAccettate = new ArrayList();
         

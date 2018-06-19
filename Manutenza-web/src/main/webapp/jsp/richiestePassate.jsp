@@ -111,6 +111,7 @@
                                     <div class="col-xs-12" align="center">
 
                                         <input type="hidden" name="richiestaId" value="${proposta.getId()}">
+                                        <input type="hidden" name="manutenteEmail" value="${proposta.getManutente().getEmail()}"
 
                                         <!-- Valutazione complessiva --> 
                                         <div class="form-group">
