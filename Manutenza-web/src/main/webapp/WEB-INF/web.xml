@@ -52,6 +52,14 @@
         <servlet-name>VisualizzaProposte</servlet-name>
         <servlet-class>it.unito.taass.irevaleo.controller.VisualizzaProposte</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>NuoveProposte</servlet-name>
+        <servlet-class>it.unito.taass.irevaleo.controller.NuoveProposte</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MostraInteresse</servlet-name>
+        <servlet-class>it.unito.taass.irevaleo.controller.MostraInteresse</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MainController</servlet-name>
         <url-pattern>/MainController</url-pattern>
@@ -103,6 +111,14 @@
     <servlet-mapping>
         <servlet-name>VisualizzaProposte</servlet-name>
         <url-pattern>/VisualizzaProposte</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>NuoveProposte</servlet-name>
+        <url-pattern>/NuoveProposte</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MostraInteresse</servlet-name>
+        <url-pattern>/MostraInteresse</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

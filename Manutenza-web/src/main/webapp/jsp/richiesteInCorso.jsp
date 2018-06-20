@@ -75,7 +75,8 @@
                                 <div class="form-group">
                                     <label class="control-label col-md-3 col-xs-3" for="categoria">Categoria: </label>
                                     <div class="col-md-6 col-xs-8">
-                                        <input class="form-control" id="categoria" name="categoria" type="text" readonly value="${richiesta.getCategoria()}">
+                                        <input class="form-control" id="categoria" name="categoria" type="text" readonly 
+                                               value="${richiesta.getCategoria()}">
                                     </div>
                                 </div>
                                 <!-- Budget proposto -->
@@ -83,7 +84,8 @@
                                     <label class="control-label col-md-3 col-xs-3" for="budget">Budget: </label>
                                     <div class="input-group budget col-md-2 col-xs-4">
                                         <span class="input-group-addon">€</span>
-                                        <input class="form-control currency" id="budget" name="budget" type="number" readonly value="${richiesta.getBudget()}">
+                                        <input class="form-control currency" id="budget" name="budget" type="number" readonly 
+                                               value="${richiesta.getBudget()}">
                                     </div>
                                 </div>
                             </form>
