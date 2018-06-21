@@ -1,13 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package it.unito.taass.irevaleo.controller;
 
 import it.unito.taass.irevaleo.Utilita;
 import it.unito.taass.manutenza.ejb.GestoreProposteLocal;
 import it.unito.taass.manutenza.ejb.GestoreRichiesteLocal;
+import it.unito.taass.manutenza.entities.Manutente;
 import it.unito.taass.manutenza.entities.Proposta;
 import it.unito.taass.manutenza.entities.Richiesta;
 import it.unito.taass.manutenza.entities.Utente;
@@ -24,14 +20,14 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author leonardo
+ * @author irene
  */
 public class RichiestePassate extends HttpServlet {
 
-    @EJB(beanName = "GestoreRichieste")
+    @EJB
     private GestoreRichiesteLocal gestoreRichieste;
-    
-    @EJB(beanName = "GestoreProposte")
+
+    @EJB
     private GestoreProposteLocal gestoreProposte;
 
     /**
@@ -49,7 +45,8 @@ public class RichiestePassate extends HttpServlet {
         HttpSession s = request.getSession();
         ServletContext ctx = getServletContext();
         
-        Utente utente = (Utente)s.getAttribute("utente");
+        Manutente manutente = (Manutente) s.getAttribute("utente");
+        Utente utente = Utilita.manutente2utente(manutente);
         
         /* ELENCO DELLE RICHIESTE COMPLETATE*/
         List<Richiesta> listaRichiesteCompletate = this.gestoreRichieste.cercaRichieste(utente, Utilita.COMPLETATA);
@@ -59,6 +56,7 @@ public class RichiestePassate extends HttpServlet {
         
         //cerco le proposte relative alle richieste accettate
         for(Richiesta r: listaRichiesteCompletate){
+            System.out.println("RICHIESTA: " + r.getId());
             listaLavoriCompletati.add(gestoreProposte.cercaPropostaAccettata(r.getId()));
         }
         
@@ -67,7 +65,7 @@ public class RichiestePassate extends HttpServlet {
         request.setAttribute("lavoriCompletati", listaLavoriCompletati);
         request.setAttribute("richiesteValutate", listaRichiesteValutate);
         
-        ctx.getRequestDispatcher("/jsp/richiesteAccettate.jsp").forward(request, response);
+        ctx.getRequestDispatcher("/jsp/richiestePassate.jsp").forward(request, response);
         
     }
 

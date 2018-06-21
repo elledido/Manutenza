@@ -8,6 +8,8 @@ package it.unito.taass.irevaleo.controller;
 import it.unito.taass.irevaleo.Utilita;
 import it.unito.taass.manutenza.ejb.GestoreProposteLocal;
 import it.unito.taass.manutenza.ejb.GestoreRichiesteLocal;
+import it.unito.taass.manutenza.entities.Indirizzo;
+import it.unito.taass.manutenza.entities.Manutente;
 import it.unito.taass.manutenza.entities.Proposta;
 import it.unito.taass.manutenza.entities.Richiesta;
 import it.unito.taass.manutenza.entities.Utente;
@@ -50,7 +52,8 @@ public class RichiesteInCorso extends HttpServlet {
         HttpSession s = request.getSession();
         ServletContext ctx = getServletContext();
         
-        Utente utente = (Utente)s.getAttribute("utente");
+        Manutente manutente = (Manutente) s.getAttribute("utente");
+        Utente utente = Utilita.manutente2utente(manutente);
         
         List<Richiesta> listaRichiesteInAttesa = gestoreRichieste.cercaRichieste(utente, Utilita.IN_ATTESA);
         List<Richiesta> listaRichiesteAccettate = gestoreRichieste.cercaRichieste(utente, Utilita.ACCETTATA);
@@ -63,10 +66,11 @@ public class RichiesteInCorso extends HttpServlet {
         
         //cerco le proposte relative alle richieste accettate
         for(Richiesta r: listaRichiesteAccettate){
-            listaProposteAccettate.add(gestoreProposte.cercaPropostaAccettata(r.getId()));
+            Proposta p = gestoreProposte.cercaPropostaAccettata(r.getId());
+            if(p != null){
+                listaProposteAccettate.add(gestoreProposte.cercaPropostaAccettata(r.getId()));
+            }
         }
-        
-        System.out.println("PROPOSTE ACCETTATE: " + listaProposteAccettate);
         
         request.setAttribute("richiesteInAttesa", listaRichiesteInAttesa);
         request.setAttribute("proposteAccettate", listaProposteAccettate);

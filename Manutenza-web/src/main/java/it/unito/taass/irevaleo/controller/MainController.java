@@ -120,7 +120,7 @@ public class MainController extends HttpServlet {
         /* ### RICHIESTE PASSATE ### */
         else if(action.equals("richiestePassate")){
             //visualizza richieste passate (lavori commissionati e completati)
-            ctx.getRequestDispatcher("/jsp/richiestePassate.jsp").forward(request, response);
+            ctx.getNamedDispatcher("RichiestePassate").forward(request, response);
         }
         else if(action.equals("valutaManutente")){
             //invia i dati della valutazione

@@ -6,6 +6,7 @@
 
 <%@page import="java.util.List"%>
 <%@page import="it.unito.taass.manutenza.entities.Categoria"%>
+<%@page import="it.unito.taass.manutenza.entities.Manutente"%>
 <%@page import="it.unito.taass.manutenza.entities.Utente"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 

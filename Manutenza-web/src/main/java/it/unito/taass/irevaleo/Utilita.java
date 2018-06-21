@@ -5,6 +5,9 @@
  */
 package it.unito.taass.irevaleo;
 
+import it.unito.taass.manutenza.entities.Indirizzo;
+import it.unito.taass.manutenza.entities.Manutente;
+import it.unito.taass.manutenza.entities.Utente;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -48,6 +51,22 @@ public class Utilita {
             return null;
         }
     return dataDiNascita;
+    }
+    
+    public static Utente manutente2utente(Manutente manutente){
+        Utente utente = new Utente();
+        utente.setId(manutente.getId());
+        utente.setCodiceFiscale(manutente.getCodiceFiscale());
+        utente.setCognome(manutente.getCognome());
+        utente.setDataDiNascita(manutente.getDataDiNascita());
+        utente.setEmail(manutente.getEmail());
+        utente.setNome(manutente.getNome());
+        
+        for(Indirizzo i : manutente.getListaIndirizzi()){
+            utente.addIndirizzo(i);
+        }
+        
+        return utente;
     }
     
 }

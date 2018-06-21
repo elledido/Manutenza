@@ -12,6 +12,7 @@ import it.unito.taass.manutenza.entities.Richiesta;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 /**
@@ -54,12 +55,15 @@ public class GestoreProposte implements GestoreProposteLocal {
 
     @Override
     public Proposta cercaPropostaAccettata(Long richiestaId) {
-        List<Proposta> proposteAccettate = em.createNamedQuery("Ricerca proposta accettata per richiesta", Proposta.class)
+        try {
+            Proposta proposta = em.createNamedQuery("Ricerca proposta accettata per richiesta", Proposta.class)
                 .setParameter("richiestaId", richiestaId)
-                .getResultList();
-        if(proposteAccettate != null)
-            return proposteAccettate.get(0);
-        return null;
+                .getSingleResult();
+            return proposta;
+        } catch(NoResultException e) {
+            System.out.println("Non esiste alcuna proposta accettata per la richiesta " + richiestaId);
+            return null;
+        }
     }
     
 }

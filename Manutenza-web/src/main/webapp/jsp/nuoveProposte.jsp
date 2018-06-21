@@ -5,6 +5,7 @@
 --%>
 
 <%@page import="it.unito.taass.manutenza.entities.Foto"%>
+<%@page import="it.unito.taass.manutenza.entities.Manutente"%>
 <%@page import="it.unito.taass.manutenza.entities.Proposta"%>
 <%@page import="it.unito.taass.manutenza.entities.Richiesta"%>
 <%@page import="it.unito.taass.manutenza.entities.Utente"%>

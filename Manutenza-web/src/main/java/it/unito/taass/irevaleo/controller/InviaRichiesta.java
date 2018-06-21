@@ -9,6 +9,7 @@ import it.unito.taass.irevaleo.Utilita;
 import it.unito.taass.manutenza.ejb.GestoreRichiesteLocal;
 import it.unito.taass.manutenza.entities.Foto;
 import it.unito.taass.manutenza.entities.Indirizzo;
+import it.unito.taass.manutenza.entities.Manutente;
 import it.unito.taass.manutenza.entities.Utente;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -48,14 +49,15 @@ public class InviaRichiesta extends HttpServlet {
         ServletContext ctx = getServletContext(); //contesto della Servlet
         HttpSession s = request.getSession();
 
-        /* Utente che sta compilando la richiesta */
-        Utente utente = (Utente) s.getAttribute("utente");
-
+        /* Utente/Manutente che sta compilando la richiesta */
+        Manutente manutente = (Manutente) s.getAttribute("utente");
+        Utente utente = Utilita.manutente2utente(manutente);
+        
         /* campi del form */
         String titolo = request.getParameter("titolo");
         String categoria = request.getParameter("categoria");
         String descrizione = request.getParameter("descrizione");
-        Indirizzo indirizzo = this.ceracIndirizzo(utente, request);
+        Indirizzo indirizzo = this.cercaIndirizzo(utente, request);
         float budget = Float.parseFloat(request.getParameter("budget"));
         List<Foto> listaFoto = this.caricaListaFoto(request);
 
@@ -66,16 +68,16 @@ public class InviaRichiesta extends HttpServlet {
         Calendar dataDiCompletamento = null;
 
         //invia i dati al DB
-//        gestoreRichieste.createRichiesta(utente,
-//                indirizzo,
-//                titolo,
-//                descrizione,
-//                categoria,
-//                budget,
-//                listaFoto,
-//                dataDiCreazione,
-//                dataDiCompletamento,
-//                statoCompletamento);
+        gestoreRichieste.createRichiesta(utente,
+                indirizzo,
+                titolo,
+                descrizione,
+                categoria,
+                budget,
+                listaFoto,
+                dataDiCreazione,
+                dataDiCompletamento,
+                statoCompletamento);
         
         //vai alla pagina delle richieste in corso
         String url = request.getContextPath() + "/RichiesteInCorso";
@@ -83,7 +85,7 @@ public class InviaRichiesta extends HttpServlet {
         
     }
 
-    private Indirizzo ceracIndirizzo(Utente utente, HttpServletRequest request) {
+    private Indirizzo cercaIndirizzo(Utente utente, HttpServletRequest request) {
         Long indirizzoId = Long.parseLong(request.getParameter("indirizzo"));
         Indirizzo daCercare = null;
         for (Indirizzo i : utente.getListaIndirizzi()) {

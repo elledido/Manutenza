@@ -4,6 +4,7 @@
     Author     : irene
 --%>
 
+<%@page import="it.unito.taass.manutenza.entities.Manutente"%>
 <%@page import="it.unito.taass.manutenza.entities.Utente"%>
 <%@page import="it.unito.taass.manutenza.entities.Indirizzo"%>
 <%@page import="it.unito.taass.manutenza.entities.Categoria"%>
@@ -13,7 +14,7 @@
 
 <%
     //dati dell'utente in sessione
-    Utente utente = (Utente) session.getAttribute("utente");
+    Manutente utente = (Manutente) session.getAttribute("utente");
 %>
 
 <!DOCTYPE html>

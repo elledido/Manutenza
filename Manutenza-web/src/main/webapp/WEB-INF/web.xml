@@ -37,10 +37,6 @@
         <servlet-class>it.unito.taass.irevaleo.controller.RichiesteInCorso</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>RichiestePassate</servlet-name>
-        <servlet-class>it.unito.taass.irevaleo.controller.RichiestePassate</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>DiventaManutente</servlet-name>
         <servlet-class>it.unito.taass.irevaleo.controller.DiventaManutente</servlet-class>
     </servlet>
@@ -59,6 +55,10 @@
     <servlet>
         <servlet-name>MostraInteresse</servlet-name>
         <servlet-class>it.unito.taass.irevaleo.controller.MostraInteresse</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RichiestePassate</servlet-name>
+        <servlet-class>it.unito.taass.irevaleo.controller.RichiestePassate</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>MainController</servlet-name>
@@ -97,10 +97,6 @@
         <url-pattern>/RichiesteInCorso</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>RichiestePassate</servlet-name>
-        <url-pattern>/RichiestePassate</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>DiventaManutente</servlet-name>
         <url-pattern>/DiventaManutente</url-pattern>
     </servlet-mapping>
@@ -119,6 +115,10 @@
     <servlet-mapping>
         <servlet-name>MostraInteresse</servlet-name>
         <url-pattern>/MostraInteresse</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RichiestePassate</servlet-name>
+        <url-pattern>/RichiestePassate</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
