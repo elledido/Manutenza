@@ -5,7 +5,9 @@
  */
 package it.unito.taass.irevaleo.controller;
 
+import it.unito.taass.manutenza.ejb.GestoreManutenteLocal;
 import it.unito.taass.manutenza.ejb.GestoreUtenteLocal;
+import it.unito.taass.manutenza.entities.Manutente;
 import it.unito.taass.manutenza.entities.Utente;
 import java.io.IOException;
 import javax.ejb.EJB;
@@ -21,6 +23,9 @@ import javax.servlet.http.HttpSession;
  * @author leonardo
  */
 public class VerificaUtente extends HttpServlet {
+
+    @EJB
+    private GestoreManutenteLocal gestoreManutente;
 
     @EJB(beanName = "GestoreUtente")
     private GestoreUtenteLocal gestoreUtente;
@@ -38,19 +43,35 @@ public class VerificaUtente extends HttpServlet {
             throws ServletException, IOException {
 
         ServletContext ctx = getServletContext();
-
+        String messaggio;
         String email = request.getParameter("email");
 
-        Utente utente = gestoreUtente.caricaUtente(email);
-        String messaggio;
-        if (utente == null) {
+        //cerco un manutente con questa mail
+        Manutente manutente = gestoreManutente.cercaManutente(email);
+
+        //se non esiste
+        if (manutente == null) {
             messaggio = "nonEsiste";
-        } else {
+        } 
+        //esiste un manutente o utente con tale mail
+        else {
             messaggio = "esiste";
             HttpSession s = request.getSession(); //creo la sessione
 
-            //salva i dati dell'utente in sessione
-            s.setAttribute("utente", utente);
+            //verifico che se sia effettivamente un manutente
+            if (manutente.getListaCompetenze() == null) {
+                //è un utente, ricarico i dati con il gestore apposito
+                Utente utente = gestoreUtente.caricaUtente(email);
+                s.setAttribute("utente", utente);
+                s.setAttribute("ruolo", "U");
+                System.out.println("+++++++ UTENTE +++++++");
+            }
+            else {
+                //è un manutente
+                s.setAttribute("utente", manutente);
+                s.setAttribute("ruolo", "M");
+                System.out.println("+++++++ MANUTENTE +++++++");
+            }
         }
 
         response.setContentType("text");
