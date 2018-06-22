@@ -61,8 +61,9 @@
                 <c:forEach items="${utente.getListaCompetenze()}" var="competenza">
                     <div class="col-xs-6 col-md-3">
                         <div class="thumbnail">
-                            <!--<img src="..." alt="...">-->
-                            <div style="background-color: #333333; min-height: 180px;"></div>
+                            <div class="text-center" style="background-color: #fffffa; height: 180px;">
+                                <img src="images/${competenza.getCategoria()}.png" alt="${competenza.getCategoria()}">
+                            </div>
                             <div class="caption">
                                 <h3>${competenza.getCategoria()}</h3>
                                 <p>${competenza.getZonaDiCompetenza()}</p>
