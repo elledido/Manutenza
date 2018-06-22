@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package it.unito.taass.irevaleo.controller;
 
 import it.unito.taass.manutenza.ejb.GestoreManutenteLocal;
@@ -23,7 +18,7 @@ import javax.servlet.http.HttpSession;
  * @author leonardo
  */
 public class RegistraManutente extends HttpServlet {
-    
+
     @EJB(beanName = "GestoreManutente")
     private GestoreManutenteLocal gestoreManutente;
 
@@ -38,62 +33,63 @@ public class RegistraManutente extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         ServletContext ctx = getServletContext();
         HttpSession s = request.getSession();
-       
+
         /* RECUPERO DELL'UTENTE DAL DB */
         String email = (String) request.getParameter("email");
-        
-        System.out.println("EMAIL " + email);
-        
+
         Manutente manutente = gestoreManutente.cercaManutente(email);
-        
+
         //numero massimo di campi competenza
         int numCompetenze = ((List) ctx.getAttribute("categorie")).size();
-        
+
         Competenza competenza;
         String categoria;
         String zona;
         String tipo;
         String partitaIva;
-        
-        for(int i=1; i<=numCompetenze; i++){
-            
+
+        for (int i = 1; i <= numCompetenze; i++) {
+
             //resetto i dati di competenza
             competenza = null;
-            
+
             /* dati del form */
-            categoria = request.getParameter("categoria"+i);
-            zona = request.getParameter("zona"+i);
-            tipo = request.getParameter("tipo"+i);
-            partitaIva = request.getParameter("partitaIVA1");
-            
+            categoria = request.getParameter("categoria" + i);
+            zona = request.getParameter("zona" + i);
+            tipo = request.getParameter("tipo" + i);
+            partitaIva = request.getParameter("partitaIVA" + i);
+
             System.out.println("COMPETENZA " + i + ": " + categoria + " " + zona + " " + tipo + " " + partitaIva);
-            
+
             //se ho inserito l'ultima competenza al passo precedente
-            if(categoria == null){
-                i = numCompetenze+1; //lo forzo ad uscire dal ciclo
-            }
-            //inserisco al competenza nel DB
+            if (categoria == null) {
+                i = numCompetenze + 1; //lo forzo ad uscire dal ciclo
+            } //inserisco la competenza nel DB
             else {
                 competenza = new Competenza();
                 competenza.setCategoria(categoria);
                 competenza.setZonaDiCompetenza(zona);
                 competenza.setTipo(tipo);
-                competenza.setPartitaIva(partitaIva);
-                
+
+                //se si tratta di un professionista
+                if (tipo.equals("P")) {
+                    competenza.setPartitaIva(partitaIva); //partita IVA
+                }
+
                 manutente.addCompetenza(competenza);
             }
-            
+
         }
-        
+
         /* AGGIORNAMENO DEL MANUTENTE*/
         gestoreManutente.aggiornaManutente(manutente);
-        
-        s.setAttribute("manutente", manutente);
+
+        s.setAttribute("utente", manutente);
         s.setAttribute("ruolo", "manutente");
-        
+
         ctx.getRequestDispatcher("/jsp/dashboard.jsp").forward(request, response);
     }
 

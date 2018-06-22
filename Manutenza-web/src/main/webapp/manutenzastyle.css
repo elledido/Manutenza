@@ -16,6 +16,9 @@
 /* -----------------------------------------
     GENERAL
 ----------------------------------------- */
+html, body {
+    height: 100%;
+}
 
 body {
     /*position: relative;*/
@@ -96,6 +99,11 @@ a, a:hover, a:focus {
 .home-background {
     position: absolute;
     top: 51px;
+}
+
+.errorMsg {
+    text-align: left;
+    color: red;
 }
 
 /* -----------------------------------------

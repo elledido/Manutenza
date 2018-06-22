@@ -41,7 +41,7 @@
         <script src="manutenza.js" type="text/javascript"></script>
     </head>
     <body>
-        
+
         <!-- NAVBAR -->
         <%@include file="/navbar.txt"%>
 
@@ -57,7 +57,7 @@
                         <legend>Le tue competenze</legend>
 
                         <input type="hidden" name="email" value="<% out.print(request.getAttribute("emailManutenteDaCompletare"));%>">
-                        
+
                         <!-- Categoria -->
                         <div id="ct1" class="form-group">
                             <label class="control-label col-md-3 col-xs-3" for="categoria1">Categoria: </label>
@@ -81,7 +81,7 @@
                                 </select>
                             </div>
                         </div>
-                        
+
                         <!-- Tipo (amatoriale o professionista) -->
                         <div id="tp1" class="form-group">
                             <label class="control-label col-xs-3">Tipo: </label>
@@ -94,14 +94,20 @@
                                 </label>
                             </div>
                         </div>
-                        
+
                         <!-- Partita IVA (solo professionista) -->
                         <div id="pi1" class="form-group">
                             <label class="control-label col-xs-3" for="partitaIVA1">Partita IVA: </label>
                             <div class="col-xs-8">
-                                <input class="form-control" id="partitaIVA1" name="partitaIVA1" type="text" disabled>
+                                <div class="row">
+                                    <input class="form-control" id="partitaIVA1" name="partitaIVA1" type="text" disabled>
+                                </div>
+                                <div class="row">
+                                    <!-- Messaggio di errore -->
+                                </div>
                             </div>
                         </div>
+
 
                         <div class="col-xs-3">
                             <p class="add-skill" role="button" onclick="addSkill();"><span>+</span> Aggiungi competenza</p>
@@ -128,10 +134,10 @@
         </div>
 
         <script type="text/javascript">
-            
+
             var skills = 1;
-            var maxSkills = <%= ((List) application.getAttribute("categorie")).size() %>;
-            
+            var maxSkills = <%= ((List) application.getAttribute("categorie")).size()%>;
+
             // funzione per aggiungere un campo per un nuovo domicilio
             function addSkill() {
 
@@ -147,13 +153,13 @@
                 var formGroup = '<div id="line' + skills + '" class="line"></div>' +
                                 '<div id="ct' + skills + '" class="form-group">' +
                                     '<label class="control-label col-md-3 col-xs-3" for="categoria' + skills + '">Categoria: </label>' +
-                                        '<div class="col-md-8 col-xs-8">' +
-                                            '<select class="form-control" id="categoria' + skills + '" name="categoria' + skills + '" required>' +
-                                                '<c:forEach items="${applicationScope.categorie}" var="categoria">'+
-                                                    '<option value="${categoria.getNome()}">${categoria.getNome()}</option>' +
-                                                '</c:forEach>' +
-                                            '</select>' +
-                                        '</div>' +
+                                    '<div class="col-md-8 col-xs-8">' +
+                                        '<select class="form-control" id="categoria' + skills + '" name="categoria' + skills + '" required>' +
+                                            '<c:forEach items="${applicationScope.categorie}" var="categoria">' +
+                                                '<option value="${categoria.getNome()}">${categoria.getNome()}</option>' +
+                                            '</c:forEach>' +
+                                        '</select>' +
+                                    '</div>' +
                                 '</div>' +
                                 '<div id="zn' + skills + '" class="form-group">' +
                                     '<label class="control-label col-xs-3" for="zona' + skills + '">Zona di competenza: </label>' +
@@ -161,7 +167,7 @@
                                         '<select class="form-control" id="zona' + skills + '" name="zona' + skills + '" required>' +
                                             '<c:forEach items="${indirizzi}" var="domicilio">' +
                                                 '<option value="${domicilio.getCitta()}">${domicilio.getCitta()}</option>' +
-                                            '</c:forEach>'+
+                                            '</c:forEach>' +
                                         '</select>' +
                                     '</div>' +
                                 '</div>' +
@@ -179,8 +185,12 @@
                                 '<div id="pi' + skills + '" class="form-group">' +
                                     '<label class="control-label col-xs-3" for="partitaIVA' + skills + '">Partita IVA: </label>' +
                                     '<div class="col-xs-8">' +
-                                        '<input class="form-control" id="partitaIVA' + skills + '" name="partitaIVA' + skills + '" type="text" disabled>' +
-                                    '</div>' + 
+                                        '<div class="row">' +
+                                            '<input class="form-control" id="partitaIVA' + skills + '" name="partitaIVA' + skills + '" type="text" disabled>' +
+                                        '</div>' +
+                                        '<div class="row">' +
+                                        '</div>' +
+                                    '</div>' +
                                 '</div>';
 
 
@@ -220,10 +230,10 @@
 
                 //rimuovo il campo zona
                 $('#zn' + skills).remove();
-                
+
                 //rimuovo il campo tipo
                 $('#tp' + skills).remove();
-                
+
                 //rimuovo il campo partita iva
                 $('#pi' + skills).remove();
 
@@ -255,19 +265,87 @@
                 }
 
             }
-            
+
             //se professionista, abilita partita IVA
-            function enablePI(id){
-                $('#partitaIVA'+id).prop('disabled', false);
-                $('#partitaIVA'+id).prop('required', true);
-            }
-            
-            //se amatoriale, disabilita partita IVA
-            function disablePI(id) {
-                $('#partitaIVA'+id).prop('disabled', true);
-                $('#partitaIVA'+id).prop('required', false);
+            function enablePI(id) {
+                $('#partitaIVA' + id).prop('disabled', false);
+                $('#partitaIVA' + id).prop('required', true);
             }
 
+            //se amatoriale, disabilita partita IVA
+            function disablePI(id) {
+                $('#partitaIVA' + id).prop('disabled', true);
+                $('#partitaIVA' + id).prop('required', false);
+            }
+
+            //verifica la correttezza della partita IVA
+            function verifyPartitaIVA(partitaIVA) {
+                
+                var valido;
+                //dati da inviare al WS della partita IVA
+                var form = new FormData();
+                form.append("memberStateCode", "IT");
+                form.append("number", partitaIVA);
+
+                var settings = {
+                    "async": false,
+                    "crossDomain": true,
+                    "url": "http://localhost:8080/IVA/check",
+                    "method": "POST",
+                    "headers": {
+                        "Cache-Control": "no-cache",
+                        "Postman-Token": "4f4c907f-e427-4eb1-b0cf-588821664a60"
+                    },
+                    "processData": false,
+                    "contentType": false,
+                    "mimeType": "multipart/form-data",
+                    "data": form
+                };
+
+                //check della partita IVA
+                $.ajax(settings).done(function (response) {
+                    if (response === 'false') {
+                        console.log('Partita IVA: ' + partitaIVA);
+                        valido = false;
+                    } else {
+                        valido = true;
+                    }
+                });
+
+                return valido;
+            }
+
+            $(document).ready(function () {
+                //al submit del form
+                $('form').on('submit', function () {
+                    
+                    var errorMsg = '<p class="errorMsg">Partita IVA non valida!</p>';
+                    var i;
+                    
+                    //verifico ogni partita IVA inserita
+                    for(i=1; i<=skills; i++){
+                        
+                        //row che contiene il messaggio di errore
+                        var parent = $('#pi' + i + '>div.col-xs-8>div.row:last-child');
+                        //rimuovo il messaggio d'errore
+                        parent.children('p').remove();
+                        
+                        if($('#partitaIVA'+i).prop('disabled') === false) {
+                            
+                            var partitaIVA = $('#partitaIVA'+i).val(); //partita IVA inserita dall'utente
+                            
+                            //se almeno una ritorna false, segnalo l'errore e blocco l'operazione
+                            if(verifyPartitaIVA(partitaIVA) === false){
+                                //stampa un messaggio di errore
+                                parent.append(errorMsg);
+                                return false;
+                            }
+                        }
+                        
+                    }
+                    
+                });
+            });
 
         </script>
 

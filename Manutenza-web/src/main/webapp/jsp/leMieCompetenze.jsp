@@ -4,16 +4,16 @@
     Author     : irene
 --%>
 
+<%@page import="it.unito.taass.manutenza.entities.Indirizzo"%>
 <%@page import="it.unito.taass.manutenza.entities.Manutente"%>
 <%@page import="it.unito.taass.manutenza.entities.Utente"%>
-<%@page import="it.unito.taass.manutenza.entities.Indirizzo"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <%@ taglib prefix="c"uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%
     //dati dell'utente in sessione
-    Utente utente = (Utente) session.getAttribute("utente");
+    Manutente utente = (Manutente) session.getAttribute("utente");
 %>
 
 <!DOCTYPE html>
@@ -58,33 +58,30 @@
 
             <div id="skillList" class="row">
 
-                <!-- for each di competenze -->
-                <div class="col-xs-6 col-md-3">
-                    <div class="thumbnail">
-                        <!--<img src="..." alt="...">-->
-                        <div style="background-color: #333333; min-height: 180px;"></div>
-                        <div class="caption">
-                            <h3>Nome competenza</h3>
-                            <p>Zona competenza</p>
-                            <p>Professionista</p>
-                            <p>Partita IVA</p>
+                <c:forEach items="${utente.getListaCompetenze()}" var="competenza">
+                    <div class="col-xs-6 col-md-3">
+                        <div class="thumbnail">
+                            <!--<img src="..." alt="...">-->
+                            <div style="background-color: #333333; min-height: 180px;"></div>
+                            <div class="caption">
+                                <h3>${competenza.getCategoria()}</h3>
+                                <p>${competenza.getZonaDiCompetenza()}</p>
+                                <c:choose>
+                                    <c:when test="${competenza.getTipo() == 'P'}">
+                                        <p>Professionista</p>
+                                        <p>${competenza.getPartitaIva()}</p>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <p>Amatoriale</p>
+                                        <p>...</p>
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </c:forEach>
 
-                <div class="col-xs-6 col-md-3">
-                    <div class="thumbnail">
-                        <!--<img src="..." alt="...">-->
-                        <div style="background-color: #333333; min-height: 180px;"></div>
-                        <div class="caption">
-                            <h3>Nome competenza</h3>
-                            <p>Zona competenza</p>
-                            <p>Amatoriale</p>
-                            <p>...</p>
-                        </div>
-                    </div>
-                </div>
-
+                <!-- Aggiungi competenza -->
                 <div id="addSkill" class="col-md-3 col-xs-6 text-center">
                     <div class="thumbnail">
                         <button type="button" class="btn btn-block btn-img" data-toggle="modal" data-target="#nuovaCompetenza">
@@ -110,9 +107,9 @@
                                         <label class="control-label col-xs-3" for="categoria">Competenza: </label>
                                         <div class="col-xs-8">
                                             <select class="form-control" id="categoria" name="categoria" required>
-                                                <option value="cat1">Cat 1</option>
-                                                <option value="cat2">Cat 2</option>
-                                                <option value="cat3">Cat 3</option>
+                                                <c:forEach items="${applicationScope.categorie}" var="categoria">
+                                                    <option value="${categoria.getNome()}">${categoria.getNome()}</option>
+                                                </c:forEach> 
                                             </select>
                                         </div>
                                     </div>
@@ -144,6 +141,13 @@
                                         <label class="control-label col-xs-3" for="partitaIVA">Partita IVA: </label>
                                         <div class="col-xs-8">
                                             <input class="form-control" id="partitaIVA" name="partitaIVA" type="text" disabled>
+                                        </div>
+                                    </div>
+                                    <!-- Messaggio di errore per la partita IVA -->
+                                    <div class="form-group">
+                                        <label class="control-label col-xs-3"> </label>
+                                        <div class="col-xs-8">
+                                            <p class="errorMsg"> </p>
                                         </div>
                                     </div>
                                 </div>
@@ -186,6 +190,50 @@
                 $('input[value=A]').on('click', function () {
                     $('#partitaIVA').prop('disabled', true);
                     $('#partitaIVA').prop('required', false);
+                });
+
+                $('form').on('submit', function () {
+
+                    //se è un professionista faccio il check della partita IVA
+                    if ($('#partitaIVA').prop('disabled') === false) {
+
+                        var partitaIVA = $('#partitaIVA').val(); //partita IVA inserita dall'utente
+
+                        //dati da inviare al WS della partita IVA
+                        var form = new FormData();
+                        form.append("memberStateCode", "IT");
+                        form.append("number", partitaIVA);
+
+                        var settings = {
+                            "async": false,
+                            "crossDomain": true,
+                            "url": "http://localhost:8080/IVA/check",
+                            "method": "POST",
+                            "headers": {
+                                "Cache-Control": "no-cache",
+                                "Postman-Token": "4f4c907f-e427-4eb1-b0cf-588821664a60"
+                            },
+                            "processData": false,
+                            "contentType": false,
+                            "mimeType": "multipart/form-data",
+                            "data": form
+                        };
+
+                        var valido;
+
+                        //check della partita IVA
+                        $.ajax(settings).done(function (response) {
+                            if (response === 'false') {
+                                valido = 'false';
+                                $('p.errorMsg').append(document.createTextNode("Partita IVA non valida"));
+                            }
+                        });
+
+                        if (valido === 'false') {
+                            return false;
+                        }
+                    }
+
                 });
 
             });
