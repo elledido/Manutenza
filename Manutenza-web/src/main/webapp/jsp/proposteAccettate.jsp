@@ -1,12 +1,18 @@
 <%-- 
     Document   : proposteAccettate
-    Created on : 14-mar-2018, 16.47.55
+    Created on : 23-giu-2018, 15.47.32
     Author     : irene
 --%>
 
+<%@page import="it.unito.taass.manutenza.entities.Foto"%>
 <%@page import="it.unito.taass.manutenza.entities.Manutente"%>
+<%@page import="it.unito.taass.manutenza.entities.Proposta"%>
+<%@page import="it.unito.taass.manutenza.entities.Richiesta"%>
 <%@page import="it.unito.taass.manutenza.entities.Utente"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<%@taglib prefix="c"uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -14,7 +20,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-        <title>Proposte accettate</title>
+        <title>Proposte Accettate</title>
 
         <!-- Bootstrap CSS CDN -->
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
@@ -37,6 +43,7 @@
     </head>
 
     <body>
+
         <!-- NAVBAR -->
         <%@include file="/navbar.txt"%>
         <div class="jumbotron"></div>
@@ -44,93 +51,64 @@
         <!-- MAIN CONTAINER -->
         <div class="container">
             <h2>Proposte accettate</h2>
-
-            <div class="form-box">
-                <div class="row">
-                    <!-- Foto -->
-                    <div class="img-box col-md-2 col-xs-2">
-                    </div>
-                    <!-- Dati richiesta -->
-                    <div class="col-md-9 col-xs-8">
-                        <p class="titolo">Titolo richiesta 1</p>
-                        <form class="form-horizontal">
-                            <!-- Categoria -->
-                            <div class="form-group">
-                                <label class="control-label col-md-3 col-xs-3" for="categoria">Categoria: </label>
-                                <div class="col-md-6 col-xs-8">
-                                    <input class="form-control" id="categoria" name="categoria" type="text" readonly value="Categoria">
+            
+            <c:forEach items="${proposteAccettate}" var="proposta">
+                <div class="form-box">
+                    <div class="row">
+                        <!-- Foto -->
+                        <div class="img-box text-center col-xs-3">
+                            <c:choose> 
+                                <c:when test="${empty proposta.getRichiesta().getListaFoto()}">
+                                    <img src="images/${proposta.getRichiesta().getCategoria()}.png" alt="${proposta.getRichiesta().getCategoria()}">
+                                </c:when>
+                                <c:otherwise>
+                                    <img class="img-box" src="${proposta.getRichiesta().getListaFoto().get(0).getLink()}">
+                                </c:otherwise>
+                            </c:choose>
+                        </div>
+                        <!-- Dati richiesta -->
+                        <div class="col-xs-8">
+                            <p class="titolo">${proposta.getRichiesta().getTitolo()}</p>
+                            <form class="form-horizontal">
+                                <!-- Categoria -->
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-xs-3" for="categoria">Categoria: </label>
+                                    <div class="col-md-6 col-xs-8">
+                                        <input class="form-control" id="categoria" name="categoria" type="text" readonly 
+                                               value="${proposta.getRichiesta().getCategoria()}">
+                                    </div>
                                 </div>
-                            </div>
-                            <!-- Utente -->
-                            <div class="form-group">
-                                <label class="control-label col-md-3 col-xs-3" for="utente">Utente: </label>
-                                <div class="col-md-6 col-xs-8">
-                                    <input class="form-control" id="utente" name="utente" type="text" readonly value="Utente">
+                                <!-- Utente -->
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-xs-3" for="utente">Utente: </label>
+                                    <div class="col-md-6 col-xs-8">
+                                        <input class="form-control" id="utente" name="utente" type="text" readonly 
+                                               value="${proposta.getRichiesta().getUtente().getCognome()} ${proposta.getRichiesta().getUtente().getNome()}">
+                                    </div>
                                 </div>
-                            </div>
-                            <!-- Budget proposto -->
-                            <div class="form-group">
-                                <label class="control-label col-md-3 col-xs-3" for="budget">Budget: </label>
-                                <div class="input-group col-md-2 col-xs-4">
-                                    <span class="input-group-addon">€</span>
-                                    <input class="form-control currency" id="budget" name="budget" type="number" readonly value="50">
+                                <!-- Budget proposto -->
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-xs-3" for="budget">Prezzo proposto: </label>
+                                    <div class="input-group budget col-md-2 col-xs-4">
+                                        <span class="input-group-addon">€</span>
+                                        <input class="form-control currency" id="budget" name="budget" type="number" readonly 
+                                               value="${proposta.getPrezzo()}">
+                                    </div>
                                 </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-10 col-xs-8"></div>
-                    <div class="col-md-2 col-xs-4">
-                        <button type="button" class="btn btn-block btn-ok" data-toggle="modal" data-target="#mostraInteresse">
-                            Mostra interesse
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Mosta interesse -->
-            <div class="modal fade" id="mostraInteresse" tabindex="-1" role="dialog" aria-hidden="true">
-                <div class="modal-dialog modal-sm" role="document">
-                    <div class="modal-content">
-                        <form class="form-horizontal" action="/Manutenza-web/MainController" method="post">
-                            <div class="modal-body row">
-                                <div class="col-xs-12" align="center">
-                                    <p class="titolo">Titolo richiesta 1</p>
-                                    <!-- Budget proposto -->
-                                    <div class="form-group row">
-                                        <div class="col-xs-1"></div>
-                                        <label class="control-label col-xs-1" for="budget">Budget: </label>
-                                        <div class="input-group col-xs-6">
-                                            <span class="input-group-addon">€</span>
-                                            <input class="form-control currency" id="budget" name="budget" type="number">
-                                        </div>
-                                    </div> 
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <div class="col-xs-1"></div>
-                                <div class="col-xs-5">
-                                    <button type="button" class="btn btn-block btn-annul" data-dismiss="modal">Annula</button>
-                                </div>
-                                <div class="col-xs-5">
-                                    <button type="submit" class="btn btn-block btn-ok" name="action" value="mostraInteresse">Conferma</button>
-                                </div>
-                                <div class="col-xs-1"></div>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
                 </div>
+            </c:forEach>
 
-            </div>
-        
             <!-- FOOTER -->
             <%@include file="/footer.txt"%>
-            
+
         </div>
-        
+
         <!-- CHAT -->
         <%@include file="/chat.txt"%>
-        
+
     </body>
 </html>
+

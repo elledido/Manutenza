@@ -109,7 +109,7 @@
                     </div>
                 </div>
 
-                <!-- Mosta interesse -->
+                <!-- Mostra interesse -->
                 <div class="modal fade" id="mostraInteresse${richiesta.getId()}" tabindex="-1" role="dialog" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
@@ -120,16 +120,31 @@
                                         <input type="hidden" name="richiestaId" value="${richiesta.getId()}">
 
                                         <p class="titolo">${richiesta.getTitolo()}</p>
-                                        <!-- Prezzo proposto -->
-                                        <div class="form-group row">
-                                            <div class="col-md-1"></div>
-                                            <label class="control-label col-md-4" for="prezzo">Prezzo proposto: </label>
-                                            <div class="input-group budget col-md-3">
-                                                <span class="input-group-addon">€</span>
-                                                <input class="form-control currency" id="prezzo" name="prezzo" type="number" placeholder="0" min="0" required>
+                                        <!-- Descrizione del problema -->
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-xs-1"></div>
+                                                <label class="control-label col-xs-3" for="descrizione">Descrizione: </label>
                                             </div>
-                                            <div class="col-md-3"></div>
-                                        </div> 
+                                            <div class="row">
+                                                <div class="col-xs-1"></div>
+                                                <div class="col-xs-10">
+                                                    <textarea class="form-control noresize" id="descrizione" name="descrizione" rows="5" readonly>${richiesta.getDescrizione()}</textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Prezzo proposto -->
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-xs-1"></div>
+                                                <label class="control-label col-xs-4" for="prezzo">Prezzo proposto: </label>
+                                                <div class="input-group budget col-xs-3">
+                                                    <span class="input-group-addon">€</span>
+                                                    <input class="form-control currency" id="prezzo" name="prezzo" type="number" placeholder="0" min="0" required>
+                                                </div>
+                                                <div class="col-xs-4"></div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="modal-footer">

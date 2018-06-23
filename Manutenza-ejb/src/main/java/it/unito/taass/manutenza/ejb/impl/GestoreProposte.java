@@ -38,7 +38,7 @@ public class GestoreProposte implements GestoreProposteLocal {
 
     @Override
     public List<Proposta> cercaProposteAccettate(Manutente manutente, String stato) {
-       List<Proposta> listaProposte = em.createNamedQuery("Ricerca proposte non completate", Proposta.class)
+       List<Proposta> listaProposte = em.createNamedQuery("Ricerca proposte accettate", Proposta.class)
                .setParameter("manutente", manutente)
                .setParameter("stato", stato)
                .getResultList();

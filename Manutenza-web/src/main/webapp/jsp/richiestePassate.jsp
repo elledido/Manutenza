@@ -223,7 +223,6 @@
                                                     <textarea class="form-control noresize" id="commento" name="commento" rows="5" required></textarea>
                                                 </div>
                                             </div>
-
                                         </div>
                                     </div>
                                 </div>

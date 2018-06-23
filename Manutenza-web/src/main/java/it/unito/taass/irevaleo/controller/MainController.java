@@ -52,8 +52,6 @@ public class MainController extends HttpServlet {
 	String action = request.getParameter("action"); //parametro action
 	HttpSession s = request.getSession(); //se la sessione non esiste la crea
         
-        System.out.println("ACTION = " + action);
-        
         /* ### AVVIO DELL'APPLICAZIONE ### */
 	if(action == null){
 	    ctx.getRequestDispatcher("/jsp/home.jsp").forward(request, response); //vai alla homepage
@@ -150,11 +148,13 @@ public class MainController extends HttpServlet {
         /* ### PROPOSTE DI LAVORO ACCETTATE (solo ManUtente) ### */
         else if(action.equals("proposteAccettate")){
             //visualizza proposte di lavoro accettate (lavori accettati dal ManUtente ma che devono essere ancora fatti)
+            ctx.getNamedDispatcher("ProposteAccettate").forward(request, response);
         }
         
         /* ### LAVORI COMPLETATI (solo ManUtente) ### */
         else if(action.equals("lavoriCompletati")){
             //visualizza lavori completati (lavori accettati e completati dal ManUtente)
+            ctx.getNamedDispatcher("LavoriCompletati").forward(request, response);
         }
         
         /* ### CONTATTI ### */
