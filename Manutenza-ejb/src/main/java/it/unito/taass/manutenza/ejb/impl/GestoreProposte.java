@@ -65,5 +65,19 @@ public class GestoreProposte implements GestoreProposteLocal {
             return null;
         }
     }
+
+    @Override
+    public Proposta cercaPropostaRichiestaManutente(Long richiestaId, Manutente manutente) {
+        try {
+            Proposta proposta = em.createNamedQuery("Ricerca per richiesta e manutente", Proposta.class)
+                    .setParameter("richiestaId", richiestaId)
+                    .setParameter("manutente", manutente)
+                    .getSingleResult();
+            return proposta;
+        } catch(NoResultException e) {
+            System.out.println("Non esiste alcuna proposta fatta dal manutente per la richiesta " + richiestaId);
+            return null;
+        }
+    }
     
 }

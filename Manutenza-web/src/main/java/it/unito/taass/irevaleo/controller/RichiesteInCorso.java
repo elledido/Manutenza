@@ -8,7 +8,6 @@ package it.unito.taass.irevaleo.controller;
 import it.unito.taass.irevaleo.Utilita;
 import it.unito.taass.manutenza.ejb.GestoreProposteLocal;
 import it.unito.taass.manutenza.ejb.GestoreRichiesteLocal;
-import it.unito.taass.manutenza.entities.Indirizzo;
 import it.unito.taass.manutenza.entities.Manutente;
 import it.unito.taass.manutenza.entities.Proposta;
 import it.unito.taass.manutenza.entities.Richiesta;

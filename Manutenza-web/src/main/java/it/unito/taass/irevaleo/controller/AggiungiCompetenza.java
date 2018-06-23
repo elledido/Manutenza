@@ -60,7 +60,9 @@ public class AggiungiCompetenza extends HttpServlet {
         //aggiorna i dati del manutente nel DB
         gestoreManutente.aggiornaManutente(manutente);
         
-        ctx.getRequestDispatcher("/jsp/leMieCompetenze.jsp").forward(request, response); //torna alla pagina delle competenze
+        //torna alla pagina delle competenze
+        String url = request.getContextPath() + "/MainController?action=competenze";
+        response.sendRedirect(url);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

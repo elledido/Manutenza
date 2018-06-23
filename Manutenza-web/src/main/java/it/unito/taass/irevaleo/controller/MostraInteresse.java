@@ -41,7 +41,7 @@ public class MostraInteresse extends HttpServlet {
 	HttpSession s = request.getSession(); //sessione
         
         //recupero il Manutente in sessione
-        Manutente manutente = (Manutente) s.getAttribute("manutente");
+        Manutente manutente = (Manutente) s.getAttribute("utente");
         
         //id della richiesta
         Long richiestaId = Long.parseLong(request.getParameter("richiestaId"));
@@ -53,6 +53,11 @@ public class MostraInteresse extends HttpServlet {
         
         //creo l'oggetto proposta
         gestoreProposte.creaProposta(manutente, richiesta, prezzo);
+        
+        //vai alla pagina delle proposte accettate
+        //String url = request.getContextPath() + "/MainController?action=proposteAccettate";
+        String url = request.getContextPath() + "/MainController?action=dashboard";
+        response.sendRedirect(url);
         
     }
 

@@ -23,5 +23,7 @@ public interface GestoreProposteLocal {
     public List<Proposta> cercaProposteRichieste(Long richiestaId);
 
     Proposta cercaPropostaAccettata(Long richiestaId);
+
+    Proposta cercaPropostaRichiestaManutente(Long richiestaId, Manutente manutente);
     
 }

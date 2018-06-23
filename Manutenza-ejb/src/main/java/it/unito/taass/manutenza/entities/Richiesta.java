@@ -19,7 +19,9 @@ import javax.persistence.Temporal;
 @Entity
 @NamedQueries({
     @NamedQuery(name = "Richieste utente e stato", query = "SELECT r FROM Richiesta r WHERE r.utente = :utente AND r.stato = :stato"),
-    @NamedQuery(name = "Richiesta per id", query = "SELECT r FROM Richiesta r WHERE r.id = :id")
+    @NamedQuery(name = "Richiesta per id", query = "SELECT r FROM Richiesta r WHERE r.id = :id"),
+    @NamedQuery(name = "Proposte di lavoro per categoria e zona ad un manutente", 
+            query = "SELECT r FROM Richiesta r WHERE r.categoria = :categoria AND r.indirizzo.citta = :zona AND r.utente.email != :email AND r.stato = :stato")
 })
 public class Richiesta implements Serializable {
 

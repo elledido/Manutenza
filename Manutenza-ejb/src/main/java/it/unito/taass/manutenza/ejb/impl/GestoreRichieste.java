@@ -81,4 +81,17 @@ public class GestoreRichieste implements GestoreRichiesteLocal {
         }
     }
 
+    @Override
+    public List<Richiesta> cercaProposteLavoro(String categoria, String zona, String email, String stato) {
+        List<Richiesta> listaRichieste = em.createNamedQuery("Proposte di lavoro per categoria e zona ad un manutente", Richiesta.class)
+                .setParameter("categoria", categoria)
+                .setParameter("zona", zona)
+                .setParameter("email", email)
+                .setParameter("stato", stato)
+                .getResultList();
+        return listaRichieste;
+    }
+    
+    
+
 }

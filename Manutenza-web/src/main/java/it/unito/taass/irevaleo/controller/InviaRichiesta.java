@@ -52,7 +52,7 @@ public class InviaRichiesta extends HttpServlet {
         /* Utente/Manutente che sta compilando la richiesta */
         Manutente manutente = (Manutente) s.getAttribute("utente");
         Utente utente = Utilita.manutente2utente(manutente);
-        
+
         /* campi del form */
         String titolo = request.getParameter("titolo");
         String categoria = request.getParameter("categoria");
@@ -78,11 +78,11 @@ public class InviaRichiesta extends HttpServlet {
                 dataDiCreazione,
                 dataDiCompletamento,
                 statoCompletamento);
-        
+
         //vai alla pagina delle richieste in corso
-        String url = request.getContextPath() + "/RichiesteInCorso";
+        String url = request.getContextPath() + "/MainController?action=richiesteInCorso";
         response.sendRedirect(url);
-        
+
     }
 
     private Indirizzo cercaIndirizzo(Utente utente, HttpServletRequest request) {

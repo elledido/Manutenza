@@ -14,6 +14,7 @@ import javax.persistence.OneToOne;
 @Entity
 @NamedQueries({
     @NamedQuery(name = "Ricerca per richiesta", query = "SELECT p FROM Proposta p WHERE p.richiesta.id = :richiestaId"),
+    @NamedQuery(name = "Ricerca per richiesta e manutente", query = "SELECT p FROM Proposta p WHERE p.richiesta.id = :richiestaId AND p.manutente = :manutente"),
     @NamedQuery(name = "Ricerca proposte non completate", query = "SELECT p FROM Proposta p WHERE p.manutente = :manutente AND p.accettato = TRUE AND p.richiesta.stato = :stato"),
     @NamedQuery(name = "Ricerca proposta accettata per richiesta", query = "SELECT p FROM Proposta p WHERE p.accettato = TRUE AND p.richiesta.id = :richiestaId")
 })

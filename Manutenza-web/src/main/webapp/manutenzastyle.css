@@ -443,8 +443,8 @@ input.currency {
 
 .img-box{
     height: 180px;
-    width: 180px;
-    background-color: #333333;
+    max-width: 220px;
+    background-color: #fffffa;
     padding: 0;
 }
 

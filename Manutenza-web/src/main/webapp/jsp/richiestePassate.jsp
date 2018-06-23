@@ -58,18 +58,18 @@
                 <div class="form-box">
                     <div class="row">
                         <!-- Foto -->
-                        <div class="img-box col-md-2 col-xs-2">
+                        <div class="img-box text-center col-xs-3">
                             <c:choose> 
-                                <c:when test="${empty richiesta.getListaFoto()}">
-                                    <img class="img-box">
+                                <c:when test="${empty proposta.getRichiesta().getListaFoto()}">
+                                    <img src="images/${proposta.getRichiesta().getCategoria()}.png" alt="${proposta.getRichiesta().getCategoria()}">
                                 </c:when>
                                 <c:otherwise>
-                                    <img class="img-box" src="${richiesta.getListaFoto().get(0).getLink()}">
+                                    <img class="img-box" src="${proposta.getRichiesta().getListaFoto().get(0).getLink()}">
                                 </c:otherwise>
                             </c:choose>
                         </div>
                         <!-- Dati richiesta -->
-                        <div class="col-md-9 col-xs-8">
+                        <div class="col-xs-8">
                             <p class="titolo">${proposta.getRichiesta().getTitolo()}</p>
                             <form class="form-horizontal">
                                 <!-- Categoria -->

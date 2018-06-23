@@ -138,12 +138,13 @@ public class MainController extends HttpServlet {
         
         /* ### PROPOSTE DI LAVORO (solo ManUtente) ### */
         else if(action.equals("nuoveProposte")){
-            //visualizza nuove proposte di lavoro
-            ctx.getRequestDispatcher("/jsp/nuoveProposte.jsp").forward(request, response);
+            //visualizza richieste in attesa in cui zona e categoria coincidono con quella del manutente
+            ctx.getNamedDispatcher("NuoveProposte").forward(request, response);
         }
         /* ### PMOSTRA INTERESSE (solo ManUtente) ### */
         else if(action.equals("mostraInteresse")){
             //invia una notifica all'Utente
+            ctx.getNamedDispatcher("MostraInteresse").forward(request, response);
         }
         
         /* ### PROPOSTE DI LAVORO ACCETTATE (solo ManUtente) ### */

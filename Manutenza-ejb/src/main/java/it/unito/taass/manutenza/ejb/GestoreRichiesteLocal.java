@@ -36,4 +36,6 @@ public interface GestoreRichiesteLocal {
     public List<Richiesta> cercaRichieste(Utente utente, String stato);
 
     Richiesta cercaRichiestaId(Long id);
+
+    List<Richiesta> cercaProposteLavoro(String categoria, String zona, String email, String stato);
 }
