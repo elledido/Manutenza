@@ -1,8 +1,9 @@
 package it.unito.taass.irevaleo.controller;
 
+import it.unito.taass.irevaleo.Utilita;
+import it.unito.taass.manutenza.ejb.GestoreFeedbackLocal;
 import it.unito.taass.manutenza.ejb.GestoreManutenteLocal;
 import it.unito.taass.manutenza.ejb.GestoreRichiesteLocal;
-import it.unito.taass.manutenza.entities.Feedback;
 import it.unito.taass.manutenza.entities.Manutente;
 import it.unito.taass.manutenza.entities.Richiesta;
 import java.io.IOException;
@@ -17,6 +18,9 @@ import javax.servlet.http.HttpServletResponse;
  * @author irene
  */
 public class ValutaManutente extends HttpServlet {
+
+    @EJB
+    private GestoreFeedbackLocal gestoreFeedback;
 
     @EJB
     private GestoreRichiesteLocal gestoreRichieste;
@@ -48,6 +52,10 @@ public class ValutaManutente extends HttpServlet {
         //recupera la richiesta dal db
         Richiesta richiesta = gestoreRichieste.cercaRichiestaId(richiestaId);
         
+        //aggiorna lo stato della richiesta
+        richiesta.setStato(Utilita.VALUTATA);
+        gestoreRichieste.aggiornaRichiesta(richiesta);
+        
         //recupera il manutente dal db (ricerca per email
         Manutente manutente = gestoreManutente.cercaManutente(manutenteEmail);
         
@@ -60,21 +68,17 @@ public class ValutaManutente extends HttpServlet {
         manutente.setValutazioneComplessiva(val);
         gestoreManutente.aggiornaManutente(manutente);
         
+        //recupero la richiesta aggiornata dal db
+        richiesta = gestoreRichieste.cercaRichiestaId(richiestaId);
         //recupero il manutente aggiornato dal db
         manutente = gestoreManutente.cercaManutente(manutenteEmail);
         
-        //creazione oggetto feedback
-        Feedback feedback = new Feedback();
-        feedback.setRichiesta(richiesta);
-        feedback.setManutente(manutente);
-        feedback.setValutazioneComplessiva(vComplessiva);
-        feedback.setProfessionalita(professionalita);
-        feedback.setComunicazione(comunicazione);
-        feedback.setCommento(commento);
+        //salvataggio feedback sul DB
+        gestoreFeedback.createFeedback(manutente, richiesta, vComplessiva, professionalita, comunicazione, commento);
         
-        //salvataggio del feedback sul db
-        
-        //System.out.println("FORM DATA: " + richiestaId + " " + vComplessiva + " " + professionalita + " " + comunicazione + " " + commento);
+        //torno alla pagina delle richieste passate
+        String url = request.getContextPath() + "/MainController?action=richiestePassate";
+        response.sendRedirect(url);
         
     }
 

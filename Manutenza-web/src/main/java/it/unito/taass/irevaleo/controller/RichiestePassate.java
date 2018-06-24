@@ -1,8 +1,10 @@
 package it.unito.taass.irevaleo.controller;
 
 import it.unito.taass.irevaleo.Utilita;
+import it.unito.taass.manutenza.ejb.GestoreFeedbackLocal;
 import it.unito.taass.manutenza.ejb.GestoreProposteLocal;
 import it.unito.taass.manutenza.ejb.GestoreRichiesteLocal;
+import it.unito.taass.manutenza.entities.Feedback;
 import it.unito.taass.manutenza.entities.Manutente;
 import it.unito.taass.manutenza.entities.Proposta;
 import it.unito.taass.manutenza.entities.Richiesta;
@@ -25,6 +27,9 @@ import javax.servlet.http.HttpSession;
 public class RichiestePassate extends HttpServlet {
 
     @EJB
+    private GestoreFeedbackLocal gestoreFeedback;
+
+    @EJB
     private GestoreRichiesteLocal gestoreRichieste;
 
     @EJB
@@ -42,28 +47,39 @@ public class RichiestePassate extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        HttpSession s = request.getSession();
-        ServletContext ctx = getServletContext();
+        HttpSession s = request.getSession(); //sessione
+        ServletContext ctx = getServletContext(); //contesto della servlet
         
+        //utente in sessione
         Manutente manutente = (Manutente) s.getAttribute("utente");
         Utente utente = Utilita.manutente2utente(manutente);
         
-        /* ELENCO DELLE RICHIESTE COMPLETATE*/
-        List<Richiesta> listaRichiesteCompletate = this.gestoreRichieste.cercaRichieste(utente, Utilita.COMPLETATA);
-        List<Richiesta> listaRichiesteValutate = this.gestoreRichieste.cercaRichieste(utente, Utilita.VALUTATA);
+        //richieste completate ma non ancora valutate
+        List<Richiesta> richiesteCompletate = this.gestoreRichieste.cercaRichieste(utente, Utilita.COMPLETATA);
+        //richieste completate e valutate
+        List<Richiesta> richiesteValutate = this.gestoreRichieste.cercaRichieste(utente, Utilita.VALUTATA);
         
-        ArrayList<Proposta> listaLavoriCompletati = new ArrayList();
+        //proposte relative alle richieste completate
+        ArrayList<Proposta> lavoriCompletati = new ArrayList();
         
-        //cerco le proposte relative alle richieste accettate
-        for(Richiesta r: listaRichiesteCompletate){
-            System.out.println("RICHIESTA: " + r.getId());
-            listaLavoriCompletati.add(gestoreProposte.cercaPropostaAccettata(r.getId()));
+        for(Richiesta r: richiesteCompletate){
+            lavoriCompletati.add(gestoreProposte.cercaPropostaAccettata(r.getId()));
         }
         
-        /* MANCANO I FEEDBACK ASSOCIATI ALLE RICHIESTE VALUTATE!!! */
+        //proposte relative alle richieste valutate
+        ArrayList<Proposta> lavoriValutati = new ArrayList();
+        //feedback relativi alle richieste valutate
+        ArrayList<Feedback> feedbackProposte = new ArrayList();
         
-        request.setAttribute("lavoriCompletati", listaLavoriCompletati);
-        request.setAttribute("richiesteValutate", listaRichiesteValutate);
+        for(Richiesta r: richiesteValutate) {
+            lavoriValutati.add(gestoreProposte.cercaPropostaAccettata(r.getId()));
+            System.out.println("RICHIESTA ID: " + r.getId());
+            //feedbackProposte.add(gestoreFeedback.cercaPerIdRichiesta(r.getId()));
+        }
+        
+        request.setAttribute("lavoriCompletati", lavoriCompletati);
+        request.setAttribute("lavoriValutati", lavoriValutati);
+        request.setAttribute("feedbackProposte", feedbackProposte);
         
         ctx.getRequestDispatcher("/jsp/richiestePassate.jsp").forward(request, response);
         

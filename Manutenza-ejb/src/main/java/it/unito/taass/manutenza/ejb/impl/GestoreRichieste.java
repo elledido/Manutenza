@@ -58,7 +58,7 @@ public class GestoreRichieste implements GestoreRichiesteLocal {
         
         System.out.println("Richiesta salvata su db.");
     }
-
+    
     @Override
     public List<Richiesta> cercaRichieste(Utente utente, String stato) {
         List<Richiesta> listaRichieste = em.createNamedQuery("Richieste utente e stato", Richiesta.class)
@@ -90,6 +90,11 @@ public class GestoreRichieste implements GestoreRichiesteLocal {
                 .setParameter("stato", stato)
                 .getResultList();
         return listaRichieste;
+    }
+
+    @Override
+    public void aggiornaRichiesta(Richiesta richiesta) {
+        em.merge(richiesta);
     }
     
     

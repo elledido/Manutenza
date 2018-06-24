@@ -38,14 +38,14 @@ public class GestoreFeedback implements GestoreFeedbackLocal {
     }
 
     @Override
-    public Feedback cercaPerIdRichiesta(Richiesta richiesta) {
+    public Feedback cercaPerIdRichiesta(Long richiestaId) {
         try{ 
             Feedback feedback = em.createNamedQuery("Cerca feedback per proposta", Feedback.class)
-                    .setParameter("richiestaId", richiesta.getId())
+                    .setParameter("richiestaId", richiestaId)
                     .getSingleResult();
             return feedback;
         }catch(NoResultException nre){
-            System.out.println("Non esistono feedback per la richiesta indicata: " + richiesta.getId());
+            System.out.println("Non esistono feedback per la richiesta indicata: " + richiestaId);
             return null;
         }
     }

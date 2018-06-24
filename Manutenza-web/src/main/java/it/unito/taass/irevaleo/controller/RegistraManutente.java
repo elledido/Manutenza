@@ -86,7 +86,7 @@ public class RegistraManutente extends HttpServlet {
 
         /* AGGIORNAMENO DEL MANUTENTE*/
         gestoreManutente.aggiornaManutente(manutente);
-
+        
         s.setAttribute("utente", manutente);
         s.setAttribute("ruolo", "manutente");
 

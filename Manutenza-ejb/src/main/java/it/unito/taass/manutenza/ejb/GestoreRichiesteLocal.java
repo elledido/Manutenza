@@ -38,4 +38,6 @@ public interface GestoreRichiesteLocal {
     Richiesta cercaRichiestaId(Long id);
 
     List<Richiesta> cercaProposteLavoro(String categoria, String zona, String email, String stato);
+
+    void aggiornaRichiesta(Richiesta richiesta);
 }

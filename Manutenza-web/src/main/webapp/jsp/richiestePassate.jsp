@@ -118,8 +118,8 @@
                                 <div class="modal-body row">
                                     <div class="col-xs-12" align="center">
 
-                                        <input type="hidden" name="richiestaId" value="${proposta.getId()}">
-                                        <input type="hidden" name="manutenteEmail" value="${proposta.getManutente().getEmail()}"
+                                        <input type="hidden" name="richiestaId" value="${proposta.getRichiesta().getId()}">
+                                        <input type="hidden" name="manutenteEmail" value="${proposta.getManutente().getEmail()}">
 
                                         <!-- Valutazione complessiva --> 
                                         <div class="form-group">
@@ -242,53 +242,115 @@
                 </div>
             </c:forEach>
 
-            <!-- RICHIESTE VALUTATE: richieste il cui lavoro è stato completato e valutato (elenco di proposte a cui è associato un feedback in base alla posizione)-->
-            <div class="form-box">
-                <div class="row">
-                    <!-- Foto -->
-                    <div class="img-box col-md-2 col-xs-2">
-                    </div>
-                    <!-- Dati richiesta -->
-                    <div class="col-md-9 col-xs-8">
-                        <p class="titolo">Titolo 1</p>
-                        <form class="form-horizontal">
-                            <!-- Categoria -->
-                            <div class="form-group">
-                                <label class="control-label col-md-3 col-xs-3" for="categoria">Categoria: </label>
-                                <div class="col-md-6 col-xs-8">
-                                    <input class="form-control" id="categoria" name="categoria" type="text" readonly 
-                                           value="Categoria">
-                                </div>
-                            </div>
-                            <!-- Manutente a cui è stato affidato il lavoro -->
-                            <div class="form-group">
-                                <label class="control-label col-md-3 col-xs-3" for="manutente">Manutente: </label>
-                                <div class="col-md-6 col-xs-8">
-                                    <input class="form-control" id="manutente" name="manutente" type="text" readonly 
-                                           value="Mario Rossi">
-                                </div>
-                            </div>
-                            <!-- Costo pattuito -->
-                            <div class="form-group">
-                                <label class="control-label col-md-3 col-xs-3" for="costo">Costo: </label>
-                                <div class="input-group budget col-md-2 col-xs-4">
-                                    <span class="input-group-addon">€</span>
-                                    <input class="form-control currency" id="costo" name="costo" type="number" readonly value="50">
-                                </div>
-                            </div>
-                        </form>
+            <!-- Variabile necessaria per mantenere la corrispondenza di indici tra proposte e feedback -->
+            <c:set var="i" value="0"/>
 
+
+
+            <!-- RICHIESTE VALUTATE: richieste il cui lavoro è stato completato e valutato (elenco di proposte a cui è associato un feedback in base alla posizione)-->
+            <c:forEach items="${lavoriValutati}" var="proposta">
+
+
+
+                <div class="form-box">
+                    <div class="row">
+                        <!-- Foto -->
+                        <div class="img-box text-center col-xs-3">
+                            <c:choose> 
+                                <c:when test="${empty proposta.getRichiesta().getListaFoto()}">
+                                    <img src="images/${proposta.getRichiesta().getCategoria()}.png" alt="${proposta.getRichiesta().getCategoria()}">
+                                </c:when>
+                                <c:otherwise>
+                                    <img class="img-box" src="${proposta.getRichiesta().getListaFoto().get(0).getLink()}">
+                                </c:otherwise>
+                            </c:choose>
+                        </div>
+                        <!-- Dati richiesta -->
+                        <div class="col-xs-8">
+                            <form class="form-horizontal">
+                                <!-- Categoria -->
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-xs-3" for="categoria">Categoria: </label>
+                                    <div class="col-md-6 col-xs-8">
+                                        <input class="form-control" id="categoria" name="categoria" type="text" readonly 
+                                               value="${proposta.getRichiesta().getCategoria()}">
+                                    </div>
+                                </div>
+                                <!-- Manutente a cui è stato affidato il lavoro -->
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-xs-3" for="manutente">Manutente: </label>
+                                    <div class="col-md-6 col-xs-8">
+                                        <input class="form-control" id="manutente" name="manutente" type="text" readonly 
+                                               value="${proposta.getManutente().getCognome()} ${proposta.getManutente().getNome()}">
+                                    </div>
+                                </div>
+                                <!-- Costo pattuito -->
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-xs-3" for="costo">Costo: </label>
+                                    <div class="input-group budget col-md-2 col-xs-4">
+                                        <span class="input-group-addon">€</span>
+                                        <input class="form-control currency" id="costo" name="costo" type="number" readonly value="${proposta.getPrezzo()}">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-10 col-xs-8"></div>
+                        <div class="col-md-2 col-xs-4">
+                            <button type="button" class="btn btn-block btn-ok" data-toggle="modal" data-target="#feedback${proposta.getId()}">
+                                Mostra Valutazione
+                            </button>
+                        </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-10 col-xs-8"></div>
-                    <div class="col-md-2 col-xs-4">
-                        <button type="button" class="btn btn-block btn-ok" data-toggle="modal" data-target="#feedback">
-                            Mostra Valutazione
-                        </button>
+
+                <!-- Mostra valutazione -->
+                <div class="modal fade" id="feedback${proposta.getId()}" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <form class="form-horizontal">
+                                <div class="modal-body row">
+                                    <div class="col-xs-12" align="center">
+
+                                        <!-- Valutazione complessiva --> 
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-xs-1"></div>
+                                                <label class="control-label col-xs-5" for="val-complessiva">Valutazione complessiva: </label>
+                                                <div class="col-xs-5">
+                                                    <div class="rating-star text-center">
+                                                        <ul>
+                                                            <li class="star selected">
+                                                                <i class="fa fa-star fa-2x" aria-hidden="true"></i>
+                                                            </li>
+                                                            <li class="star selected">
+                                                                <i class="fa fa-star fa-2x" aria-hidden="true"></i>
+                                                            </li>
+                                                            <li class="star selected">
+                                                                <i class="fa fa-star fa-2x" aria-hidden="true"></i>
+                                                            </li>
+                                                            <li class="star selected">
+                                                                <i class="fa fa-star fa-2x" aria-hidden="true"></i>
+                                                            </li>
+                                                            <li class="star">
+                                                                <i class="fa fa-star fa-2x" aria-hidden="true"></i>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
-            </div>
+
+            </c:forEach>
+
 
             <!-- Mostra valutazione -->
             <div class="modal fade" id="feedback" tabindex="-1" role="dialog" aria-hidden="true">

@@ -21,5 +21,5 @@ public interface GestoreFeedbackLocal {
             String commento
             );
     
-    public Feedback cercaPerIdRichiesta(Richiesta richiesta);
+    public Feedback cercaPerIdRichiesta(Long richiestaId);
 }
