@@ -102,6 +102,9 @@
                 </div>
             </c:forEach>
 
+            <!-- Variabile necessaria per mantenere la corrispondenza di indici tra proposte e feedback -->
+            <c:set var="i" value="0"/>
+
             <!-- Lavori completati e valutati -->
             <c:forEach items="${lavoriValutati}" var="proposta">
                 <div class="form-box">
@@ -160,6 +163,9 @@
                     </div>
                 </div>
 
+                <c:set var="feedback" value="${feedbackProposte.get(i)}" />
+                <c:set var="i" value="${i+1}"/>
+
                 <!-- Mostra valutazione -->
                 <div class="modal fade" id="mostraValutazione${richiesta.getId()}" tabindex="-1" role="dialog" aria-hidden="true">
                     <div class="modal-dialog" role="document">
@@ -173,54 +179,50 @@
                                             <div class="row">
                                                 <div class="col-xs-1"></div>
                                                 <label class="control-label col-xs-5" for="val-complessiva">Valutazione complessiva: </label>
-                                                <div class="col-xs-5">
-                                                    <div class="rating-star text-center">
-                                                        <ul>
-                                                            <li class="star selected">
-                                                                <i class="fa fa-star fa-2x" aria-hidden="true"></i>
-                                                            </li>
-                                                            <li class="star selected">
-                                                                <i class="fa fa-star fa-2x" aria-hidden="true"></i>
-                                                            </li>
-                                                            <li class="star selected">
-                                                                <i class="fa fa-star fa-2x" aria-hidden="true"></i>
-                                                            </li>
-                                                            <li class="star selected">
-                                                                <i class="fa fa-star fa-2x" aria-hidden="true"></i>
-                                                            </li>
-                                                            <li class="star">
-                                                                <i class="fa fa-star fa-2x" aria-hidden="true"></i>
-                                                            </li>
-                                                        </ul>
+                                                <div class="col-xs-5 rating-star text-center">
+                                                    <!-- RATING STAR -->                            
+                                                    <div class="container-fluid back-stars">
+                                                        <i class="fa fa-star fa-2x back-star" aria-hidden="true"></i>
+                                                        <i class="fa fa-star fa-2x back-star" aria-hidden="true"></i>
+                                                        <i class="fa fa-star fa-2x back-star" aria-hidden="true"></i>
+                                                        <i class="fa fa-star fa-2x back-star" aria-hidden="true"></i>
+                                                        <i class="fa fa-star fa-2x back-star" aria-hidden="true"></i>
+                                                    </div>
+
+                                                    <div class="container-fluid front-stars">
+                                                        <c:forEach var="i" begin="1" end="${feedback.getValutazioneComplessiva()}">
+                                                            <i id="star<c:out value="${i}"/>" class="fa fa-star fa-2x" aria-hidden="true"></i>
+                                                        </c:forEach>
+                                                        <c:forEach var="i" begin="${feedback.getValutazioneComplessiva() + 1}" end="5">
+                                                            <i id="star<c:out value="${i}"/>" class="fa fa-star-o fa-2x" aria-hidden="true"></i>
+                                                        </c:forEach>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
 
-                                        <!-- Professionalità --> 
-                                        <div class="form-group"> 
+                                        <!-- Professionalità -->
+                                        <div class="form-group">
                                             <div class="row">
                                                 <div class="col-xs-1"></div>
                                                 <label class="control-label col-xs-5" for="professionalita">Professionalit&agrave;: </label>
-                                                <div class="col-xs-5">
-                                                    <div class="rating-star text-center">
-                                                        <ul>
-                                                            <li class="star">
-                                                                <i class="fa fa-star fa-2x" aria-hidden="true"></i>
-                                                            </li>
-                                                            <li class="star">
-                                                                <i class="fa fa-star fa-2x" aria-hidden="true"></i>
-                                                            </li>
-                                                            <li class="star">
-                                                                <i class="fa fa-star fa-2x" aria-hidden="true"></i>
-                                                            </li>
-                                                            <li class="star">
-                                                                <i class="fa fa-star fa-2x" aria-hidden="true"></i>
-                                                            </li>
-                                                            <li class="star">
-                                                                <i class="fa fa-star fa-2x" aria-hidden="true"></i>
-                                                            </li>
-                                                        </ul>
+                                                <div class="col-xs-5 rating-star text-center">
+                                                    <!-- RATING STAR -->                            
+                                                    <div class="container-fluid back-stars">
+                                                        <i class="fa fa-star fa-2x back-star" aria-hidden="true"></i>
+                                                        <i class="fa fa-star fa-2x back-star" aria-hidden="true"></i>
+                                                        <i class="fa fa-star fa-2x back-star" aria-hidden="true"></i>
+                                                        <i class="fa fa-star fa-2x back-star" aria-hidden="true"></i>
+                                                        <i class="fa fa-star fa-2x back-star" aria-hidden="true"></i>
+                                                    </div>
+
+                                                    <div class="container-fluid front-stars">
+                                                        <c:forEach var="i" begin="1" end="${feedback.getProfessionalita()}">
+                                                            <i id="star<c:out value="${i}"/>" class="fa fa-star fa-2x" aria-hidden="true"></i>
+                                                        </c:forEach>
+                                                        <c:forEach var="i" begin="${feedback.getProfessionalita() + 1}" end="5">
+                                                            <i id="star<c:out value="${i}"/>" class="fa fa-star-o fa-2x" aria-hidden="true"></i>
+                                                        </c:forEach>
                                                     </div>
                                                 </div>
                                             </div>
@@ -231,25 +233,23 @@
                                             <div class="row">
                                                 <div class="col-xs-1"></div>
                                                 <label class="control-label col-xs-5" for="comunicazione">Comunicazione: </label>
-                                                <div class="col-xs-5">
-                                                    <div class="rating-star text-center">
-                                                        <ul>
-                                                            <li class="star">
-                                                                <i class="fa fa-star fa-2x" aria-hidden="true"></i>
-                                                            </li>
-                                                            <li class="star">
-                                                                <i class="fa fa-star fa-2x" aria-hidden="true"></i>
-                                                            </li>
-                                                            <li class="star">
-                                                                <i class="fa fa-star fa-2x" aria-hidden="true"></i>
-                                                            </li>
-                                                            <li class="star">
-                                                                <i class="fa fa-star fa-2x" aria-hidden="true"></i>
-                                                            </li>
-                                                            <li class="star">
-                                                                <i class="fa fa-star fa-2x" aria-hidden="true"></i>
-                                                            </li>
-                                                        </ul>
+                                                <div class="col-xs-5 rating-star text-center">
+                                                    <!-- RATING STAR -->                            
+                                                    <div class="container-fluid back-stars">
+                                                        <i class="fa fa-star fa-2x back-star" aria-hidden="true"></i>
+                                                        <i class="fa fa-star fa-2x back-star" aria-hidden="true"></i>
+                                                        <i class="fa fa-star fa-2x back-star" aria-hidden="true"></i>
+                                                        <i class="fa fa-star fa-2x back-star" aria-hidden="true"></i>
+                                                        <i class="fa fa-star fa-2x back-star" aria-hidden="true"></i>
+                                                    </div>
+
+                                                    <div class="container-fluid front-stars">
+                                                        <c:forEach var="i" begin="1" end="${feedback.getComunicazione()}">
+                                                            <i id="star<c:out value="${i}"/>" class="fa fa-star fa-2x" aria-hidden="true"></i>
+                                                        </c:forEach>
+                                                        <c:forEach var="i" begin="${feedback.getComunicazione() + 1}" end="5">
+                                                            <i id="star<c:out value="${i}"/>" class="fa fa-star-o fa-2x" aria-hidden="true"></i>
+                                                        </c:forEach>
                                                     </div>
                                                 </div>
                                             </div>
@@ -264,7 +264,7 @@
                                             <div class="row">
                                                 <div class="col-xs-1"></div>
                                                 <div class="col-xs-10">
-                                                    <textarea class="form-control noresize" id="commento" name="commento" rows="5" readonly>Questo &egrave; un commento</textarea>
+                                                    <textarea class="form-control noresize" id="commento" name="commento" rows="5" readonly>${feedback.getCommento()}</textarea>
                                                 </div>
                                             </div>
 

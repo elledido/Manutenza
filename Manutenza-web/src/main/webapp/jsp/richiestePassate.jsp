@@ -155,7 +155,7 @@
                                         <div class="form-group"> 
                                             <div class="row">
                                                 <div class="col-xs-1"></div>
-                                                <label class="control-label col-xs-5" for="professionalita">Professionalità: </label>
+                                                <label class="control-label col-xs-5" for="professionalita">Professionalit&agrave;: </label>
                                                 <div class="col-xs-5">
                                                     <input class="form-control" id="professionalita" name="professionalita" type="hidden" value="0">
                                                     <div class="rating-star text-center">
@@ -245,12 +245,8 @@
             <!-- Variabile necessaria per mantenere la corrispondenza di indici tra proposte e feedback -->
             <c:set var="i" value="0"/>
 
-
-
             <!-- RICHIESTE VALUTATE: richieste il cui lavoro è stato completato e valutato (elenco di proposte a cui è associato un feedback in base alla posizione)-->
             <c:forEach items="${lavoriValutati}" var="proposta">
-
-
 
                 <div class="form-box">
                     <div class="row">
@@ -267,6 +263,7 @@
                         </div>
                         <!-- Dati richiesta -->
                         <div class="col-xs-8">
+                            <p class="titolo">${proposta.getRichiesta().getTitolo()}</p>
                             <form class="form-horizontal">
                                 <!-- Categoria -->
                                 <div class="form-group">
@@ -305,6 +302,9 @@
                     </div>
                 </div>
 
+                <c:set var="feedback" value="${feedbackProposte.get(i)}" />
+                <c:set var="i" value="${i+1}"/>
+
                 <!-- Mostra valutazione -->
                 <div class="modal fade" id="feedback${proposta.getId()}" tabindex="-1" role="dialog" aria-hidden="true">
                     <div class="modal-dialog" role="document">
@@ -318,164 +318,112 @@
                                             <div class="row">
                                                 <div class="col-xs-1"></div>
                                                 <label class="control-label col-xs-5" for="val-complessiva">Valutazione complessiva: </label>
-                                                <div class="col-xs-5">
-                                                    <div class="rating-star text-center">
-                                                        <ul>
-                                                            <li class="star selected">
-                                                                <i class="fa fa-star fa-2x" aria-hidden="true"></i>
-                                                            </li>
-                                                            <li class="star selected">
-                                                                <i class="fa fa-star fa-2x" aria-hidden="true"></i>
-                                                            </li>
-                                                            <li class="star selected">
-                                                                <i class="fa fa-star fa-2x" aria-hidden="true"></i>
-                                                            </li>
-                                                            <li class="star selected">
-                                                                <i class="fa fa-star fa-2x" aria-hidden="true"></i>
-                                                            </li>
-                                                            <li class="star">
-                                                                <i class="fa fa-star fa-2x" aria-hidden="true"></i>
-                                                            </li>
-                                                        </ul>
+                                                <div class="col-xs-5 rating-star text-center">
+                                                    <!-- RATING STAR -->                            
+                                                    <div class="container-fluid back-stars">
+                                                        <i class="fa fa-star fa-2x back-star" aria-hidden="true"></i>
+                                                        <i class="fa fa-star fa-2x back-star" aria-hidden="true"></i>
+                                                        <i class="fa fa-star fa-2x back-star" aria-hidden="true"></i>
+                                                        <i class="fa fa-star fa-2x back-star" aria-hidden="true"></i>
+                                                        <i class="fa fa-star fa-2x back-star" aria-hidden="true"></i>
+                                                    </div>
+
+                                                    <div class="container-fluid front-stars">
+                                                        <c:forEach var="i" begin="1" end="${feedback.getValutazioneComplessiva()}">
+                                                            <i id="star<c:out value="${i}"/>" class="fa fa-star fa-2x" aria-hidden="true"></i>
+                                                        </c:forEach>
+                                                        <c:forEach var="i" begin="${feedback.getValutazioneComplessiva() + 1}" end="5">
+                                                            <i id="star<c:out value="${i}"/>" class="fa fa-star-o fa-2x" aria-hidden="true"></i>
+                                                        </c:forEach>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
 
+                                        <!-- Professionalità -->
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-xs-1"></div>
+                                                <label class="control-label col-xs-5" for="professionalita">Professionalit&agrave;: </label>
+                                                <div class="col-xs-5 rating-star text-center">
+                                                    <!-- RATING STAR -->                            
+                                                    <div class="container-fluid back-stars">
+                                                        <i class="fa fa-star fa-2x back-star" aria-hidden="true"></i>
+                                                        <i class="fa fa-star fa-2x back-star" aria-hidden="true"></i>
+                                                        <i class="fa fa-star fa-2x back-star" aria-hidden="true"></i>
+                                                        <i class="fa fa-star fa-2x back-star" aria-hidden="true"></i>
+                                                        <i class="fa fa-star fa-2x back-star" aria-hidden="true"></i>
+                                                    </div>
+
+                                                    <div class="container-fluid front-stars">
+                                                        <c:forEach var="i" begin="1" end="${feedback.getProfessionalita()}">
+                                                            <i id="star<c:out value="${i}"/>" class="fa fa-star fa-2x" aria-hidden="true"></i>
+                                                        </c:forEach>
+                                                        <c:forEach var="i" begin="${feedback.getProfessionalita() + 1}" end="5">
+                                                            <i id="star<c:out value="${i}"/>" class="fa fa-star-o fa-2x" aria-hidden="true"></i>
+                                                        </c:forEach>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Comunicazione --> 
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-xs-1"></div>
+                                                <label class="control-label col-xs-5" for="comunicazione">Comunicazione: </label>
+                                                <div class="col-xs-5 rating-star text-center">
+                                                    <!-- RATING STAR -->                            
+                                                    <div class="container-fluid back-stars">
+                                                        <i class="fa fa-star fa-2x back-star" aria-hidden="true"></i>
+                                                        <i class="fa fa-star fa-2x back-star" aria-hidden="true"></i>
+                                                        <i class="fa fa-star fa-2x back-star" aria-hidden="true"></i>
+                                                        <i class="fa fa-star fa-2x back-star" aria-hidden="true"></i>
+                                                        <i class="fa fa-star fa-2x back-star" aria-hidden="true"></i>
+                                                    </div>
+
+                                                    <div class="container-fluid front-stars">
+                                                        <c:forEach var="i" begin="1" end="${feedback.getComunicazione()}">
+                                                            <i id="star<c:out value="${i}"/>" class="fa fa-star fa-2x" aria-hidden="true"></i>
+                                                        </c:forEach>
+                                                        <c:forEach var="i" begin="${feedback.getComunicazione() + 1}" end="5">
+                                                            <i id="star<c:out value="${i}"/>" class="fa fa-star-o fa-2x" aria-hidden="true"></i>
+                                                        </c:forEach>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Commento -->
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-xs-1"></div>
+                                                <label class="control-label col-xs-3" for="commento">Commento: </label>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-1"></div>
+                                                <div class="col-xs-10">
+                                                    <textarea class="form-control noresize" id="commento" name="commento" rows="5" readonly>${feedback.getCommento()}</textarea>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
+
+                                <div class="modal-footer text-center">
+                                    <div class="col-xs-4"></div>
+                                    <div class="col-xs-4">
+                                        <button type="button" class="btn btn-block btn-annul" data-dismiss="modal">Chiudi</button>
+                                    </div>
+                                    <div class="col-xs-4"></div>
+                                </div>
+
                             </form>
                         </div>
                     </div>
                 </div>
 
             </c:forEach>
-
-
-            <!-- Mostra valutazione -->
-            <div class="modal fade" id="feedback" tabindex="-1" role="dialog" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <form class="form-horizontal">
-                            <div class="modal-body row">
-                                <div class="col-xs-12" align="center">
-
-                                    <!-- Valutazione complessiva --> 
-                                    <div class="form-group">
-                                        <div class="row">
-                                            <div class="col-xs-1"></div>
-                                            <label class="control-label col-xs-5" for="val-complessiva">Valutazione complessiva: </label>
-                                            <div class="col-xs-5">
-                                                <div class="rating-star text-center">
-                                                    <ul>
-                                                        <li class="star selected">
-                                                            <i class="fa fa-star fa-2x" aria-hidden="true"></i>
-                                                        </li>
-                                                        <li class="star selected">
-                                                            <i class="fa fa-star fa-2x" aria-hidden="true"></i>
-                                                        </li>
-                                                        <li class="star selected">
-                                                            <i class="fa fa-star fa-2x" aria-hidden="true"></i>
-                                                        </li>
-                                                        <li class="star selected">
-                                                            <i class="fa fa-star fa-2x" aria-hidden="true"></i>
-                                                        </li>
-                                                        <li class="star">
-                                                            <i class="fa fa-star fa-2x" aria-hidden="true"></i>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Professionalità --> 
-                                    <div class="form-group"> 
-                                        <div class="row">
-                                            <div class="col-xs-1"></div>
-                                            <label class="control-label col-xs-5" for="professionalita">Professionalità: </label>
-                                            <div class="col-xs-5">
-                                                <div class="rating-star text-center">
-                                                    <ul>
-                                                        <li class="star">
-                                                            <i class="fa fa-star fa-2x" aria-hidden="true"></i>
-                                                        </li>
-                                                        <li class="star">
-                                                            <i class="fa fa-star fa-2x" aria-hidden="true"></i>
-                                                        </li>
-                                                        <li class="star">
-                                                            <i class="fa fa-star fa-2x" aria-hidden="true"></i>
-                                                        </li>
-                                                        <li class="star">
-                                                            <i class="fa fa-star fa-2x" aria-hidden="true"></i>
-                                                        </li>
-                                                        <li class="star">
-                                                            <i class="fa fa-star fa-2x" aria-hidden="true"></i>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Comunicazione --> 
-                                    <div class="form-group">
-                                        <div class="row">
-                                            <div class="col-xs-1"></div>
-                                            <label class="control-label col-xs-5" for="comunicazione">Comunicazione: </label>
-                                            <div class="col-xs-5">
-                                                <div class="rating-star text-center">
-                                                    <ul>
-                                                        <li class="star">
-                                                            <i class="fa fa-star fa-2x" aria-hidden="true"></i>
-                                                        </li>
-                                                        <li class="star">
-                                                            <i class="fa fa-star fa-2x" aria-hidden="true"></i>
-                                                        </li>
-                                                        <li class="star">
-                                                            <i class="fa fa-star fa-2x" aria-hidden="true"></i>
-                                                        </li>
-                                                        <li class="star">
-                                                            <i class="fa fa-star fa-2x" aria-hidden="true"></i>
-                                                        </li>
-                                                        <li class="star">
-                                                            <i class="fa fa-star fa-2x" aria-hidden="true"></i>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Commento -->
-                                    <div class="form-group">
-                                        <div class="row">
-                                            <div class="col-xs-1"></div>
-                                            <label class="control-label col-xs-3" for="commento">Commento: </label>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-xs-1"></div>
-                                            <div class="col-xs-10">
-                                                <textarea class="form-control noresize" id="commento" name="commento" rows="5" readonly>
-                                                    Questo è un commento
-                                                </textarea>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer text-center">
-                                <div class="col-xs-4"></div>
-                                <div class="col-xs-4">
-                                    <button type="button" class="btn btn-block btn-annul" data-dismiss="modal">Annulla</button>
-                                </div>
-                                <div class="col-xs-4"></div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
 
             <!-- FOOTER -->
             <%@include file="/footer.txt"%>

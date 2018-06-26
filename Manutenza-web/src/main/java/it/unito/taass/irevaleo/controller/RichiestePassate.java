@@ -73,8 +73,7 @@ public class RichiestePassate extends HttpServlet {
         
         for(Richiesta r: richiesteValutate) {
             lavoriValutati.add(gestoreProposte.cercaPropostaAccettata(r.getId()));
-            System.out.println("RICHIESTA ID: " + r.getId());
-            //feedbackProposte.add(gestoreFeedback.cercaPerIdRichiesta(r.getId()));
+            feedbackProposte.add(gestoreFeedback.cercaPerIdRichiesta(r.getId()));
         }
         
         request.setAttribute("lavoriCompletati", lavoriCompletati);

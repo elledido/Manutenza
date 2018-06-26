@@ -1,15 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package it.unito.taass.irevaleo.controller;
 
 import it.unito.taass.irevaleo.Utilita;
+import it.unito.taass.manutenza.ejb.GestoreFeedbackLocal;
 import it.unito.taass.manutenza.ejb.GestoreProposteLocal;
+import it.unito.taass.manutenza.entities.Feedback;
 import it.unito.taass.manutenza.entities.Manutente;
 import it.unito.taass.manutenza.entities.Proposta;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletContext;
@@ -24,6 +22,9 @@ import javax.servlet.http.HttpSession;
  * @author irene
  */
 public class LavoriCompletati extends HttpServlet {
+
+    @EJB
+    private GestoreFeedbackLocal gestoreFeedback;
 
     @EJB
     private GestoreProposteLocal gestoreProposte;
@@ -51,8 +52,16 @@ public class LavoriCompletati extends HttpServlet {
         //lavori valutati = proposte di lavoro completate e valutare dall'utente che le ha commissionate
         List<Proposta> lavoriValutati = gestoreProposte.cercaProposteAccettate(manutente, Utilita.VALUTATA);
         
+        //feedback relativi ai lavori valutati
+        ArrayList<Feedback> feedbackProposte = new ArrayList();
+        
+        for(Proposta p: lavoriValutati){
+            feedbackProposte.add(gestoreFeedback.cercaPerIdRichiesta(p.getRichiesta().getId()));
+        }
+        
         request.setAttribute("lavoriCompletati", lavoriCompletati);
         request.setAttribute("lavoriValutati", lavoriValutati);
+        request.setAttribute("feedbackProposte", feedbackProposte);
         
         ctx.getRequestDispatcher("/jsp/lavoriCompletati.jsp").forward(request, response);
         

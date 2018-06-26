@@ -57,7 +57,7 @@
                 </div>
             </c:if>
             
-            <!-- Elenco delle proposte associate alla richiesta scelta -->
+            <!-- Elenco delle proposte associate alla richiesta scelta (INDICARE SE IL MANUTENTE SIA P O A)-->
             <c:forEach items="${proposte}" var="proposta">
                 <div class="form-box">
                     <div class="row">
