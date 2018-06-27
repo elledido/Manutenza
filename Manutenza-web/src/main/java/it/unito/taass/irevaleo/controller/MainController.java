@@ -23,6 +23,12 @@ public class MainController extends HttpServlet {
     @EJB(beanName = "GestoreCategorie")
     private GestoreCategorieLocal gestoreCategorie;
 
+    /**
+     * Salva l'elenco delle categorie nel contesto dell'applicazione
+     * 
+     * @param conf
+     * @throws ServletException 
+     */
     @Override
     public void init(ServletConfig conf) throws ServletException {
 	
@@ -155,6 +161,11 @@ public class MainController extends HttpServlet {
         else if(action.equals("lavoriCompletati")){
             //visualizza lavori completati (lavori accettati e completati dal ManUtente)
             ctx.getNamedDispatcher("LavoriCompletati").forward(request, response);
+        }
+        
+        /* ### CHAT ### */
+        else if(action.equals("apriChat")){
+            ctx.getRequestDispatcher("/jsp/chat.jsp").forward(request, response);
         }
         
         /* ### CONTATTI ### */

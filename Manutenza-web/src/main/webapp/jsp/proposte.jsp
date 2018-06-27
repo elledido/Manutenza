@@ -56,19 +56,20 @@
                     <p class="titolo">Spiacenti, non ci sono ancora proposte per la tua richiesta.</p>
                 </div>
             </c:if>
-            
-            <!-- Elenco delle proposte associate alla richiesta scelta (INDICARE SE IL MANUTENTE SIA P O A)-->
+
+            <!-- Elenco delle proposte associate alla richiesta scelta -->
             <c:forEach items="${proposte}" var="proposta">
                 <div class="form-box">
-                    <div class="row">
-                        <!-- Foto -->
-                        <div class="img-box col-md-2 col-xs-2">
-                            <img class="profile-img" src="images/profile_img.png" alt="profile-img"/>
-                        </div>
-                        <!-- Dati richiesta -->
-                        <div class="col-md-9 col-xs-8">
-                            <p class="titolo">${proposta.getManutente().getCognome()} ${proposta.getManutente().getNome()}</p>
-                            <form class="form-horizontal">
+                    <form class="form-horizontal" action="/Manutenza-web/MainController" method="post">
+                        <div class="row">
+                            <!-- Foto -->
+                            <div class="img-box col-md-2 col-xs-2">
+                                <img class="profile-img" src="images/profile_img.png" alt="profile-img"/>
+                            </div>
+                            <!-- Dati richiesta -->
+                            <div class="col-md-9 col-xs-8">
+                                <p class="titolo">${proposta.getManutente().getCognome()} ${proposta.getManutente().getNome()}</p>
+
                                 <!-- Categoria -->
                                 <div class="form-group">
                                     <label class="control-label col-md-3 col-xs-3" for="categoria">Categoria: </label>
@@ -109,16 +110,26 @@
                                                value="${proposta.getPrezzo()}">
                                     </div>
                                 </div>
-                            </form>
+
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-10 col-xs-8"></div>
-                        <div class="col-md-2 col-xs-4">
-                            <button type="button" class="btn btn-block btn-ok"><a href=#">Accetta proposta</a></button>
-                            <!-- apre la chat -->
+
+                        <input type="hidden" name="propostaId" value="${proposta.getId()}">
+                        <input type="hidden" name="mailUtente" value="<%out.print(((Utente) session.getAttribute("utente")).getEmail());%>">
+                        <input type="hidden" name="mailManutente" value="${proposta.getManutente().getEmail()}">
+
+                        <div class="row">
+                            <div class="col-md-8 col-xs-4"></div>
+                            <div class="col-md-2 col-xs-4">
+                                <button type="submit" class="btn btn-block btn-primary btn-open" name="action" value="apriChat">Apri chat</button>
+                                <!-- va alla chat -->
+                            </div>
+                            <div class="col-md-2 col-xs-4">
+                                <button type="submit" class="btn btn-block btn-ok" name="action" value="accettaProposta">Accetta proposta</button>
+                                <!-- va alla pagina del pagamento -->
+                            </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </c:forEach>
 
@@ -126,9 +137,6 @@
             <%@include file="/footer.txt"%>
 
         </div>
-
-        <!-- CHAT -->
-        <%@include file="/chat.txt"%>
 
     </body>
 </html>

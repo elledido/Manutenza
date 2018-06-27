@@ -430,9 +430,6 @@
 
         </div>
 
-        <!-- CHAT -->
-        <%@include file="/chat.txt"%>
-
         <script type="text/javascript">
             $(document).ready(function () {
 

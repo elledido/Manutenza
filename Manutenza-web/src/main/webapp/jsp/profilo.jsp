@@ -165,9 +165,6 @@
             <%@include file="/footer.txt"%>
             
         </div>
-        
-        <!-- CHAT -->
-        <%@include file="/chat.txt"%>
 
     </body>
 

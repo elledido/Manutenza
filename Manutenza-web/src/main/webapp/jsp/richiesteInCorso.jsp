@@ -186,9 +186,6 @@
 
         </div>
 
-        <!-- CHAT -->
-        <%@include file="/chat.txt"%>
-
     </body>
 
 </html>

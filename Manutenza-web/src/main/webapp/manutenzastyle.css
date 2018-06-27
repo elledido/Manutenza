@@ -298,13 +298,23 @@ a, a:hover, a:focus {
 ----------------------------------------- */
 
 .profile-box{
-    padding: 20px 20px 10px 20px;
+    padding-right: 30px;
 }
 
-/*.profile-img{
-    width: 160px;
-    height: 160px;
-}/*
+.profile-box > .row {
+    padding-bottom: 10px;
+}
+
+.profile-box > .line {
+    height: 1px;
+    border-bottom: 1px solid #c0c0c0;
+    margin: 10px 0;
+    text-align: center;
+}
+
+.profile-info > .line {
+    margin: 5px 30px 5px 15px;
+}
 
 /* -----------------------------------------
     RATING STARS
@@ -472,6 +482,10 @@ input.currency {
     font-weight: bolder;
 }
 
+.btn-open {
+    font-size: 14px;
+}
+
 .btn-img {
     padding: 0;
     border: none;
@@ -537,9 +551,8 @@ button.sign-in {
 }
 
 #chat .panel-body {
-    height: 280px;
+    height: 400px;
     overflow-y: scroll;
-    font-size: 14px;
 }
 
 #chat ul {
