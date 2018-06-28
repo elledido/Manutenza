@@ -27,6 +27,7 @@ public class Messaggio implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String testo;
+    private String mittente; //nome e cognome di colui che ha inviato il messaggio
     @Column(name = "MESSAGGIO_TIMESTAMP")
     private Timestamp messaggioTimestamp;
     
@@ -44,6 +45,14 @@ public class Messaggio implements Serializable {
 
     public void setTesto(String testo) {
         this.testo = testo;
+    }
+
+    public String getMittente() {
+        return mittente;
+    }
+
+    public void setMittente(String mittente) {
+        this.mittente = mittente;
     }
 
     public Timestamp getMessaggioTimestamp() {
