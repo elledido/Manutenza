@@ -80,5 +80,18 @@ public class GestoreChat implements GestoreChatLocal {
            return null;
        }
     }
+
+    @Override
+    public Chat ricercaPerProposta(Long propostaId) {
+        try{
+           Chat chat = em.createNamedQuery("Ricerca per proposta", Chat.class)
+                   .setParameter("propostaId", propostaId)
+                   .getSingleResult();
+        return chat;
+       }catch(NoResultException nre) {
+           System.out.println("Nessuna chat trovata per la proposta " + propostaId);
+           return null;
+       }
+    }
     
 }

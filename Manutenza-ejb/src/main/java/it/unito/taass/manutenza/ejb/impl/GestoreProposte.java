@@ -79,5 +79,18 @@ public class GestoreProposte implements GestoreProposteLocal {
             return null;
         }
     }
+
+    @Override
+    public Proposta cercaPerId(Long propostaId) {
+        try {
+            Proposta proposta = em.createNamedQuery("Ricerca per id", Proposta.class)
+                    .setParameter("propostaId", propostaId)
+                    .getSingleResult();
+            return proposta;
+        } catch(NoResultException e) {
+            System.out.println("Non esiste alcuna proposta con id " + propostaId);
+            return null;
+        }
+    }
     
 }

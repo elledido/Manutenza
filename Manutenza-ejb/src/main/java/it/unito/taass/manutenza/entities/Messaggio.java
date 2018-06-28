@@ -27,7 +27,7 @@ public class Messaggio implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String testo;
-    private String mittente; //nome e cognome di colui che ha inviato il messaggio
+    private String mittente; //email di colui che inviato il messaggio
     @Column(name = "MESSAGGIO_TIMESTAMP")
     private Timestamp messaggioTimestamp;
     
@@ -63,6 +63,17 @@ public class Messaggio implements Serializable {
         Calendar calendar = Calendar.getInstance();
         Date data = calendar.getTime();
         this.messaggioTimestamp = new Timestamp(data.getTime());
+    }
+    
+    public String getHoursMinutes() {
+        Calendar data = Calendar.getInstance();
+        data.setTimeInMillis(messaggioTimestamp.getTime());
+        int hours = data.get(Calendar.HOUR_OF_DAY);
+        int minutes = data.get(Calendar.MINUTE);
+        
+        String time = (hours < 10 ? "0" : "") + hours + ":" + (minutes < 10 ? "0" : "") + minutes;
+        
+        return time; 
     }
 
 }

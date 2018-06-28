@@ -26,7 +26,8 @@ import javax.persistence.OneToOne;
 @NamedQueries({
     @NamedQuery(name = "Ricerca per utente", query = "SELECT c FROM Chat c WHERE c.utente = :utente"),
     @NamedQuery(name = "Ricerca per manutente", query = "SELECT c FROM Chat c WHERE c.manutente = :manutente"),
-    @NamedQuery(name = "Ricerca per utente e manutente", query = "SELECT c FROM Chat c WHERE c.utente = :utente AND c.manutente = :manutente")
+    @NamedQuery(name = "Ricerca per utente e manutente", query = "SELECT c FROM Chat c WHERE c.utente = :utente AND c.manutente = :manutente"),
+    @NamedQuery(name = "Ricerca per proposta", query = "SELECT c FROM Chat c WHERE c.proposta.id = :propostaId")
 })
 public class Chat implements Serializable {
 

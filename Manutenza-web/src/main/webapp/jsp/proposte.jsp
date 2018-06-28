@@ -60,7 +60,7 @@
             <!-- Elenco delle proposte associate alla richiesta scelta -->
             <c:forEach items="${proposte}" var="proposta">
                 <div class="form-box">
-                    <form class="form-horizontal" action="/Manutenza-web/MainController" method="post">
+                    <form class="form-horizontal" action="/Manutenza-web/MainController?action=apriChat&propostaId=${proposta.getId()}" method="post">
                         <div class="row">
                             <!-- Foto -->
                             <div class="img-box col-md-2 col-xs-2">
@@ -114,18 +114,17 @@
                             </div>
                         </div>
 
-                        <input type="hidden" name="propostaId" value="${proposta.getId()}">
-                        <input type="hidden" name="mailUtente" value="<%out.print(((Utente) session.getAttribute("utente")).getEmail());%>">
-                        <input type="hidden" name="mailManutente" value="${proposta.getManutente().getEmail()}">
+                        <input type="hidden" name="emailUtente" value="<%out.print(((Utente) session.getAttribute("utente")).getEmail());%>">
+                        <input type="hidden" name="emailManutente" value="${proposta.getManutente().getEmail()}">
 
                         <div class="row">
                             <div class="col-md-8 col-xs-4"></div>
                             <div class="col-md-2 col-xs-4">
-                                <button type="submit" class="btn btn-block btn-primary btn-open" name="action" value="apriChat">Apri chat</button>
+                                <button type="submit" class="btn btn-block btn-primary btn-open">Apri chat</button>
                                 <!-- va alla chat -->
                             </div>
                             <div class="col-md-2 col-xs-4">
-                                <button type="submit" class="btn btn-block btn-ok" name="action" value="accettaProposta">Accetta proposta</button>
+                                <a href="/Manutenza-web/MainController?action=visualizzaProposte&proposta=${proposta.getId()}" class="btn btn-block btn-ok" role="button">Accetta proposta</a>
                                 <!-- va alla pagina del pagamento -->
                             </div>
                         </div>

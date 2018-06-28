@@ -214,9 +214,11 @@
                     <div class="row">
                         <div class="col-md-10 col-xs-8"></div>
                         <div class="col-md-2 col-xs-4">
-                            <button type="button" class="btn btn-block btn-ok">
-                                In Attesa...
-                            </button>
+                            <form class="form-horizontal" action="/Manutenza-web/MainController?action=apriChat&propostaId=${proposta.getId()}" method="post">
+                                <input type="hidden" name="emailManutente" value="<%out.print(((Manutente) session.getAttribute("utente")).getEmail());%>">
+                                <input type="hidden" name="emailUtente" value="${proposta.getRichiesta().getUtente().getEmail()}">
+                                <button type="submit" class="btn btn-block btn-primary btn-open">Apri chat</button>
+                            </form>
                         </div>
                     </div>
                 </div>

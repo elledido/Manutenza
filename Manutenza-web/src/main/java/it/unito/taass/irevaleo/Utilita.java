@@ -69,4 +69,21 @@ public class Utilita {
         return utente;
     }
     
+    public static Manutente utente2manutente(Utente utente){
+        Manutente manutente = new Manutente();
+        manutente.setId(utente.getId());
+        manutente.setCodiceFiscale(utente.getCodiceFiscale());
+        manutente.setCognome(utente.getCognome());
+        manutente.setDataDiNascita(utente.getDataDiNascita());
+        manutente.setEmail(utente.getEmail());
+        manutente.setNome(utente.getNome());
+        manutente.setValutazioneComplessiva(0);
+        manutente.setListaCompetenze(null);
+        
+        for(Indirizzo i : utente.getListaIndirizzi()){
+            manutente.addIndirizzo(i);
+        }
+        return manutente;
+    }
+    
 }

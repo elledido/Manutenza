@@ -165,7 +165,8 @@ public class MainController extends HttpServlet {
         
         /* ### CHAT ### */
         else if(action.equals("apriChat")){
-            ctx.getRequestDispatcher("/jsp/chat.jsp").forward(request, response);
+            //apre la chat tra utente e manutente
+            ctx.getNamedDispatcher("ApriChat").forward(request, response);
         }
         
         /* ### CONTATTI ### */

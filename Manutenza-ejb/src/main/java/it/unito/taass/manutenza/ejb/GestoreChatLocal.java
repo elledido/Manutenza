@@ -24,5 +24,7 @@ public interface GestoreChatLocal {
     public List<Chat> ricercaChatPerUtente(Utente utente);
     public List<Chat> ricercaChatPerManutente(Manutente manutente);
     public List<Chat> ricercaPerUtenteManutente(Utente utente, Manutente manutente);
+
+    Chat ricercaPerProposta(Long propostaId);
     
 }

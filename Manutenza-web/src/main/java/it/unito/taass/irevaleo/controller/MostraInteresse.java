@@ -54,9 +54,8 @@ public class MostraInteresse extends HttpServlet {
         //creo l'oggetto proposta
         gestoreProposte.creaProposta(manutente, richiesta, prezzo);
         
-        //vai alla pagina delle proposte accettate
-        //String url = request.getContextPath() + "/MainController?action=proposteAccettate";
-        String url = request.getContextPath() + "/MainController?action=dashboard";
+        //torna alla pagina delle nuove proposte
+        String url = request.getContextPath() + "/MainController?action=nuoveProposte";
         response.sendRedirect(url);
         
     }
