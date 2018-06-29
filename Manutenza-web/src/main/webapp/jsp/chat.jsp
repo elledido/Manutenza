@@ -40,8 +40,6 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <!-- Custom Scroll Js CDN -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
-        <!-- Custom JS -->
-        <script src="manutenza.js" type="text/javascript"></script>
     </head>
 
     <body>
@@ -201,7 +199,7 @@
             }
 
             //salva il messaggio sul DB
-            function saveMsg(id,msg,mitt) {
+            function saveMsg(id, msg, mitt) {
                 $.ajax({
                     type: 'POST',
                     url: "SalvaMessaggio",
@@ -215,6 +213,45 @@
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
                         console.log("some error");
+                    }
+                });
+            }
+
+            //scarica dalla coda i messaggi non letti per quella chat
+            function checkMessage(propostaId, mittente, emailMittente) {
+                
+                var form = new FormData();
+                form.append("idProposta", propostaId);
+
+                var settings = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": "http://localhost:8080/checkMessageById",
+                    "method": "POST",
+                    "headers": {
+                        "Cache-Control": "no-cache"
+                    },
+                    "processData": false,
+                    "contentType": false,
+                    "mimeType": "multipart/form-data",
+                    "data": form
+                };
+
+                $.ajax(settings).done(function (response) {
+                    
+                    //se ci sono messaggi non letti
+                    if(response !== ""){
+                        //lista di messaggi non letti
+                        var messaggi = (JSON.parse(response)).listaMessaggi;
+                        var m;
+                        
+                        for(m = 0; m < messaggi.length; m++){
+                            var testo = messaggi[m].messaggio;
+                            var timestamp = new Date(messaggi[m].timestamp);
+                            
+                            //stampo il messaggio a video
+                            printMsg(mittente, testo, timestamp, "receive");
+                        }
                     }
                 });
             }
@@ -259,23 +296,27 @@
             }
 
             $(document).ready(function () {
-
+                
+                //id della proposta
+                var propostaId = <c:out value="${chat.getProposta().getId()}" />;
+                //email del mittente del messaggio
+                var emailMittente = "<c:out value="${utente.getEmail()}"/>";
+                //nome e cognome del mittente del messaggio
+                var mittente = "<c:out value="${utente.getNome()}"/> <c:out value="${utente.getCognome()}"/>";
+                //email dell'utente
+                var emailUtente = "<c:out value="${chat.getUtente().getEmail()}"/>";
+                //email del manutente
+                var emailManutente = "<c:out value="${chat.getManutente().getEmail()}"/>";
+                
+                checkMessage(String(propostaId), mittente, emailMittente);
+                
                 $('#sendMsgForm').on('submit', function (e) {
                     e.preventDefault();
                     //prendo il testo del messaggio
                     var msg = $("input[name='msg']").val();
                     //ora di invio del messaggio
                     var timestamp = new Date();
-                    //email del mittente del messaggio
-                    var emailMittente = "<c:out value="${utente.getEmail()}"/>";
-                    //nome e cognome del mittente del messaggio
-                    var mittente = "<c:out value="${utente.getNome()}"/> <c:out value="${utente.getCognome()}"/>";
-                    //id della proposta
-                    var propostaId = <c:out value="${chat.getProposta().getId()}" />;
-                    //email dell'utente
-                    var emailUtente = "<c:out value="${chat.getUtente().getEmail()}"/>";
-                    //email del manutente
-                    var emailManutente = "<c:out value="${chat.getManutente().getEmail()}"/>";
+                    //oggetto chat da passare al WS Spring
                     var chat = {
                         "idProposta": propostaId,
                         "utenteEmail": emailUtente,
@@ -299,7 +340,9 @@
                     //cancello l'input
                     $("input[name='msg']").val("");
                 });
+                
             });
+            
 
         </script>
 
