@@ -52,7 +52,7 @@
 
         <!-- MAIN CONTAINER -->
         <div class="container">
-            <h2><c:out value="${chat.getProposta().getRichiesta().getTitolo()}"/></h2>
+            <h2>${chat.getProposta().getRichiesta().getTitolo()}</h2>
 
             <c:set var="utente" value="<%= session.getAttribute("utente")%>"/>
 
@@ -65,7 +65,7 @@
                                 <ul id="chat-list">
 
                                     <c:if test="${empty chat.getListaMessaggi()}">
-                                        <p><em>Non ci sono messaggi. Inizia ora una conversazione con ${interlocutore.getNome()}</em></p>
+                                        <p id="noMsg"><em>Non ci sono messaggi. Inizia ora una conversazione con ${interlocutore.getNome()}</em></p>
                                     </c:if>
 
                                     <c:forEach items="${chat.getListaMessaggi()}" var="messaggio">
@@ -178,13 +178,45 @@
         <script type="text/javascript">
 
             //invia il messaggio al WS Spring
-            function sendMsg() {
+            function sendMsg(chat) {
+
+                var settings = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": "http://localhost:8080/sender/sendObjectMessage",
+                    "method": "POST",
+                    "headers": {
+                        "Content-Type": "application/json",
+                        "Cache-Control": "no-cache",
+                        "Postman-Token": "a660e3be-c052-4a4b-8e59-53c5805208a5"
+                    },
+                    "processData": false,
+                    "data": JSON.stringify(chat)
+                };
+
+                $.ajax(settings).done(function (response) {
+                    console.log(response);
+                });
 
             }
 
             //salva il messaggio sul DB
-            function saveMsg() {
-
+            function saveMsg(id,msg,mitt) {
+                $.ajax({
+                    type: 'POST',
+                    url: "SalvaMessaggio",
+                    data: {
+                        propostaId: id,
+                        testo: msg,
+                        mittente: mitt
+                    },
+                    success: function (messaggio) {
+                        console.log(messaggio);
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        console.log("some error");
+                    }
+                });
             }
 
             //stampa a video il messaggio (type = "send" -> sto inviando, type = "receive" -> sto ricevendo)
@@ -194,7 +226,7 @@
                 if (type === "send") {
                     message = '<li class="right clearfix">' +
                             '<span class="pull-right">' +
-                            '<img class="chat-img img-circle" src="images/profile_img.png" alt="profile-img"/>' +
+                            '<img class="chat-img img-circle" src="http://placehold.it/50/FA6F57/fff&text=ME" alt="profile-img"/>' +
                             '</span>' +
                             '<div class="chat-body clearfix">' +
                             '<div class="header">' +
@@ -205,11 +237,10 @@
                             '<p>' + testo + '</p>' +
                             '</div>' +
                             '</li>';
-                }
-                else {
+                } else {
                     message = '<li class="left clearfix">' +
                             '<span class="pull-left">' +
-                            '<img class="chat-img img-circle" src="http://placehold.it/50/FA6F57/fff&text=ME" alt="profile-img"/>' +
+                            '<img class="chat-img img-circle" src="images/profile_img.png" alt="profile-img"/>' +
                             '</span>' +
                             '<div class="chat-body clearfix">' +
                             '<div class="header">' +
@@ -228,18 +259,41 @@
             }
 
             $(document).ready(function () {
+
                 $('#sendMsgForm').on('submit', function (e) {
                     e.preventDefault();
                     //prendo il testo del messaggio
                     var msg = $("input[name='msg']").val();
                     //ora di invio del messaggio
                     var timestamp = new Date();
+                    //email del mittente del messaggio
+                    var emailMittente = "<c:out value="${utente.getEmail()}"/>";
                     //nome e cognome del mittente del messaggio
                     var mittente = "<c:out value="${utente.getNome()}"/> <c:out value="${utente.getCognome()}"/>";
+                    //id della proposta
+                    var propostaId = <c:out value="${chat.getProposta().getId()}" />;
+                    //email dell'utente
+                    var emailUtente = "<c:out value="${chat.getUtente().getEmail()}"/>";
+                    //email del manutente
+                    var emailManutente = "<c:out value="${chat.getManutente().getEmail()}"/>";
+                    var chat = {
+                        "idProposta": propostaId,
+                        "utenteEmail": emailUtente,
+                        "manutenteEmail": emailManutente,
+                        "listaMessaggi": [
+                            {
+                                "messaggio": msg,
+                                "timestamp": timestamp.getTime()
+                            }
+                        ]
+                    };
+
                     //invio del messaggio tramite WS Spring
-                    //sendMsg();
+                    sendMsg(chat);
                     //salvataggio del messaggio su DB tramite servlet
-                    //saveMsg();
+                    saveMsg(propostaId, msg, emailMittente);
+                    //cancello l'avviso sulla non presenza di messaggi
+                    $('#noMsg').remove();
                     //stampa a video del messaggio
                     printMsg(mittente, msg, timestamp, "send");
                     //cancello l'input

@@ -42,7 +42,6 @@ public class VerificaUtente extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        ServletContext ctx = getServletContext();
         String messaggio;
         String email = request.getParameter("email");
 
