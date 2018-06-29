@@ -150,7 +150,7 @@
                         <div class="profile-info text-center">
                             <p><strong>${interlocutore.getNome()} ${interlocutore.getCognome()}</strong></p>
                             <c:if test="${chat.getProposta().isAccettato()}">
-                                <p>interlocutore.getEmail()</p>
+                                <p>${interlocutore.getEmail()}</p>
                             </c:if>
                             <c:forEach items="${interlocutore.getListaCompetenze()}" var="competenza">
                                 <c:choose>
@@ -219,7 +219,7 @@
 
             //scarica dalla coda i messaggi non letti per quella chat
             function checkMessage(propostaId, mittente, emailMittente) {
-                
+                               
                 var form = new FormData();
                 form.append("idProposta", propostaId);
 
@@ -229,7 +229,8 @@
                     "url": "http://localhost:8080/checkMessageById",
                     "method": "POST",
                     "headers": {
-                        "Cache-Control": "no-cache"
+                        "Cache-Control": "no-cache",
+                        "Postman-Token": "2e2751ce-64ed-4a19-8486-361b38975e4b"
                     },
                     "processData": false,
                     "contentType": false,
@@ -247,10 +248,13 @@
                         
                         for(m = 0; m < messaggi.length; m++){
                             var testo = messaggi[m].messaggio;
+                            var email = messaggi[m].email;
                             var timestamp = new Date(messaggi[m].timestamp);
                             
-                            //stampo il messaggio a video
-                            printMsg(mittente, testo, timestamp, "receive");
+                            if(email === emailMittente){
+                                //stampo il messaggio a video
+                                printMsg(mittente, testo, timestamp, "receive");
+                            }
                         }
                     }
                 });
@@ -289,26 +293,31 @@
                             '</div>' +
                             '</li>';
                 }
-
+                
                 //stampo il messaggio
-                $('#chat-list').append(message).scrollTop($('#chat-list').prop('scrollHeight'));
-
+                $('#chat-list').append(message);
+                //scrollo fino all'ultimo messaggio
+                $('div.panel-body').animate({
+                    scrollTop: $('#chat-list').height()
+                }, 500);
+                
             }
 
             $(document).ready(function () {
                 
+                //scrollo all'ultimo messaggio della chat
+                $('div.panel-body').animate({
+                    scrollTop: $('#chat-list').height()
+                }, 0);
+                
                 //id della proposta
                 var propostaId = <c:out value="${chat.getProposta().getId()}" />;
-                //email del mittente del messaggio
-                var emailMittente = "<c:out value="${utente.getEmail()}"/>";
-                //nome e cognome del mittente del messaggio
-                var mittente = "<c:out value="${utente.getNome()}"/> <c:out value="${utente.getCognome()}"/>";
-                //email dell'utente
-                var emailUtente = "<c:out value="${chat.getUtente().getEmail()}"/>";
-                //email del manutente
-                var emailManutente = "<c:out value="${chat.getManutente().getEmail()}"/>";
+                //nome e cognome dell'interlocutore
+                var interlocutore = "${interlocutore.getNome()} ${interlocutore.getCognome()}";
+                //email dell'interlocutore
+                var emailInterlocutore = "${interlocutore.getEmail()}";
                 
-                checkMessage(String(propostaId), mittente, emailMittente);
+                setInterval(checkMessage, 10000, String(propostaId), interlocutore, emailInterlocutore);
                 
                 $('#sendMsgForm').on('submit', function (e) {
                     e.preventDefault();
@@ -316,6 +325,14 @@
                     var msg = $("input[name='msg']").val();
                     //ora di invio del messaggio
                     var timestamp = new Date();
+                    //email del mittente del messaggio
+                    var emailMittente = "<c:out value="${utente.getEmail()}"/>";
+                    //nome e cognome del mittente del messaggio
+                    var mittente = "<c:out value="${utente.getNome()}"/> <c:out value="${utente.getCognome()}"/>";
+                    //email dell'utente
+                    var emailUtente = "<c:out value="${chat.getUtente().getEmail()}"/>";
+                    //email del manutente
+                    var emailManutente = "<c:out value="${chat.getManutente().getEmail()}"/>";
                     //oggetto chat da passare al WS Spring
                     var chat = {
                         "idProposta": propostaId,
@@ -324,6 +341,7 @@
                         "listaMessaggi": [
                             {
                                 "messaggio": msg,
+                                "email": emailMittente,
                                 "timestamp": timestamp.getTime()
                             }
                         ]

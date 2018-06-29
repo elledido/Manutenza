@@ -205,8 +205,8 @@
 							<a class=dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Proposte di lavoro <span class="caret"></span></a>
 							<ul class="dropdown-menu">
 								<li><a href="/Manutenza-web/MainController?action=nuoveProposte">Nuove proposte</a></li>
-								<li><a href="/Manutenza-web/MainController?action=proposteAccettate">Accettate</a></li>
-								<li><a href="/Manutenza-web/MainController?action=lavoriCompletati">Completate</a></li>
+								<li><a href="/Manutenza-web/MainController?action=proposteAccettate">Lavori in corso</a></li>
+								<li><a href="/Manutenza-web/MainController?action=lavoriCompletati">Lavori completati</a></li>
 							</ul>
 						</li>
 					</ul>
