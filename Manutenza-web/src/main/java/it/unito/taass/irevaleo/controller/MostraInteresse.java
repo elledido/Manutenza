@@ -14,6 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
+ * Permette al Manutente in sessione di mostrare interesse per una proposta di 
+ * lavoro, proponendo un prezzo consono al budget dell'utente autore della 
+ * richiesta
  *
  * @author irene
  */

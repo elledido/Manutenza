@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package it.unito.taass.irevaleo.controller;
 
 import it.unito.taass.irevaleo.Utilita;
@@ -26,7 +21,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- *
+ * Permette all'utente in sessione di creare un nuova richiesta
+ * 
  * @author irene
  */
 public class InviaRichiesta extends HttpServlet {

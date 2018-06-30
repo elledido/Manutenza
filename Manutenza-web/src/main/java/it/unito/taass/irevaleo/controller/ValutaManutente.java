@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * Permette all'utente in sessione di valutare il lavoro fatto dal manutente
  *
  * @author irene
  */

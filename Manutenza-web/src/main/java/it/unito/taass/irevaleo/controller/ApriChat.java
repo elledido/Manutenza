@@ -80,8 +80,6 @@ public class ApriChat extends HttpServlet {
         } else {
             interlocutore = Utilita.utente2manutente(chat.getUtente());
         }
-
-        //messaggi non letti per quella proposta (li devo eliminare dalla sessione)
         
         //passo tutto l'oggetto chat
         request.setAttribute("chat", chat);

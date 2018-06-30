@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * Scarica dal DB i dati relativi alle proposte associate ad una certa richiesta
+ * dell'utente in sessione
  *
  * @author irene
  */

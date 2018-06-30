@@ -19,6 +19,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
+ * Scarica dal DB i dati relativi alle nuove proposte di lavoro per il manutente
+ * in sessione, evidenziando le propopste per cui il manutente ha già mostrato 
+ * interesse
  *
  * @author irene
  */
@@ -82,6 +85,7 @@ public class NuoveProposte extends HttpServlet {
         request.setAttribute("nuoveProposte", nuoveProposte);
         request.setAttribute("proposteInAttesa", proposteInAttesa);
         
+        //vai alla pagina delle nuove proposte
         ctx.getRequestDispatcher("/jsp/nuoveProposte.jsp").forward(request, response);
         
     }

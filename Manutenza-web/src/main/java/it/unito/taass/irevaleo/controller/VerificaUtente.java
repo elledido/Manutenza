@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package it.unito.taass.irevaleo.controller;
 
 import it.unito.taass.manutenza.ejb.GestoreManutenteLocal;
@@ -11,7 +6,6 @@ import it.unito.taass.manutenza.entities.Manutente;
 import it.unito.taass.manutenza.entities.Utente;
 import java.io.IOException;
 import javax.ejb.EJB;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
+ * Cerca nel DB un utente/manutente con email del login facebook
  *
  * @author leonardo
  */
@@ -62,14 +57,10 @@ public class VerificaUtente extends HttpServlet {
                 //è un utente, ricarico i dati con il gestore apposito
                 Utente utente = gestoreUtente.caricaUtente(email);
                 s.setAttribute("utente", utente);
-                s.setAttribute("ruolo", "U");
-                System.out.println("+++++++ UTENTE +++++++");
             }
             else {
                 //è un manutente
                 s.setAttribute("utente", manutente);
-                s.setAttribute("ruolo", "M");
-                System.out.println("+++++++ MANUTENTE +++++++");
             }
         }
 

@@ -21,7 +21,6 @@ html, body {
 }
 
 body {
-    /*position: relative;*/
     background: #fffffa;
     color: #3e3e3e;
     font-family: 'Andika';
@@ -294,29 +293,6 @@ a, a:hover, a:focus {
 }
 
 /* -----------------------------------------
-    PROFILE BOX
------------------------------------------ */
-
-.profile-box{
-    padding-right: 30px;
-}
-
-.profile-box > .row {
-    padding-bottom: 10px;
-}
-
-.profile-box > .line {
-    height: 1px;
-    border-bottom: 1px solid #c0c0c0;
-    margin: 10px 0;
-    text-align: center;
-}
-
-.profile-info > .line {
-    margin: 5px 30px 5px 15px;
-}
-
-/* -----------------------------------------
     RATING STARS
 ----------------------------------------- */
 
@@ -417,6 +393,10 @@ a.termini-condizioni, p.add-domicile, p.remove-domicile, p.add-skill, p.remove-s
     padding-left: 0;
     padding-right: 0;
     margin-right: 20px;
+}
+
+.profile-img-box > .row {
+    padding-bottom: 10px;
 }
 
 .add-img {
@@ -593,6 +573,25 @@ button.sign-in {
     background-color: #ff9933;
     color: #fffffa;
     border: #ff8000;
+}
+
+.profile-box{
+    padding-right: 30px;
+}
+
+.profile-box > .row {
+    padding-bottom: 10px;
+}
+
+.profile-box > .line {
+    height: 1px;
+    border-bottom: 1px solid #c0c0c0;
+    margin: 10px 0;
+    text-align: center;
+}
+
+.profile-info > .line {
+    margin: 5px 30px 5px 15px;
 }
 
 /* ---------------------------------------------------

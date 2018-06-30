@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package it.unito.taass.irevaleo.controller;
 
 import it.unito.taass.irevaleo.Utilita;
@@ -10,7 +5,6 @@ import it.unito.taass.manutenza.ejb.GestoreProposteLocal;
 import it.unito.taass.manutenza.entities.Manutente;
 import it.unito.taass.manutenza.entities.Proposta;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletContext;
@@ -21,6 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
+ * Scarica dal DB i dati relativi ai lavori in corso del manutente in sessione, 
+ * ovvero le proposte del manutente che sono state accettate dall'utente
  *
  * @author irene
  */
@@ -51,6 +47,7 @@ public class ProposteAccettate extends HttpServlet {
         
         request.setAttribute("proposteAccettate", proposteAccettate);
         
+        //vai alla pagina dei lavori in corso
         ctx.getRequestDispatcher("/jsp/proposteAccettate.jsp").forward(request, response);
         
     }

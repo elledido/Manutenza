@@ -40,8 +40,6 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <!-- Custom Scroll Js CDN -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
-        <!-- Custom JS -->
-        <script src="manutenza.js" type="text/javascript"></script>
     </head>
 
     <body>
@@ -106,22 +104,22 @@
             <!-- RICHIESTE ACCETTATE: richieste accettate ma lavoro non ancora completo -->
             <c:forEach items="${proposteAccettate}" var="proposta">
                 <div class="form-box">
-                    <div class="row">
-                        <!-- Foto -->
-                         <div class="img-box text-center col-xs-3">
-                            <c:choose> 
-                                <c:when test="${empty proposta.getRichiesta().getListaFoto()}">
-                                    <img src="images/${proposta.getRichiesta().getCategoria()}.png" alt="${proposta.getRichiesta().getCategoria()}">
-                                </c:when>
-                                <c:otherwise>
-                                    <img class="img-box" src="${proposta.getRichiesta().getListaFoto().get(0).getLink()}">
-                                </c:otherwise>
-                            </c:choose>
-                        </div>
-                        <!-- Dati richiesta -->
-                        <div class="col-xs-8">
-                            <p class="titolo">${proposta.getRichiesta().getTitolo()}</p>
-                            <form class="form-horizontal">
+                    <form class="form-horizontal" action="/Manutenza-web/MainController?action=apriChat&propostaId=${proposta.getId()}" method="post">
+                        <div class="row">
+                            <!-- Foto -->
+                            <div class="img-box text-center col-xs-3">
+                                <c:choose> 
+                                    <c:when test="${empty proposta.getRichiesta().getListaFoto()}">
+                                        <img src="images/${proposta.getRichiesta().getCategoria()}.png" alt="${proposta.getRichiesta().getCategoria()}">
+                                    </c:when>
+                                    <c:otherwise>
+                                        <img class="img-box" src="${proposta.getRichiesta().getListaFoto().get(0).getLink()}">
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
+                            <!-- Dati richiesta -->
+                            <div class="col-xs-8">
+                                <p class="titolo">${proposta.getRichiesta().getTitolo()}</p>
                                 <!-- Categoria -->
                                 <div class="form-group">
                                     <label class="control-label col-md-3 col-xs-3" for="categoria">Categoria: </label>
@@ -146,18 +144,24 @@
                                         <input class="form-control currency" id="costo" name="costo" type="number" readonly value="${proposta.getPrezzo()}">
                                     </div>
                                 </div>
-                            </form>
+                            </div>
+                        </div>
 
+                        <input type="hidden" name="emailUtente" value="<%out.print(((Utente) session.getAttribute("utente")).getEmail());%>">
+                        <input type="hidden" name="emailManutente" value="${proposta.getManutente().getEmail()}">
+
+                        <div class="row">
+                            <div class="col-md-8 col-xs-4"></div>
+                            <div class="col-md-2 col-xs-4">
+                                <button type="submit" class="btn btn-block btn-primary btn-open">Apri chat</button>
+                            </div>
+                            <div class="col-md-2 col-xs-4">
+                                <button type="button" class="btn btn-block btn-ok" data-toggle="modal" data-target="#mostraQRcode${proposta.getId()}">
+                                    Mostra QR code
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-10 col-xs-8"></div>
-                        <div class="col-md-2 col-xs-4">
-                            <button type="button" class="btn btn-block btn-ok" data-toggle="modal" data-target="#mostraQRcode${proposta.getId()}">
-                                Mostra QR code
-                            </button>
-                        </div>
-                    </div>
+                    </form>
                 </div>
 
                 <!-- Mosta QR code (solo id della proposta) -->

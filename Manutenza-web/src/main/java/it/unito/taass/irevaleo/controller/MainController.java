@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet principale che funge da dispatcher per i sotto controller
  * (uno per ogni funzionalità del backend J2EE)
+ * 
  * @author irene
  */
 public class MainController extends HttpServlet {
@@ -60,54 +61,53 @@ public class MainController extends HttpServlet {
         
         /* ### AVVIO DELL'APPLICAZIONE ### */
 	if(action == null){
-	    ctx.getRequestDispatcher("/jsp/home.jsp").forward(request, response); //vai alla homepage
+            //vai alla homepage
+	    ctx.getRequestDispatcher("/jsp/home.jsp").forward(request, response);
 	}
         
+        /* ### HOMEPAGE ### */
         else if(action.equals("home")) {
+            //vai alla homepage
            ctx.getRequestDispatcher("/jsp/home.jsp").forward(request, response);
         }
-        
-        else if(action.equals("test")) {
-           ctx.getRequestDispatcher("/jsp/test.jsp").forward(request, response);
-        }
-        
-        /* ### TEST PAGES ### */
-        else if(action.equals("registrati")) {
-           ctx.getRequestDispatcher("/jsp/registratiFacebook.jsp").forward(request, response);
-        }
-        else if(action.equals("nuovoUtente")) {
-            ctx.getRequestDispatcher("/jsp/nuovoUtente.jsp").forward(request, response);
-        }  
-        
+                
         /* ### LOGIN e REGISTRAZIONE UTENTE ### */
         else if(action.equals("goRegistrati")){
+            //va alla pagina di completamento della registrazione
             ctx.getNamedDispatcher("GoRegistrati").forward(request, response);
         }
         else if(action.equals("registraUtente")) {
+            //registra un nuovo utente nel DB
             ctx.getNamedDispatcher("RegistraUtente").forward(request, response);
         }
         else if(action.equals("diventaManutente")) {
+            //registra i dati anagrafici di un nuovo manutente nel DB
             ctx.getNamedDispatcher("DiventaManutente").forward(request, response);
         }
         else if(action.equals("registraManutente")) {
+            //aggiunge i dati relativi alle competenze del nuovo manutente
             ctx.getNamedDispatcher("RegistraManutente").forward(request, response);
         }
         
         /* ### DASHBOARD ### */
         else if(action.equals("dashboard")){
-            ctx.getRequestDispatcher("/jsp/dashboard.jsp").forward(request, response); //vai alla dashboard
+            //vai alla dashboard
+            ctx.getRequestDispatcher("/jsp/dashboard.jsp").forward(request, response);
         }
         
         /* ### VISUALIZZA DATI PROFILO ### */
         else if(action.equals("profilo")){
-            ctx.getNamedDispatcher("Profilo").forward(request, response);
+            //va alla pagina del profilo
+            ctx.getRequestDispatcher("/jsp/profilo.jsp").forward(request, response);
         }
         
         /* ### NUOVA RICHIESTA ### */
         else if(action.equals("nuovaRichiesta")){
-            ctx.getRequestDispatcher("/jsp/nuovaRichiesta.jsp").forward(request, response); //vai alla pagina nuova richiesta
+            //vai alla pagina nuova richiesta
+            ctx.getRequestDispatcher("/jsp/nuovaRichiesta.jsp").forward(request, response);
         }
         else if(action.equals("inviaRichiesta")){
+            //salva i dati della nuova richiesta sul DB
             ctx.getNamedDispatcher("InviaRichiesta").forward(request, response);
         }
         
@@ -131,12 +131,13 @@ public class MainController extends HttpServlet {
             ctx.getNamedDispatcher("ValutaManutente").forward(request, response);
         }
         
-        /* ### LE MIE COMPETENZE (solo ManUtente) ### */
+        /* ### LE MIE COMPETENZE (solo Manutente) ### */
         else if(action.equals("competenze")){
-            //visualizza competenze di un ManUtente
+            //visualizza competenze di un Manutente
             ctx.getRequestDispatcher("/jsp/leMieCompetenze.jsp").forward(request, response);
         }
         else if(action.equals("aggiungiCompetenza")){
+            //aggiunge una nuova competenza
             ctx.getNamedDispatcher("AggiungiCompetenza").forward(request, response);
         }
         
@@ -145,7 +146,7 @@ public class MainController extends HttpServlet {
             //visualizza richieste in attesa in cui zona e categoria coincidono con quella del manutente
             ctx.getNamedDispatcher("NuoveProposte").forward(request, response);
         }
-        /* ### PMOSTRA INTERESSE (solo ManUtente) ### */
+        /* ### MOSTRA INTERESSE (solo ManUtente) ### */
         else if(action.equals("mostraInteresse")){
             //invia una notifica all'Utente
             ctx.getNamedDispatcher("MostraInteresse").forward(request, response);
@@ -153,7 +154,7 @@ public class MainController extends HttpServlet {
         
         /* ### PROPOSTE DI LAVORO ACCETTATE (solo ManUtente) ### */
         else if(action.equals("proposteAccettate")){
-            //visualizza proposte di lavoro accettate (lavori accettati dal ManUtente ma che devono essere ancora fatti)
+            //visualizza proposte di lavoro accettate (lavori accettati dal Manutente ma che devono essere ancora fatti)
             ctx.getNamedDispatcher("ProposteAccettate").forward(request, response);
         }
         
@@ -171,6 +172,7 @@ public class MainController extends HttpServlet {
         
         /* ### CONTATTI ### */
         else if(action.equals("contatti")) {
+            //va alla pagina dei contatti
            ctx.getRequestDispatcher("/jsp/contatti.jsp").forward(request, response);
         }
         

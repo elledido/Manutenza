@@ -7,6 +7,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * Prende i dati ottenuti da facebook e li passa alla pagina del completamento
+ * del profilo
+ * 
+ * @author irene
+ */
 public class GoRegistrati extends HttpServlet {
 
     /**
@@ -21,19 +27,17 @@ public class GoRegistrati extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        ServletContext ctx = getServletContext();
+        ServletContext ctx = getServletContext(); //contesto della servlet
         
-        String email = request.getParameter("email");
-        String nome = request.getParameter("firstName");
-        String cognome = request.getParameter("lastName");
-        System.out.println(email);
-        System.out.println(nome);
-        System.out.println(cognome);
+        String email = request.getParameter("email"); //email
+        String nome = request.getParameter("firstName"); //nome
+        String cognome = request.getParameter("lastName"); //cognome
         
         request.setAttribute("email", email);
         request.setAttribute("nome", nome);
         request.setAttribute("cognome", cognome);
         
+        //vai alla pagina di completamento del profilo
         ctx.getRequestDispatcher("/jsp/completaProfilo.jsp").forward(request, response);
         
     }

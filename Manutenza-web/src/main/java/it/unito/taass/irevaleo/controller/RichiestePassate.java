@@ -21,6 +21,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
+ * Scarica dal DB i dati relativi alle richieste passate fatte dall'utente in 
+ * sessione, ovvero le richieste relative a lavori completati che hanno ricevuto
+ * o meno una valutazione
  *
  * @author irene
  */

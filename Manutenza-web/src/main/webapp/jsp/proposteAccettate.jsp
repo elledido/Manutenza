@@ -20,7 +20,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-        <title>Proposte Accettate</title>
+        <title>Lavori in corso</title>
 
         <!-- Bootstrap CSS CDN -->
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
@@ -38,8 +38,6 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <!-- Custom Scroll Js CDN -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
-        <!-- Custom JS -->
-        <script src="manutenza.js" type="text/javascript"></script>
     </head>
 
     <body>
@@ -50,8 +48,8 @@
 
         <!-- MAIN CONTAINER -->
         <div class="container">
-            <h2>Proposte accettate</h2>
-            
+            <h2>Lavori in corso</h2>
+
             <c:forEach items="${proposteAccettate}" var="proposta">
                 <div class="form-box">
                     <div class="row">
@@ -95,6 +93,16 @@
                                                value="${proposta.getPrezzo()}">
                                     </div>
                                 </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-10 col-xs-8"></div>
+                        <div class="col-md-2 col-xs-4">
+                            <form class="form-horizontal" action="/Manutenza-web/MainController?action=apriChat&propostaId=${proposta.getId()}" method="post">
+                                <input type="hidden" name="emailManutente" value="<%out.print(((Manutente) session.getAttribute("utente")).getEmail());%>">
+                                <input type="hidden" name="emailUtente" value="${proposta.getRichiesta().getUtente().getEmail()}">
+                                <button type="submit" class="btn btn-block btn-primary btn-open">Apri chat</button>
                             </form>
                         </div>
                     </div>

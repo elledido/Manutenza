@@ -18,6 +18,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
+ * Scarica dal DB i dati relativi ai lavori completati dal Manutente in sessione
+ * inclusa la valutazione ricevuta (se esiste)
  *
  * @author irene
  */

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package it.unito.taass.irevaleo.controller;
 
 import it.unito.taass.irevaleo.Utilita;
@@ -24,8 +19,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
+ * Scarica dal DB i dati relativi alle richieste in corso fatte dall'utente in 
+ * sessione, ovvero le richieste in attesa di una proposta e le richieste per 
+ * cui l'utente ha già accettato una proposta ma il lavoro non è stato ancora 
+ * completato
  *
- * @author leonardo
+ * @author irene
  */
 public class RichiesteInCorso extends HttpServlet {
 
@@ -48,22 +47,21 @@ public class RichiesteInCorso extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
        
-        HttpSession s = request.getSession();
-        ServletContext ctx = getServletContext();
+        HttpSession s = request.getSession(); //sessione
+        ServletContext ctx = getServletContext(); //contesto della servlet
         
+        //dati dell'utente/manutente in sessione
         Manutente manutente = (Manutente) s.getAttribute("utente");
         Utente utente = Utilita.manutente2utente(manutente);
         
+        //richieste in attesa = richieste per cui l'utente non ha ancora ricevuto proposte o non ne ha ancora accettata una
         List<Richiesta> listaRichiesteInAttesa = gestoreRichieste.cercaRichieste(utente, Utilita.IN_ATTESA);
+        //richieste accettate = richieste per cui l'utente ha ricevuto e accettato una proposta da parte di un manutente
         List<Richiesta> listaRichiesteAccettate = gestoreRichieste.cercaRichieste(utente, Utilita.ACCETTATA);
         
-        for(Richiesta r: listaRichiesteInAttesa){
-            System.out.println(r.getId() + " " + r.getTitolo() + " " + r.getCategoria());
-        }
-        
+        //proposte relative alle richieste accettate
         ArrayList<Proposta> listaProposteAccettate = new ArrayList();
         
-        //cerco le proposte relative alle richieste accettate
         for(Richiesta r: listaRichiesteAccettate){
             Proposta p = gestoreProposte.cercaPropostaAccettata(r.getId());
             if(p != null){
@@ -74,6 +72,7 @@ public class RichiesteInCorso extends HttpServlet {
         request.setAttribute("richiesteInAttesa", listaRichiesteInAttesa);
         request.setAttribute("proposteAccettate", listaProposteAccettate);
         
+        //vado alla pagina delle richieste in corso
         ctx.getRequestDispatcher("/jsp/richiesteInCorso.jsp").forward(request, response);
         
     }

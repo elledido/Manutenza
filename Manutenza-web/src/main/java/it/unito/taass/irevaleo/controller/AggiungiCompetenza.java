@@ -13,7 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- *
+ * Aggiunge una nuova competenza alla lista delle competenze del Manutente in 
+ * sessione
+ * 
  * @author irene
  */
 public class AggiungiCompetenza extends HttpServlet {

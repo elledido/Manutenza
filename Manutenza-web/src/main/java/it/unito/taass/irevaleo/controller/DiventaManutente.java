@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package it.unito.taass.irevaleo.controller;
 
 import it.unito.taass.irevaleo.Utilita;
@@ -19,7 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
+ * Registra i dati anagrafici di un nuovo manutente nel DB
+ * 
  * @author leonardo
  */
 public class DiventaManutente extends HttpServlet {

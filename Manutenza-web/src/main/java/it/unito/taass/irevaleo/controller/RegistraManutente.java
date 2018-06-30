@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
+ * Aggiunge i dati relativi alle competenze del nuovo manutente
  *
  * @author leonardo
  */

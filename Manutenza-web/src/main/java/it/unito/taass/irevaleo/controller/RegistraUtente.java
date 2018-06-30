@@ -14,6 +14,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+/**
+ * Registra i dati di un nuovo utente sul DB e inizializza la sessione
+ * 
+ * @author irene
+ */
 public class RegistraUtente extends HttpServlet {
 
     @EJB(beanName = "GestoreUtente")
@@ -99,8 +104,8 @@ public class RegistraUtente extends HttpServlet {
         /* REGISTRO UTENTE SU DB */
         gestoreUtente.registraUtente(utente);
 
-        //inizializzo la sessione
-        HttpSession s = request.getSession(); //creo la sessione
+        //creo la sessione
+        HttpSession s = request.getSession(); 
 
         //salva i dati dell'utente in sessione
         s.setAttribute("utente", utente);

@@ -4,6 +4,7 @@
     Author     : irene
 --%>
 
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="it.unito.taass.manutenza.entities.Manutente"%>
 <%@page import="it.unito.taass.manutenza.entities.Utente"%>
 <%@page import="it.unito.taass.manutenza.entities.Indirizzo"%>
@@ -14,6 +15,9 @@
 <%
     //dati dell'utente in sessione
     Manutente utente = (Manutente) session.getAttribute("utente");
+    //formattazione della data di nascita
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    String dataDiNascita = sdf.format(utente.getDataDiNascita().getTime());
 %>
 
 <!DOCTYPE html>
@@ -42,8 +46,6 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <!-- Custom Scroll Js CDN -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
-        <!-- Custom JS -->
-        <script src="manutenza.js" type="text/javascript"></script>
     </head>
 
     <body>
@@ -63,8 +65,31 @@
 
                     <div class="row">
                         <div class="col-xs-2 profile-img-box">
-                            <div class="text-center">
-                                <img class="profile-img" src="images/profile_img.png" alt="profile-img"/>
+                            <div class="row">
+                                <div class="col-xs-12 text-center">
+                                    <img class="profile-img" src="images/profile_img.png" alt="profile-img"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12 text-center rating-star">
+                                    <!-- RATING STAR -->                            
+                                    <div class="container-fluid back-stars">
+                                        <i class="fa fa-star fa-2x back-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star fa-2x back-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star fa-2x back-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star fa-2x back-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star fa-2x back-star" aria-hidden="true"></i>
+                                    </div>
+
+                                    <div class="container-fluid front-stars">
+                                        <c:forEach var="i" begin="1" end="${utente.getValutazioneComplessiva()}">
+                                            <i id="star<c:out value="${i}"/>" class="fa fa-star fa-2x" aria-hidden="true"></i>
+                                        </c:forEach>
+                                        <c:forEach var="i" begin="${utente.getValutazioneComplessiva() + 1}" end="5">
+                                            <i id="star<c:out value="${i}"/>" class="fa fa-star-o fa-2x" aria-hidden="true"></i>
+                                        </c:forEach>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-xs-9">
@@ -93,7 +118,7 @@
                             <div class="form-group">
                                 <label class="control-label col-xs-3" for="datanascita">Data di nascita: </label>
                                 <div class="col-xs-8">
-                                    <input class="form-control" name="datanascita" type="text" readonly value="<%out.print(request.getAttribute("dataNascita"));%>">
+                                    <input class="form-control" name="datanascita" type="text" readonly value="<%out.print(dataDiNascita);%>">
                                 </div>
                             </div>
                             <!-- CODICE FISCALE -->
@@ -163,7 +188,7 @@
 
             <!-- FOOTER -->
             <%@include file="/footer.txt"%>
-            
+
         </div>
 
     </body>
