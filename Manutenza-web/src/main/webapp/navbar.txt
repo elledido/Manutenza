@@ -228,34 +228,6 @@
 				<%
 					//utente loggato
 					if(session.getAttribute("utente")!=null) { %>
-                                        <li class="dropdown">
-                                                <a class="dropdown-toggle msg-badge" data-badge="5" data-toggle="dropdown" role="button" aria-expanded="false">
-                                                        <span class="fa fa-envelope-o"></span> Messaggi
-                                                </a>
-                                                <ul class="dropdown-menu dropdown-chat">
-                                                    <li class="clearfix" role="button">
-                                                        <span class="pull-left">
-                                                            <img class="chat-img img-circle" src="images/profile_img.png" alt="profile-img"/>
-                                                        </span>
-                                                        <div class="chat-body">
-                                                            <div>
-                                                                <strong>OtherAccount</strong>
-                                                                <small class="pull-right text-muted">10:06</small>
-                                                            </div>
-                                                            <div>
-                                                                <span class="pull-right fa fa-circle"></span>
-                                                                <div class="msg-ellipsis">
-                                                                    <p>
-                                                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
-                                                                        dolor, quis ullamcorper ligula sodales.
-                                                                    </p>
-                                                                </div>
-                                                                
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                        </li>
 					<li class="dropdown">
 						<a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
 							<span class="fa fa-user"></span><span class="caret"></span>
