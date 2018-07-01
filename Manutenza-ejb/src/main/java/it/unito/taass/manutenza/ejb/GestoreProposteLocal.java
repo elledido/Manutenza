@@ -27,5 +27,7 @@ public interface GestoreProposteLocal {
     Proposta cercaPropostaRichiestaManutente(Long richiestaId, Manutente manutente);
 
     Proposta cercaPerId(Long propostaId);
+
+    void aggiornaProposta(Proposta proposta);
     
 }

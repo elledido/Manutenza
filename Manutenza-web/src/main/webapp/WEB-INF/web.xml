@@ -72,6 +72,10 @@
         <servlet-name>SalvaMessaggio</servlet-name>
         <servlet-class>it.unito.taass.irevaleo.controller.SalvaMessaggio</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AccettaProposta</servlet-name>
+        <servlet-class>it.unito.taass.irevaleo.controller.AccettaProposta</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MainController</servlet-name>
         <url-pattern>/MainController</url-pattern>
@@ -143,6 +147,10 @@
     <servlet-mapping>
         <servlet-name>SalvaMessaggio</servlet-name>
         <url-pattern>/SalvaMessaggio</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AccettaProposta</servlet-name>
+        <url-pattern>/AccettaProposta</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

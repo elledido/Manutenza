@@ -70,7 +70,7 @@
                         </div>
                         <div class="caption text-center">
                             <h3>Aumenta la tua visibilità!</h3>
-                            <p>Tieni sempre aggiornate le tue competenze</p>
+                            <p>Tieni sempre aggiornate <a class="termini-condizioni" href="/Manutenza-web/MainController?action=competenze">le tue competenze</a></p>
                         </div>
                     </div>
                 </div>

@@ -35,6 +35,11 @@ public class GestoreProposte implements GestoreProposteLocal {
         
         em.persist(p);
     }
+    
+    @Override
+    public void aggiornaProposta(Proposta proposta) {
+        em.merge(proposta);
+    }
 
     @Override
     public List<Proposta> cercaProposteAccettate(Manutente manutente, String stato) {

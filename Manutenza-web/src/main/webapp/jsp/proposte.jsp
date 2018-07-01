@@ -36,6 +36,10 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <!-- Custom Scroll Js CDN -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+
+        <!-- Paypal checkout JS -->
+        <script src="https://www.paypalobjects.com/api/checkout.js"></script>
+
     </head>
 
     <body>
@@ -101,7 +105,7 @@
                                 </div>
                                 <!-- Budget proposto -->
                                 <div class="form-group">
-                                    <label class="control-label col-md-3 col-xs-3" for="budget">Budget: </label>
+                                    <label class="control-label col-md-3 col-xs-3" for="budget">Prezzo proposto: </label>
                                     <div class="input-group budget col-md-2 col-xs-4">
                                         <span class="input-group-addon">€</span>
                                         <input class="form-control currency" id="budget" name="budget" type="number" readonly 
@@ -121,13 +125,96 @@
                                 <button type="submit" class="btn btn-block btn-primary btn-open">Apri chat</button>
                                 <!-- va alla chat -->
                             </div>
-                            <div class="col-md-2 col-xs-4">
-                                <a href="/Manutenza-web/MainController?action=visualizzaProposte&proposta=${proposta.getId()}" class="btn btn-block btn-ok" role="button">Accetta proposta</a>
-                                <!-- va alla pagina del pagamento -->
-                            </div>
+                            <!-- vai alla pagina del pagamento -->
+                            <div class="col-md-2 col-xs-4" id="paypal-button${proposta.getId()}"></div>
                         </div>
                     </form>
                 </div>
+
+                <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header text-center">
+                                <h4 class="modal-title"><strong>Pagamento effettuato con successo</strong></h4>
+                            </div>
+                            <div class="modal-body row">
+                                <div class="col-xs-12 text-center">
+                                    <p>Hai accettato la proposta di ${proposta.getManutente().getNome()} ${proposta.getManutente().getCognome()}</p>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <div class="col-xs-4"></div>
+                                <div class="col-xs-4">
+                                    <a href="/Manutenza-web/MainController?action=richiesteInCorso" class="btn btn-block btn-ok" role="button">Ok</a>
+                                </div>
+                                <div class="col-xs-4"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <script>
+                    paypal.Button.render({
+                        env: 'sandbox', // sandbox | production
+
+                        style: {
+                            label: 'pay'
+                        },
+
+                        // PayPal Client IDs - replace with your own
+                        client: {
+                            sandbox: 'Adq8RmO8uXLMtwlpVQZam250Or9ivFWBBf0ZECiWd86lES4SgUe08ACRoJmjjVG_iCeVbIqsEnBaogdl',
+                            production: '<insert production client id>'
+                        },
+
+                        // Show the buyer a 'Pay Now' button in the checkout flow
+                        commit: true,
+
+                        // payment() is called when the button is clicked
+                        payment: function (data, actions) {
+
+                            // Make a call to the REST api to create the payment
+                            return actions.payment.create({
+                                payment: {
+                                    transactions: [
+                                        {
+                                            amount: {total: '${proposta.getPrezzo()}', currency: 'EUR'}
+                                        }
+                                    ]
+                                }
+                            });
+                        },
+
+                        // onAuthorize() is called when the buyer approves the payment
+                        onAuthorize: function (data, actions) {
+
+                            // Make a call to the REST api to execute the payment
+                            return actions.payment.execute().then(function () {
+                                //aggiornamento stato della proposta ad accettato  
+                                $.ajax({
+                                    type: 'POST',
+                                    url: "AccettaProposta",
+                                    data: {
+                                        propostaId: ${proposta.getId()},
+                                        richiestaId: ${proposta.getRichiesta().getId()}
+                                    },
+                                    success: function (messaggio) {
+                                        console.log(messaggio);
+                                        //apro una modal che conferma all'utente il successo del pagamento
+                                        $('#successModal').modal();
+                                    },
+                                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                        console.log("some error");
+                                    }
+                                });
+
+                            });
+                        }
+
+                    }, '#paypal-button${proposta.getId()}');
+                </script>
+
             </c:forEach>
 
             <!-- FOOTER -->
