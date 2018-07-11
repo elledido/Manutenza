@@ -4,6 +4,7 @@ import it.unito.taass.manutenza.ejb.GestoreUtenteLocal;
 import it.unito.taass.manutenza.entities.Utente;
 import java.util.Calendar;
 import javax.ejb.Stateless;
+import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
@@ -16,39 +17,48 @@ public class GestoreUtente implements GestoreUtenteLocal {
     
     @Override
     public void registraUtente(Utente utente) {
-        em.persist(utente);
+        assert(utente != null) : "Entity utente to be persisted cannot be null.";
+        try{
+            em.persist(utente);
+        } catch(EntityExistsException | IllegalArgumentException exception) {
+            System.out.println("While persisting entity utente: " + exception.getMessage());
+        }
+        
     }
     
     @Override
     public void registraUtente(String nome, String cognome, Calendar dataDiNascita, 
             String codiceFiscale, String email, String password) 
     {
-        System.out.println("Creo nuovo utente e inserisco i dati");
-        Utente utente = new Utente();
-        System.out.println("Creato nuovo utente " + utente);
-        utente.setNome(nome);
-        utente.setCognome(cognome);
-        utente.setDataDiNascita(dataDiNascita);
-        utente.setCodiceFiscale(codiceFiscale);
-        utente.setEmail(email);
-        utente.setPassword(password);
+        try {
+            
+            Utente utente = new Utente();
+            utente.setNome(nome);
+            utente.setCognome(cognome);
+            utente.setDataDiNascita(dataDiNascita);
+            utente.setCodiceFiscale(codiceFiscale);
+            utente.setEmail(email);
+            utente.setPassword(password);
         
-        System.out.println("Registro utente" + utente.getNome() + " " + utente.getCognome());
-        em.persist(utente);
-        System.out.println("Utente registrato");
+            em.persist(utente);
+        
+        } catch(EntityExistsException | IllegalArgumentException exception) {
+            System.out.println("While persisting entity utente: " + exception.getMessage());
+        }
+        
     }
     
     @Override
     public Utente caricaUtente(Long id) {
+        Utente utente = new Utente();
         try {
-            Utente daCaricare = em.createNamedQuery("Utente.cercaPerId", Utente.class)
+            utente = em.createNamedQuery("Utente.cercaPerId", Utente.class)
                     .setParameter("id", id)
                     .getSingleResult();
-            return daCaricare;
         }catch(NoResultException nre) {
             System.out.println("Nessun utente da caricare. L'utente cercato non esiste.");
-            return null;
         }
+    return utente;
     }
     
     /**
@@ -58,15 +68,15 @@ public class GestoreUtente implements GestoreUtenteLocal {
      */
     @Override
     public Utente caricaUtente(String email) {
+        Utente utente = new Utente();
         try{
-            Utente daCaricare = em.createNamedQuery("Utente.cercaPerEmail", Utente.class)
+            utente = em.createNamedQuery("Utente.cercaPerEmail", Utente.class)
                     .setParameter("email", email)
                     .getSingleResult();
-            return daCaricare;
         }catch(NoResultException nre){
            System.out.println("Nessun utente da caricare. L'utente cercato non esiste.");
-           return null;
         } //Non catturo NonUniqueResultException perché l'email è chiave nel db
+    return utente;
     }
     
     @Override

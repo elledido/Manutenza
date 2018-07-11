@@ -11,11 +11,14 @@ import it.unito.taass.manutenza.entities.Indirizzo;
 import it.unito.taass.manutenza.entities.Richiesta;
 import it.unito.taass.manutenza.entities.Utente;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 import javax.ejb.Stateless;
+import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
 
 /**
  *
@@ -53,19 +56,28 @@ public class GestoreRichieste implements GestoreRichiesteLocal {
         nuovaRichiesta.setDataDiCompletamento(dataCompletamento);
         nuovaRichiesta.setStato(stato);
         
-        //Salvo la nuova categoria nel db
-        em.persist(nuovaRichiesta);
+        try {
+            em.persist(nuovaRichiesta);
+        } catch(EntityExistsException entityExists) {
+            System.out.println("While persisting richiesta: " + entityExists.getMessage());
+        }
+        
         
         System.out.println("Richiesta salvata su db.");
     }
     
     @Override
     public List<Richiesta> cercaRichieste(Utente utente, String stato) {
-        List<Richiesta> listaRichieste = em.createNamedQuery("Richieste utente e stato", Richiesta.class)
-                .setParameter("utente", utente)
-                .setParameter("stato", stato)
-                .getResultList();
-        return listaRichieste;
+        List<Richiesta> listaRichieste = Collections.EMPTY_LIST;
+        try {
+            listaRichieste = em.createNamedQuery("Richieste utente e stato", Richiesta.class)
+                    .setParameter("utente", utente)
+                    .setParameter("stato", stato)
+                    .getResultList();
+        } catch(PersistenceException exception ) {
+            System.out.println("While retrieving list of Richieste: " + exception.getMessage());
+        }
+    return listaRichieste;
     }
 
     @Override
@@ -96,7 +108,4 @@ public class GestoreRichieste implements GestoreRichiesteLocal {
     public void aggiornaRichiesta(Richiesta richiesta) {
         em.merge(richiesta);
     }
-    
-    
-
 }
