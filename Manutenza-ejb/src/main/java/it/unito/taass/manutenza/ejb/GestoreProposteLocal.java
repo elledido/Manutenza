@@ -50,15 +50,24 @@ public interface GestoreProposteLocal {
     Proposta cercaPropostaAccettata(Long richiestaId);
 
     /**
-     * 
-     * @param richiestaId
-     * @param manutente
+     * Cerca e restituisce una proposta per id della richeista e manutente
+     * @param richiestaId L'id della richiesta
+     * @param manutente Il manutente associato alla proposta
      * @return 
      */
     Proposta cercaPropostaRichiestaManutente(Long richiestaId, Manutente manutente);
 
+    /**
+     * Cerca per id e restituisce una proposta
+     * @param propostaId L'id della proposta da cercare
+     * @return 
+     */
     Proposta cercaPerId(Long propostaId);
 
+    /**
+     * Aggiorna i dati della proposta
+     * @param proposta Una proposta
+     */
     void aggiornaProposta(Proposta proposta);
     
 }

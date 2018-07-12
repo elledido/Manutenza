@@ -17,8 +17,9 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 /**
- *
- * @author leonardo
+ * Gestisce le operazioni CRUD per l'entity Chat
+ * @author Leonardo Di Domenico
+ * @version 1.0
  */
 @Stateless
 public class GestoreChat implements GestoreChatLocal {
@@ -26,6 +27,12 @@ public class GestoreChat implements GestoreChatLocal {
     @PersistenceContext
     private EntityManager em;
 
+    /**
+     * Crea e rende persisente nel database un oggetto di tipo Chat
+     * @param proposta La proposta a cui la chat è associata
+     * @param utente L'utente che prende parte alla chat
+     * @param manutente Il manutente che prende parte alla chat
+     */
     @Override
     public void creaChat(Proposta proposta, Utente utente, Manutente manutente) {
         Chat chat = new Chat();
@@ -36,11 +43,20 @@ public class GestoreChat implements GestoreChatLocal {
         em.persist(chat);
     }
 
+    /**
+     * Effettua un aggiornamento di una chat nel database
+     * @param chat La chat da aggiornare
+     */
     @Override
     public void updateChat(Chat chat) {
         em.merge(chat);
     }
 
+    /**
+     * Esegue la ricerca di un elenco di chat associate ad un determinato utente
+     * @param utente L'utente a cui la chat è associata
+     * @return Una lista di chat oppure un valore nullo
+     */
     @Override
     public List<Chat> ricercaChatPerUtente(Utente utente) {
        try{
@@ -54,6 +70,11 @@ public class GestoreChat implements GestoreChatLocal {
        }
     }
 
+    /**
+     * Esegue la ricerca di un elenco di chat associate ad un determinato manutente
+     * @param manutente Il manutente a cui la chat è associata
+     * @return Una lista di chat oppure un valore nullo
+     */
     @Override
     public List<Chat> ricercaChatPerManutente(Manutente manutente) {
         try{
@@ -67,6 +88,12 @@ public class GestoreChat implements GestoreChatLocal {
        }
     }
 
+    /**
+     * esegue la ricerca di un elenco di chat associate ad un utente e a un manutente
+     * @param utente L'utente a cui la chat è associata 
+     * @param manutente Il manutente a cui la chat è associata 
+     * @return Un elenco di chat oppure un valore nullo
+     */
     @Override
     public List<Chat> ricercaPerUtenteManutente(Utente utente, Manutente manutente) {
         try{
@@ -81,6 +108,11 @@ public class GestoreChat implements GestoreChatLocal {
        }
     }
 
+    /**
+     * Esegue la ricerca di una chat associata ad una determinata proposta
+     * @param propostaId L'id della proposta a cui la chat è associata
+     * @return Una chat oppure un valore nullo
+     */
     @Override
     public Chat ricercaPerProposta(Long propostaId) {
         try{

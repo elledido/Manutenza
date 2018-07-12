@@ -21,8 +21,9 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 
 /**
- *
- * @author leonardo
+ * Gestisce le operazioni CRUD in locale per l'entity Richiesta
+ * @author Leonardo Di Domenico
+ * @version 1.0
  */
 @Stateless(name = "GestoreRichieste")
 public class GestoreRichieste implements GestoreRichiesteLocal {
@@ -30,6 +31,19 @@ public class GestoreRichieste implements GestoreRichiesteLocal {
     @PersistenceContext(unitName = "ManutenzaPU_postgres")
     private EntityManager em;
 
+    /**
+     * Rende persistente sul database l'entity Richiesta.
+     * @param utente La persona che crea la richiesta
+     * @param indirizzo L'indirizzo di domicilio dell'utente
+     * @param titolo Il titolo della richiesta
+     * @param descrizione La descrizione del problema per cui si genera la richiesta 
+     * @param categoria La categoria professionale a cui la richiesta è rivolta
+     * @param budget La quantità di denaro disponibile
+     * @param listaFoto L'eventuale lista di foto che rende visibile il problema
+     * @param dataCreazione La data di creazione della richiesta
+     * @param dataCompletamento La data di completamento del lavoro e quindi chiusura della richiesta
+     * @param stato Lo stato dei lavori
+     */
     @Override
     public void createRichiesta(
             Utente utente, 
@@ -66,6 +80,12 @@ public class GestoreRichieste implements GestoreRichiesteLocal {
         System.out.println("Richiesta salvata su db.");
     }
     
+    /**
+     * Cerca e restituisce un elenco di richieste
+     * @param utente La persona che ha inviato la/e richeista/e
+     * @param stato Lo stato di completamento della/e richiesta/e
+     * @return Una lista di richieste oppure un valore nullo
+     */
     @Override
     public List<Richiesta> cercaRichieste(Utente utente, String stato) {
         List<Richiesta> listaRichieste = Collections.EMPTY_LIST;
@@ -80,6 +100,11 @@ public class GestoreRichieste implements GestoreRichiesteLocal {
     return listaRichieste;
     }
 
+    /**
+     * Cerca e restituisce una singola richiesta
+     * @param id Il valore univoco associato ad una particolare richiesta 
+     * @return Una richiesta oppure un valore nullo
+     */
     @Override
     public Richiesta cercaRichiestaId(Long id) {
         try {
@@ -93,6 +118,15 @@ public class GestoreRichieste implements GestoreRichiesteLocal {
         }
     }
 
+    /**
+     * Cerca e restituisce un elenco di richieste inviate ad un particolare manutente,
+     * filtrate per categoria, zona di competenza e stato di completamento 
+     * @param categoria La categoria professionale a cui le richieste fanno riferimento
+     * @param zona La zona di competenza di un manutentean
+     * @param email L'indirizzo email associato a ?
+     * @param stato Lo stato di completamento del lavoro
+     * @return Un elenco di richieste oppure un valore nullo
+     */
     @Override
     public List<Richiesta> cercaProposteLavoro(String categoria, String zona, String email, String stato) {
         List<Richiesta> listaRichieste = em.createNamedQuery("Proposte di lavoro per categoria e zona ad un manutente", Richiesta.class)
@@ -104,6 +138,10 @@ public class GestoreRichieste implements GestoreRichiesteLocal {
         return listaRichieste;
     }
 
+    /**
+     * Aggiorna lo stato di una richiesta
+     * @param richiesta La richiesta da aggiornare
+     */
     @Override
     public void aggiornaRichiesta(Richiesta richiesta) {
         em.merge(richiesta);

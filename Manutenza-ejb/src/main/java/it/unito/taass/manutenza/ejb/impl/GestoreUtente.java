@@ -9,12 +9,21 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
+/**
+ * Gestisce le operazioni CRUD per l'entity Utente.
+ * @author Leonardo Di Domenico
+ * @version 1.0
+ */
 @Stateless(name = "GestoreUtente")
 public class GestoreUtente implements GestoreUtenteLocal {
     
     @PersistenceContext(unitName = "ManutenzaPU_postgres")
     private EntityManager em;
     
+    /**
+    * Rende persistente l'entity utente su database.
+    * @param utente Un utente da registrare.
+    */
     @Override
     public void registraUtente(Utente utente) {
         assert(utente != null) : "Entity utente to be persisted cannot be null.";
@@ -26,6 +35,15 @@ public class GestoreUtente implements GestoreUtenteLocal {
         
     }
     
+    /**
+     * Rende persistente l'entity utente sul database.
+     * @param nome Il nome dell'utente.
+     * @param cognome Il cognome dell'utente.
+     * @param dataDiNascita La data di nascita dell'utente.
+     * @param codiceFiscale Il codice fiscale dell'utente.
+     * @param email L'indirizzo email dell'utente.
+     * @param password La password dell'utente per l'accesso al sistema.
+     */
     @Override
     public void registraUtente(String nome, String cognome, Calendar dataDiNascita, 
             String codiceFiscale, String email, String password) 
@@ -48,6 +66,11 @@ public class GestoreUtente implements GestoreUtenteLocal {
         
     }
     
+    /**
+     * Cerca un utente nel database e lo carica nel sistema.
+     * @param id Un valore univocamente associato ad un utente nel database.
+     * @return L'utente corrispondente all'id utilizzato come chiave di ricerca; null altrimenti.
+     */
     @Override
     public Utente caricaUtente(Long id) {
         Utente utente = new Utente();
@@ -62,9 +85,9 @@ public class GestoreUtente implements GestoreUtenteLocal {
     }
     
     /**
-     * Metodo per caricare un utente dal db
-     * @param email
-     * @return 
+     * Cerca un utente nel database e lo carica nel sistema.
+     * @param email L'email dell'utente utilizzata come parametro di ricerca.
+     * @return L'utente associato all'indirizzo email utilizzato come parametro di ricerca; null altrimenti.
      */
     @Override
     public Utente caricaUtente(String email) {
@@ -79,6 +102,10 @@ public class GestoreUtente implements GestoreUtenteLocal {
     return utente;
     }
     
+    /**
+     * Esegue l'update di un utente
+     * @param utenteDaAggiornare L'utente da aggiornare
+     */
     @Override
     public void aggiornaUtente(Utente utenteDaAggiornare) {
         Utente vecchioUtente = this.caricaUtente(utenteDaAggiornare.getId());

@@ -16,6 +16,7 @@ public interface GestoreUtenteLocal {
     * @param utente Un utente da registrare.
     */
     public void registraUtente(Utente utente);
+    
     /**
      * Rende persistente l'entity utente sul database.
      * @param nome Il nome dell'utente.
@@ -27,6 +28,7 @@ public interface GestoreUtenteLocal {
      */
     public void registraUtente(String nome, String cognome, Calendar dataDiNascita, 
             String codiceFiscale,String email, String password);
+    
     /**
      * Elimina un utente dal database.
      * @param utente L'utente da eliminare.

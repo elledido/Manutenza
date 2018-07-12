@@ -16,8 +16,9 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 /**
- *
- * @author leonardo
+ * Gestisce le operazioni CRUD per l'entity Proposta
+ * @author Leonardo Di Domenico
+ * @version 1.0
  */
 @Stateless
 public class GestoreProposte implements GestoreProposteLocal {
@@ -25,6 +26,12 @@ public class GestoreProposte implements GestoreProposteLocal {
     @PersistenceContext(name = "ManutenzaPU_postgres")
     private EntityManager em;
 
+    /**
+     * Crea una proposta e la rende persistente nel database
+     * @param manutente Il manutente associato ad una determinata proposta
+     * @param richiesta La richiesta associata alla proposta
+     * @param prezzo Il budget rinegoziato dal manutente
+     */
     @Override
     public void creaProposta(Manutente manutente, Richiesta richiesta, float prezzo) {
         Proposta p = new Proposta();
@@ -36,11 +43,21 @@ public class GestoreProposte implements GestoreProposteLocal {
         em.persist(p);
     }
     
+    /**
+     * Aggiorna i dati della proposta
+     * @param proposta Una proposta
+     */
     @Override
     public void aggiornaProposta(Proposta proposta) {
         em.merge(proposta);
     }
 
+    /**
+     * Cerca e restituisce una lista di proposte legate ad un determinato stato e accettate da un certo manutente
+     * @param manutente Il manutente associato 
+     * @param stato Lo stato della proposta
+     * @return Una lista di proposte oppure un valore nullo
+     */
     @Override
     public List<Proposta> cercaProposteAccettate(Manutente manutente, String stato) {
        List<Proposta> listaProposte = em.createNamedQuery("Ricerca proposte accettate", Proposta.class)
@@ -50,6 +67,11 @@ public class GestoreProposte implements GestoreProposteLocal {
        return listaProposte;
     }
 
+    /**
+     * Cerca e restituisce una lista di proposte sulla base dell'id di una richiesta
+     * @param richiestaId Il valore di id associato ad una determinata richiesta
+     * @return Una lista di proposte o un valore nullo
+     */
     @Override
     public List<Proposta> cercaProposteRichieste(Long richiestaId) {
         List<Proposta> listaProposte = em.createNamedQuery("Ricerca per richiesta", Proposta.class)
@@ -58,6 +80,11 @@ public class GestoreProposte implements GestoreProposteLocal {
         return listaProposte;
     }
 
+    /**
+     * Cerca e restituisce una proposta accettata 
+     * @param richiestaId Il valore identificativo di una richiesta
+     * @return Una proposta oppure un valore nullo
+     */
     @Override
     public Proposta cercaPropostaAccettata(Long richiestaId) {
         try {
@@ -71,6 +98,12 @@ public class GestoreProposte implements GestoreProposteLocal {
         }
     }
 
+    /**
+     * Cerca e restituisce una proposta per id della richeista e manutente
+     * @param richiestaId L'id della richiesta
+     * @param manutente Il manutente associato alla proposta
+     * @return 
+     */
     @Override
     public Proposta cercaPropostaRichiestaManutente(Long richiestaId, Manutente manutente) {
         try {
@@ -85,6 +118,11 @@ public class GestoreProposte implements GestoreProposteLocal {
         }
     }
 
+    /**
+     * Cerca per id e restituisce una proposta
+     * @param propostaId L'id della proposta da cercare
+     * @return 
+     */
     @Override
     public Proposta cercaPerId(Long propostaId) {
         try {
